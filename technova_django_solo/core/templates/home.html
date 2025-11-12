@@ -243,37 +243,7 @@
     </section>
     {% endif %}
 
-    <!-- Categorías Principales -->
-    {% if main_categories %}
-    <section class="mb-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="fw-bold">Categorías</h2>
-            <p class="text-muted">Explora nuestras categorías principales</p>
-        </div>
-        
-        <div class="row g-4">
-            {% for category in main_categories %}
-            <div class="col-lg-2 col-md-4 col-sm-6" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:100 }}">
-                <div class="category-card text-center">
-                    <a href="{% url 'products:category' category_slug=category.slug %}" class="text-decoration-none">
-                        {% if category.image %}
-                            <img src="{{ category.image.url }}" 
-                                 alt="{{ category.name }}" 
-                                 class="img-fluid rounded-circle mb-3"
-                                 style="width: 150px; height: 150px; object-fit: cover;">
-                        {% else %}
-                            <img src="https://via.placeholder.com/150x150?text=Categoría" 
-                                 alt="{{ category.name }}" 
-                                 class="img-fluid rounded-circle mb-3">
-                        {% endif %}
-                        <h5 class="text-dark">{{ category.name }}</h5>
-                    </a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
+
 </div>
 {% endblock %}
 

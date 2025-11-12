@@ -8,10 +8,16 @@ from django.core.mail import EmailMessage
 from django.contrib.auth import get_user_model
 from .models import VerificationToken
 from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.decorators import login_required
 import uuid
+from django.template.loader import render_to_string
 from django.utils import timezone
+from orders.models import Order
+from orders.models import Wishlist
 User = get_user_model()
 
+
+@csrf_protect
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -21,21 +27,20 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"Iniciaste sesión como {username}.")
-                return redirect('core:home')
+                messages.success(request, f'¡Bienvenido {username}!')
+                return redirect('core:home')  # Asegúrate de que 'home' esté definido en tus URLs
             else:
-                messages.error(request, "Usuario o contraseña inválidos.")
+                messages.error(request, 'Usuario o contraseña incorrectos')
+        else:
+            messages.error(request, 'Por favor, corrige los errores del formulario')
     else:
         form = AuthenticationForm()
+    
     return render(request, 'login.html', {'form': form})
 
 
 
 
-
-from django.core.mail import EmailMessage
-from django.template.loader import render_to_string
-from django.conf import settings
 @csrf_protect
 def register_view(request):
     """Vista de registro con email HTML"""
@@ -164,13 +169,6 @@ def orders(request):
 def wishlist(request):
     return render(request, 'wishlist.html')
 
-
-
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from .models import User
-from orders.models import Order
-from orders.models import Wishlist
 
 @login_required
 def dashboard_view(request):
