@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Mi Cuenta - TechNova Solutions{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Mi Menú</h5>
+                    <div class="list-group">
+                        <a href="{% url 'users:dashboard' %}" class="list-group-item list-group-item-action active">
+                            <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                        </a>
+                        <a href="{% url 'users:orders' %}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-box me-2"></i>Mis Pedidos
+                        </a>
+                        <a href="{% url 'users:wishlist' %}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-heart me-2"></i>Wishlist
+                        </a>
+                        <a href="{% url 'users:logout' %}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Bienvenido, {{ user.first_name }}!</h2>
+                    <p class="card-text">Aquí puedes ver y gestionar tu cuenta.</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">Pedidos</h5>
+                                    <p class="card-text">Gestiona tus pedidos</p>
+                                    <a href="{% url 'users:orders' %}" class="btn btn-primary">Ver Pedidos</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">Wishlist</h5>
+                                    <p class="card-text">Tus productos favoritos</p>
+                                    <a href="{% url 'users:wishlist' %}" class="btn btn-primary">Ver Wishlist</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">Perfil</h5>
+                                    <p class="card-text">Actualiza tus datos</p>
+                                    <a href="#" class="btn btn-primary">Editar Perfil</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

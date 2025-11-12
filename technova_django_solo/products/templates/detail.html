@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }} - TechNova Solutions{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="/products/categoria/{{ product.category.slug }}/">{{ product.category.name }}</a></li>
+            <li class="breadcrumb-item active">{{ product.name }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Imagen principal -->
+        <div class="col-md-6">
+            <div class="mb-3">
+                {% if product.primary_image %}
+                    <img src="{{ product.primary_image.url }}" class="img-fluid" alt="{{ product.name }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/600x600?text=Producto" class="img-fluid" alt="{{ product.name }}">
+                {% endif %}
+            </div>
+            {% if product.additional_images.all %}
+            <div class="row">
+                {% for image in product.additional_images.all %}
+                <div class="col-3 mb-2">
+                    <a href="{{ image.image.url }}" target="_blank">
+                        <img src="{{ image.image.url }}" class="img-thumbnail" 
+                             alt="{{ image.alt_text|default:product.name }}">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Información del producto -->
+        <div class="col-md-6">
+            <h1>{{ product.name }}</h1>
+            <p class="text-muted">{{ product.brand }} {{ product.model }}</p>
+
+            <!-- Precio -->
+            <div class="mb-3">
+                {% if product.compare_at_price %}
+                <span class="text-danger h3">${{ product.price }}</span>
+                <span class="text-muted text-decoration-line-through">${{ product.compare_at_price }}</span>
+                <span class="badge bg-danger ms-2">
+                    {% with discount=product.compare_at_price|floatformat:2 %}
+                        {% with current=product.price|floatformat:2 %}
+                            {% widthratio discount|add:0 current 100 as percentage %}
+                            {{ percentage|floatformat:0 }}%
+                        {% endwith %}
+                    {% endwith %}
+                </span>
+                {% else %}
+                <span class="h3">${{ product.price }}</span>
+                {% endif %}
+            </div>
+
+            <!-- Stock -->
+            <div class="mb-3">
+                {% if product.stock_quantity == 0 %}
+                <span class="badge bg-danger">Agotado</span>
+                {% elif product.stock_quantity <= 5 %}
+                <span class="badge bg-warning">¡Últimas {{ product.stock_quantity }} unidades!</span>
+                {% else %}
+                <span class="badge bg-success">En stock</span>
+                {% endif %}
+            </div>
+
+            <!-- Descripción corta -->
+            <p class="lead">{{ product.short_description }}</p>
+
+            <!-- Descripción completa -->
+            <div class="mb-4">
+                <h4>Descripción</h4>
+                <p>{{ product.description }}</p>
+            </div>
+
+            <!-- Especificaciones -->
+            {% if product.specifications %}
+            <div class="mb-4">
+                <h4>Especificaciones</h4>
+                <table class="table">
+                    {% for key, value in product.specifications.items %}
+                    <tr>
+                        <td><strong>{{ key }}:</strong></td>
+                        <td>{{ value }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endif %}
+
+            <!-- Características -->
+            {% if product.features %}
+            <div class="mb-4">
+                <h4>Características</h4>
+                <ul>
+                    {% for feature in product.features %}
+                    <li>{{ feature }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <!-- Formulario de compra -->
+            <form class="d-flex gap-2" method="POST" action="{% url 'orders:add_to_cart' product.slug %}">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                <div class="input-group" style="max-width: 200px;">
+                    <input type="number" class="form-control" name="quantity" value="1" min="1" 
+                           {% if product.stock_quantity == 0 %}disabled{% endif %}>
+                </div>
+                <button type="submit" class="btn btn-primary" {% if product.stock_quantity == 0 %}disabled{% endif %}>
+                    {% if product.stock_quantity == 0 %}
+                    Agotado
+                    {% else %}
+                    Agregar al carrito
+                    {% endif %}
+                </button>
+                <a href="/orders/wishlist/add/{{ product.id }}/" class="btn btn-outline-danger">
+                    <i class="far fa-heart"></i>
+                </a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Reseñas -->
+    {% if approved_reviews %}
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3>Reseñas</h3>
+            {% for review in approved_reviews %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title">{{ review.title }}</h5>
+                        <div>
+                            {% for i in "12345"|make_list %}
+                                {% if forloop.counter <= review.rating %}
+                                <i class="fas fa-star text-warning"></i>
+                                {% else %}
+                                <i class="far fa-star text-warning"></i>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ review.user.username }} - {{ review.created_at|date:"d/m/Y" }}</h6>
+                    <p class="card-text">{{ review.comment }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Productos relacionados -->
+    {% if related_products %}
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3>Productos relacionados</h3>
+            <div class="row">
+                {% for related in related_products %}
+                <div class="col-md-3 mb-4">
+                    <div class="card">
+                        {% if related.primary_image %}
+                            <img src="{{ related.primary_image.url }}" class="card-img-top" alt="{{ related.name }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/300x300?text=Producto" class="card-img-top" alt="{{ related.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ related.name }}</h5>
+                            <p class="card-text">${{ related.price }}</p>
+                            <a href="/products/producto/{{ related.category.slug }}/{{ related.slug }}/" class="btn btn-primary">Ver detalles</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Mi Wishlist - TechNova Solutions{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Mi Menú</h5>
+                    <div class="list-group">
+                        <a href="{% url 'users:dashboard' %}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                        </a>
+                        <a href="{% url 'users:orders' %}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-box me-2"></i>Mis Pedidos
+                        </a>
+                        <a href="{% url 'users:wishlist' %}" class="list-group-item list-group-item-action active">
+                            <i class="fas fa-heart me-2"></i>Wishlist
+                        </a>
+                        <a href="{% url 'users:logout' %}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Mi Wishlist</h2>
+                    
+                    {% if wishlist_items %}
+                        <div class="row">
+                            {% for item in wishlist_items %}
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    {% if item.product.primary_image %}
+                                    <img src="{{ item.product.primary_image.url }}" class="card-img-top" alt="{{ item.product.name }}">
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ item.product.name }}</h5>
+                                        <p class="card-text">${{ item.product.price }}</p>
+                                        <div class="d-grid gap-2">
+                                            <a href="{% url 'products:detail' item.product.category.slug item.product.slug %}" 
+                                               class="btn btn-primary">Ver Detalles</a>
+                                            <button class="btn btn-danger">Eliminar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No tienes productos en tu wishlist.</p>
+                        <a href="{% url 'products:all' %}" class="btn btn-primary">Explorar Productos</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

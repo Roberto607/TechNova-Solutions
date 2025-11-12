@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout - TechNova Solutions{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="/carrito/">Carrito</a></li>
+            <li class="breadcrumb-item active">Checkout</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-4">Checkout</h1>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <form method="POST" action="/carrito/checkout/confirm/">
+                {% csrf_token %}
+                
+                <!-- Información de Contacto -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Información de Contacto</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" value="{{ request.user.email }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">Teléfono</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" value="{{ request.user.profile.phone|default:'' }}" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dirección de Envío -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Dirección de Envío</h5>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="shipping_address" class="form-label">Dirección</label>
+                                <input type="text" class="form-control" id="shipping_address" name="shipping_address" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="shipping_city" class="form-label">Ciudad</label>
+                                <input type="text" class="form-control" id="shipping_city" name="shipping_city" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="shipping_postal" class="form-label">Código Postal</label>
+                                <input type="text" class="form-control" id="shipping_postal" name="shipping_postal" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dirección de Facturación -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Dirección de Facturación</h5>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" name="same_as_shipping" id="same_as_shipping" checked>
+                            <label class="form-check-label" for="same_as_shipping">
+                                Usar misma dirección de envío
+                            </label>
+                        </div>
+                        <div class="billing-fields" style="display: none;">
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <label for="billing_address" class="form-label">Dirección</label>
+                                    <input type="text" class="form-control" id="billing_address" name="billing_address">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="billing_city" class="form-label">Ciudad</label>
+                                    <input type="text" class="form-control" id="billing_city" name="billing_city">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="billing_postal" class="form-label">Código Postal</label>
+                                    <input type="text" class="form-control" id="billing_postal" name="billing_postal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Método de Pago -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Método de Pago</h5>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment_method" id="credit_card" value="credit_card" checked>
+                            <label class="form-check-label" for="credit_card">
+                                Tarjeta de Crédito/Débito
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment_method" id="paypal" value="paypal">
+                            <label class="form-check-label" for="paypal">
+                                PayPal
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Confirmar Pedido</button>
+            </form>
+        </div>
+
+        <div class="col-lg-4">
+            <!-- Resumen del Pedido -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Resumen del Pedido</h5>
+                    {% for item in cart_items %}
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>{{ item.product.name }} (x{{ item.quantity }})</span>
+                        <span>${{ item.total_price }}</span>
+                    </div>
+                    {% endfor %}
+                    <hr>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal:</span>
+                        <span>${{ cart_total }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Envío:</span>
+                        <span>$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Impuestos:</span>
+                        <span>$0.00</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <h5>Total:</h5>
+                        <h5>${{ cart_total }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% block title %}Pedido {{ order.order_number }} - TechNova Solutions{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="/orders/orders/">Mis Pedidos</a></li>
+            <li class="breadcrumb-item active">Pedido {{ order.order_number }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Información del Pedido -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title mb-0">Información del Pedido</h5>
+                        <span class="badge 
+                            {% if order.status == 'pending' %}bg-warning
+                            {% elif order.status == 'processing' %}bg-info
+                            {% elif order.status == 'shipped' %}bg-primary
+                            {% elif order.status == 'delivered' %}bg-success
+                            {% elif order.status == 'cancelled' %}bg-danger
+                            {% endif %}">
+                            {% if order.status == 'pending' %}Pendiente
+                            {% elif order.status == 'processing' %}Procesando
+                            {% elif order.status == 'shipped' %}Enviado
+                            {% elif order.status == 'delivered' %}Entregado
+                            {% elif order.status == 'cancelled' %}Cancelado
+                            {% endif %}
+                        </span>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Número de Pedido:</strong> {{ order.order_number }}</p>
+                            <p><strong>Fecha:</strong> {{ order.created_at|date:"d/m/Y H:i" }}</p>
+                            <p><strong>Email:</strong> {{ order.email }}</p>
+                            <p><strong>Teléfono:</strong> {{ order.phone }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Método de Pago:</strong> 
+                                {% if order.payment_method == 'credit_card' %}Tarjeta de Crédito/Débito
+                                {% elif order.payment_method == 'paypal' %}PayPal
+                                {% endif %}
+                            </p>
+                            <p><strong>Subtotal:</strong> ${{ order.subtotal }}</p>
+                            <p><strong>Envío:</strong> ${{ order.shipping_cost|default:0 }}</p>
+                            <p><strong>Total:</strong> ${{ order.total_amount }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Direcciones -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">Dirección de Envío</h6>
+                            <p class="mb-0">
+                                {{ order.shipping_address.address }}<br>
+                                {{ order.shipping_address.city }}, {{ order.shipping_address.postal_code }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">Dirección de Facturación</h6>
+                            <p class="mb-0">
+                                {{ order.billing_address.address }}<br>
+                                {{ order.billing_address.city }}, {{ order.billing_address.postal_code }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Productos -->
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title mb-4">Productos del Pedido</h6>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio Unitario</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in order.items.all %}
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            {% if item.product.primary_image %}
+                                                <img src="{{ item.product.primary_image.url }}" 
+                                                     alt="{{ item.product.name }}" 
+                                                     class="me-3" 
+                                                     style="width: 50px; height: 50px; object-fit: cover;">
+                                            {% else %}
+                                                <img src="https://via.placeholder.com/50x50?text=Producto" 
+                                                     alt="{{ item.product.name }}" 
+                                                     class="me-3">
+                                            {% endif %}
+                                            {{ item.product.name }}
+                                        </div>
+                                    </td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>${{ item.unit_price }}</td>
+                                    <td>${{ item.total_price }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="3">Total</th>
+                                    <th>${{ order.total_amount }}</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <!-- Acciones -->
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title mb-3">Acciones</h6>
+                    <div class="d-grid gap-2">
+                        <a href="/orders/orders/" class="btn btn-outline-primary">
+                            <i class="fas fa-list me-2"></i>Ver Todos los Pedidos
+                        </a>
+                        {% if order.is_cancellable %}
+                        <form method="POST" action="/orders/order/{{ order.order_number }}/cancel/">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-danger w-100"
+                                    onclick="return confirm('¿Estás seguro de que quieres cancelar este pedido?')">
+                                <i class="fas fa-times me-2"></i>Cancelar Pedido
+                            </button>
+                        </form>
+                        {% endif %}
+                        <a href="/" class="btn btn-primary">
+                            <i class="fas fa-shopping-bag me-2"></i>Seguir Comprando
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estado del Pedido -->
+            {% if order.tracking_number %}
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h6 class="card-title mb-3">Seguimiento del Pedido</h6>
+                    <p><strong>Número de Seguimiento:</strong> {{ order.tracking_number }}</p>
+                    {% if order.tracking_url %}
+                    <a href="{{ order.tracking_url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-truck me-2"></i>Rastrear Pedido
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

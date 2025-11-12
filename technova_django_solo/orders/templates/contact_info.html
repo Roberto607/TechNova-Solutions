@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Información de Contacto - TechNova Solutions{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="/carrito/">Carrito</a></li>
+            <li class="breadcrumb-item active">Información de Contacto</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-4">Información de Contacto</h1>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <form method="POST" action="/carrito/checkout/">
+                {% csrf_token %}
+                
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Información de Contacto</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" value="{{ request.user.email }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">Teléfono</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" value="{{ request.user.profile.phone|default:'' }}" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Continuar con el Envío</button>
+            </form>
+        </div>
+
+        <div class="col-lg-4">
+            <!-- Resumen del Pedido -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Resumen del Pedido</h5>
+                    {% for item in cart_items %}
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>{{ item.product.name }} (x{{ item.quantity }})</span>
+                        <span>${{ item.total_price }}</span>
+                    </div>
+                    {% endfor %}
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <h5>Total:</h5>
+                        <h5>${{ cart_total }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifica tu cuenta - TechNova Solutions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">TechNova Solutions</div>
+        </div>
+        <div class="content">
+            <h1>Bienvenido a TechNova Solutions</h1>
+            <p>Hola {{ user.first_name }},</p>
+            <p>Gracias por registrarte en TechNova Solutions. Para completar tu registro, por favor verifica tu dirección de correo electrónico haciendo clic en el siguiente botón:</p>
+            <div style="text-align: center;">
+                <a href="{{ verification_url }}" class="btn">Verificar Cuenta</a>
+            </div>
+            <p>Si no puedes hacer clic en el botón, copia y pega el siguiente enlace en tu navegador:</p>
+            <p style="word-break: break-all; color: #007bff;">{{ verification_url }}</p>
+            <p>Este enlace expirará en 24 horas.</p>
+            <p>Si no creaste una cuenta en TechNova Solutions, puedes ignorar este correo electrónico.</p>
+        </div>
+        <div class="footer">
+            <p>© 2024 TechNova Solutions. Todos los derechos reservados.</p>
+            <p>Este es un correo electrónico automático, por favor no respondas a este mensaje.</p>
+        </div>
+    </div>
+</body>
+</html>

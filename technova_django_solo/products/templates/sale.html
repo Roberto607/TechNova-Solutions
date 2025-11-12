@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load image_tags%}
+{% block title %}Productos en Oferta - TechNova Solutions{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="alert alert-danger" role="alert">
+        <h1 class="alert-heading"><i class="fas fa-fire"></i> Productos en Oferta</h1>
+        <p class="mb-0">¡Aprovecha estas increíbles ofertas por tiempo limitado!</p>
+    </div>
+    
+    {% if products %}
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="position-relative">
+                        {% if product.primary_image %}
+                        <img src="{{ product.primary_image.url }}" class="card-img-top" alt="{{ product.name }}">
+                        {% endif %}
+                        <span class="position-absolute top-0 start-0 m-2 badge bg-danger">-{{ product.discount_percentage }}%</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.short_description }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="text-danger"><strong>${{ product.price }}</strong></span>
+                                <span class="text-muted text-decoration-line-through">${{ product.compare_at_price }}</span>
+                            </div>
+                        </div>
+                        <a href="{% url 'products:detail' product.category.slug product.slug %}" class="btn btn-primary mt-2">Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center">
+            <p class="text-muted">No hay productos en oferta en este momento.</p>
+            <a href="{% url 'products:all' %}" class="btn btn-primary">Ver Todos los Productos</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

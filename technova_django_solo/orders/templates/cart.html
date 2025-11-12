@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Carrito de Compras - TechNova Solutions{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+            <li class="breadcrumb-item active">Carrito de Compras</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-4">Carrito de Compras</h1>
+
+    {% if cart_items %}
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Lista de productos en el carrito -->
+            <div class="card">
+                <div class="card-body">
+                    {% for item in cart_items %}
+                    <div class="row mb-3 pb-3 border-bottom">
+                        <div class="col-md-2">
+                            {% if item.product.primary_image %}
+                                <img src="{{ item.product.primary_image.url }}" class="img-fluid" alt="{{ item.product.name }}">
+                            {% else %}
+                                <img src="https://via.placeholder.com/100x100?text=Producto" class="img-fluid" alt="{{ item.product.name }}">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4">
+                            <h5>{{ item.product.name }}</h5>
+                            <p class="text-muted">{{ item.product.category.name }}</p>
+                        </div>
+                        <div class="col-md-3">
+                            <form method="POST" action="/carrito/cart/update/" class="d-flex align-items-center">
+                                {% csrf_token %}
+                                <input type="hidden" name="item_id" value="{{ item.id }}">
+                                <button type="submit" name="quantity" value="{{ item.quantity|add:'-1' }}" class="btn btn-outline-secondary btn-sm">-</button>
+                                <input type="number" name="quantity" value="{{ item.quantity }}" class="form-control mx-2 text-center" style="width: 60px;" readonly>
+                                <button type="submit" name="quantity" value="{{ item.quantity|add:'1' }}" class="btn btn-outline-secondary btn-sm">+</button>
+                            </form>
+                        </div>
+                        <div class="col-md-2 text-end">
+                            <h5>${{ item.total_price }}</h5>
+                            <form method="POST" action="{% url 'orders:remove_from_cart' item.id %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <!-- Resumen del pedido -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Resumen del Pedido</h5>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal:</span>
+                        <span>${{ cart_total }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Envío:</span>
+                        <span>$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Impuestos:</span>
+                        <span>$0.00</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <h5>Total:</h5>
+                        <h5>${{ cart_total }}</h5>
+                    </div>
+                    <a href="/carrito/checkout/" class="btn btn-primary w-100 mt-3">Proceder al Pago</a>
+                    <a href="/" class="btn btn-outline-secondary w-100 mt-2">Continuar Comprando</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+        <h3>Tu carrito está vacío</h3>
+        <p class="text-muted">¿No sabes qué comprar? ¡Mira nuestros productos destacados!</p>
+        <a href="/" class="btn btn-primary">Ver Productos</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
