@@ -5566,3 +5566,1071 @@ Watching for file changes with StatReloader
 "GET / HTTP/1.1" 200 42730
 "GET / HTTP/1.1" 200 42730
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 42730
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /media/products/primary/audiovideo/photo_2025-perra.jpg HTTP/1.1" 304 0
+"GET /media/products/primary/tablets/photo_2025-11-11_00-47-18.jpg HTTP/1.1" 304 0
+"GET /media/products/primary/iphone-15-pro/1200_900.jpeg HTTP/1.1" 304 0
+"GET /media/products/primary/laptops/photo_2025-11-11_00-47-17.jpg HTTP/1.1" 304 0
+"GET /productscategoria/smartphones/ HTTP/1.1" 200 13309
+"GET /productscategoria/laptops/ HTTP/1.1" 200 13241
+"GET /productscategoria/tablets/ HTTP/1.1" 200 13257
+Internal Server Error: /productsofertas/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\products\views.py", line 122, in sale_products
+    return render(request, 'products/sale.html', context)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: products/sale.html
+"GET /productsofertas/ HTTP/1.1" 500 96546
+Internal Server Error: /nosotros/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: pages/about.html
+"GET /nosotros/ HTTP/1.1" 500 95396
+Internal Server Error: /contacto/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: pages/contact.html
+"GET /contacto/ HTTP/1.1" 500 95456
+Internal Server Error: /productsofertas/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\products\views.py", line 122, in sale_products
+    return render(request, 'products/sale.html', context)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: products/sale.html
+"GET /productsofertas/ HTTP/1.1" 500 96546
+Internal Server Error: /productsofertas/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\products\views.py", line 122, in sale_products
+    return render(request, 'products/sale.html', context)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: products/sale.html
+"GET /productsofertas/ HTTP/1.1" 500 96546
+Internal Server Error: /productsofertas/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\products\views.py", line 122, in sale_products
+    return render(request, 'products/sale.html', context)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: products/sale.html
+"GET /productsofertas/ HTTP/1.1" 500 96546
+Internal Server Error: /productsofertas/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\products\views.py", line 122, in sale_products
+    return render(request, 'products/sale.html', context)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: products/sale.html
+"GET /productsofertas/ HTTP/1.1" 500 96546
+Internal Server Error: /nosotros/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: pages/about.html
+"GET /nosotros/ HTTP/1.1" 500 95396
+Internal Server Error: /contacto/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: pages/contact.html
+"GET /contacto/ HTTP/1.1" 500 95456
+"GET / HTTP/1.1" 200 42730
+"GET /nosotros/ HTTP/1.1" 200 13906
+"GET /static/images/about-1.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13903
+"GET /static/images/about-1.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13903
+"GET /static/images/about-1.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13903
+"GET /static/images/about-1.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13903
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-1.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13903
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-1.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13903
+"GET /static/images/about-1.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13903
+"GET /static/images/about-1.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13899
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /static/images/about.png HTTP/1.1" 200 1000880
+"GET /nosotros/ HTTP/1.1" 200 13897
+"GET /static/images/about.png HTTP/1.1" 304 0
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13897
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13897
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13589
+"GET /static/images/about.png HTTP/1.1" 304 0
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13605
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13605
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13898
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13613
+"GET /static/images/about.png HTTP/1.1" 304 0
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13631
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13629
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13656
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13890
+"GET /static/images/about.png HTTP/1.1" 304 0
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13804
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13898
+"GET /static/images/about.png HTTP/1.1" 304 0
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3554
+"GET /nosotros/ HTTP/1.1" 200 13904
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3554
+- Broken pipe from ('127.0.0.1', 11945)
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /static/images/about_somos.png HTTP/1.1" 200 1149201
+"GET /nosotros/ HTTP/1.1" 200 13853
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13877
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13912
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13910
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13937
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13937
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13937
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13937
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13937
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13927
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13927
+"GET /static/images/about-2.jpg HTTP/1.1" 404 1813
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 14006
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /static/images/funcionamiento.png HTTP/1.1" 200 1016512
+"GET /nosotros/ HTTP/1.1" 200 14006
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/funcionamiento.png HTTP/1.1" 200 307148
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 14007
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 14006
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 14008
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 14008
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 14007
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 14007
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 14007
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 14007
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 14006
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 14007
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 14006
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 14006
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 14006
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 14006
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 14007
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 14006
+"GET /static/images/about-3.jpg HTTP/1.1" 404 1813
+"GET /nosotros/ HTTP/1.1" 200 13873
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /nosotros/ HTTP/1.1" 200 13873
+"GET /nosotros/ HTTP/1.1" 200 13873
+"GET /nosotros/ HTTP/1.1" 200 13875
+"GET /nosotros/ HTTP/1.1" 200 13946
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /nosotros/ HTTP/1.1" 200 14072
+"GET /nosotros/ HTTP/1.1" 200 14124
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /nosotros/ HTTP/1.1" 200 14176
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /nosotros/ HTTP/1.1" 200 14222
+Internal Server Error: /productsofertas/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\products\views.py", line 122, in sale_products
+    return render(request, 'products/sale.html', context)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: products/sale.html
+"GET /productsofertas/ HTTP/1.1" 500 96555
+"GET /nosotros/ HTTP/1.1" 200 14222
+Internal Server Error: /contacto/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: pages/contact.html
+"GET /contacto/ HTTP/1.1" 500 95465
+"GET /nosotros/ HTTP/1.1" 200 14222
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /contacto/ HTTP/1.1" 200 12538
+"GET /static/images/contact.png HTTP/1.1" 404 1813
+"GET /contacto/ HTTP/1.1" 200 23019
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /nosotros/ HTTP/1.1" 200 14222
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+Internal Server Error: /productsofertas/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\products\views.py", line 122, in sale_products
+    return render(request, 'products/sale.html', context)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: products/sale.html
+"GET /productsofertas/ HTTP/1.1" 500 96555
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 20505
+"GET /contacto/ HTTP/1.1" 200 0
+"GET /contacto/ HTTP/1.1" 200 0
+"GET /contacto/ HTTP/1.1" 200 10975
+"GET /contacto/ HTTP/1.1" 200 17389
+"GET /nosotros/ HTTP/1.1" 200 14222
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /contacto/ HTTP/1.1" 200 17389
+"GET /contacto/ HTTP/1.1" 200 17389
+"GET /nosotros/ HTTP/1.1" 200 14222
+"GET /contacto/ HTTP/1.1" 200 17389
+"GET /contacto/ HTTP/1.1" 200 17412
+"GET /contacto/ HTTP/1.1" 200 17425
+"GET /nosotros/ HTTP/1.1" 200 14222
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /nosotros/ HTTP/1.1" 200 14375
+"GET /nosotros/ HTTP/1.1" 200 14377
+"GET /nosotros/ HTTP/1.1" 200 14381
+"GET /nosotros/ HTTP/1.1" 200 14381
+"GET /nosotros/ HTTP/1.1" 200 14415
+"GET /nosotros/ HTTP/1.1" 200 14422
+"GET /nosotros/ HTTP/1.1" 200 14415
+"GET /contacto/ HTTP/1.1" 200 17425
+"GET /contacto/ HTTP/1.1" 200 17481
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\technova\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /contacto/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'contact' not found. 'contact' is not a valid view function or pattern name.
+"GET /contacto/ HTTP/1.1" 500 149756
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /contacto/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'contact' not found. 'contact' is not a valid view function or pattern name.
+"GET /contacto/ HTTP/1.1" 500 149893
+Internal Server Error: /contacto/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'contact' not found. 'contact' is not a valid view function or pattern name.
+"GET /contacto/ HTTP/1.1" 500 149756
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /contacto/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: pages/contact.html
+"GET /contacto/ HTTP/1.1" 500 95465
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /contacto/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'contact' not found. 'contact' is not a valid view function or pattern name.
+"GET /contacto/ HTTP/1.1" 500 149893
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /contacto/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py", line 79, in contact
+    return render(request, 'core/contact.html')
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: core/contact.html
+"GET /contacto/ HTTP/1.1" 500 96073
+Internal Server Error: /contacto/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py", line 79, in contact
+    return render(request, 'core/contact.html')
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: core/contact.html
+"GET /contacto/ HTTP/1.1" 500 96073
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /contacto/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py", line 79, in contact
+    return render(request, 'pages/contact.html')
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: pages/contact.html
+"GET /contacto/ HTTP/1.1" 500 96108
+Internal Server Error: /contacto/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py", line 79, in contact
+    return render(request, 'pages/contact.html')
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: pages/contact.html
+"GET /contacto/ HTTP/1.1" 500 96108
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /contacto/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py", line 79, in contact
+    return render(request, 'contact.html')
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'contact' not found. 'contact' is not a valid view function or pattern name.
+"GET /contacto/ HTTP/1.1" 500 153394
+Internal Server Error: /contacto/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py", line 79, in contact
+    return render(request, 'contact.html')
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'contact' not found. 'contact' is not a valid view function or pattern name.
+"GET /contacto/ HTTP/1.1" 500 153257
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /contacto/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py", line 79, in contact
+    return render(request, 'contact.html')
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: contact.html
+"GET /contacto/ HTTP/1.1" 500 95898
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /contacto/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py", line 79, in contact
+    return render(request, 'contact.html')
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'contact' not found. 'contact' is not a valid view function or pattern name.
+"GET /contacto/ HTTP/1.1" 500 153394
+"GET /contacto/ HTTP/1.1" 200 17481
+"GET /nosotros/ HTTP/1.1" 200 14415
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /contacto/ HTTP/1.1" 200 17481
+"GET /contacto/ HTTP/1.1" 200 17481
+"GET /contacto/ HTTP/1.1" 200 17481
+"GET /nosotros/ HTTP/1.1" 200 14415
+"GET /contacto/ HTTP/1.1" 200 17481
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /contacto/ HTTP/1.1" 200 17481
+"GET /contacto/ HTTP/1.1" 200 17481
+"GET /nosotros/ HTTP/1.1" 200 14415
+"GET /contacto/ HTTP/1.1" 200 17481
+"POST /contacto/ HTTP/1.1" 302 0
+"GET /contacto/ HTTP/1.1" 200 18349
+"POST /contacto/ HTTP/1.1" 302 0
+"GET /contacto/ HTTP/1.1" 200 18349
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py changed, reloading.
+Watching for file changes with StatReloader
+"POST /contacto/ HTTP/1.1" 302 0
+"GET /contacto/ HTTP/1.1" 200 18349
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /contacto/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py", line 71, in contact
+    return render(request, 'contact.html', {'form': form})
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 484, in parse
+    raise self.error(token, e)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 482, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\base.py", line 703, in __init__
+    raise TemplateSyntaxError(
+    ...<2 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '(attrs={"class":"form-control","id":"name","placeholder":"Ingresa tu nombre"})' from 'form.name.as_widget(attrs={"class":"form-control","id":"name","placeholder":"Ingresa tu nombre"})'
+"GET /contacto/ HTTP/1.1" 500 231966
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\forms.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /contacto/ HTTP/1.1" 200 17483
+"POST /contacto/ HTTP/1.1" 200 18504
+"POST /contacto/ HTTP/1.1" 200 18502
+"POST /contacto/ HTTP/1.1" 302 0
+"GET /contacto/ HTTP/1.1" 200 18351
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\forms.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\core\views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /contacto/ HTTP/1.1" 200 17483
+Watching for file changes with StatReloader
+"GET /contacto/ HTTP/1.1" 200 17483
+"GET /nosotros/ HTTP/1.1" 200 14415
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /contacto/ HTTP/1.1" 200 17483
+Internal Server Error: /productsofertas/
+Traceback (most recent call last):
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\products\views.py", line 122, in sale_products
+    return render(request, 'products/sale.html', context)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: products/sale.html
+"GET /productsofertas/ HTTP/1.1" 500 96555
+"GET /productscategoria/smartphones/ HTTP/1.1" 200 13309
+"GET / HTTP/1.1" 200 42730
+"GET /contacto/ HTTP/1.1" 200 17483
+"GET /admin HTTP/1.1" 301 0
+"GET /admin/ HTTP/1.1" 302 0
+"GET /admin/login/?next=/admin/ HTTP/1.1" 200 4245
+"POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+"GET /admin/ HTTP/1.1" 200 13530
+"GET /admin/core/contactmessage/ HTTP/1.1" 200 16972
+"GET /admin/jsi18n/ HTTP/1.1" 200 8570
+"GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+"GET /static/admin/img/search.svg HTTP/1.1" 200 458
+"GET /admin/ HTTP/1.1" 200 13530
+"GET /admin/socialaccount/socialapp/ HTTP/1.1" 200 13133
+"GET /admin/jsi18n/ HTTP/1.1" 200 8570
+"GET /admin/ HTTP/1.1" 200 13530
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\technova\urls.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 13530
+"GET /admin/ HTTP/1.1" 200 13530

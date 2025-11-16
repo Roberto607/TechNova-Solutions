@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Nosotros{% endblock %}
+{% block description %}Tecnología de calidad a precios competitivos. Smartphones, laptops, tablets y accesorios con el mejor servicio al cliente.{% endblock %}
+{% block keywords %}tecnología, smartphones, laptops, tablets, accesorios, electrónicos{% endblock %}
+{% block og_title %}Nosotros{% endblock %}
+{% block og_image %}{% static 'images/about.png' %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="lead mb-4">
+                Democratizando el acceso a la tecnología de calidad con el mejor servicio al cliente.
+            </p>
+        </div>
+    </div>
+    <!-- About Section -->
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="fw-bold mb-4">¿Qué es TechNova Solutions?</h2>
+            <p class="lead mb-4">
+                TechNova Solutions es una empresa dedicada a ofrecer soluciones tecnológicas de calidad a precios competitivos.
+            </p>
+            <p class="lead mb-4">
+                Nuestra principal atención es la tecnología de la información y las aplicaciones que la hacen más accesible y fácil de usar.
+            </p>
+            <p class="lead mb-4">
+                Somos una empresa que se dedica a ofrecer soluciones tecnológicas de calidad a precios competitivos.
+            </p>
+        </div>
+        <div class="col-md-6">
+            <img class="img-fluid rounded" style="max-width: 80%; height: auto; aspect-ratio: 4/3; border: 1px solid #ffffff;" src="{% static 'images/about_somos.png' %}" alt="About">
+        </div>
+    </div>
+    
+    <!-- About Section -->
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="fw-bold mb-4">¿Cómo funciona TechNova Solutions?</h2>
+            <p class="lead mb-4">
+                En TechNova Solutions trabajamos de forma sencilla y transparente para ofrecer soluciones tecnológicas accesibles y de calidad.<br>
+                - Identificamos lo que necesitas: equipos, soporte técnico o asesoría.<br>
+                - Brindamos productos confiables a precios competitivos y gestionamos encargos desde el exterior si es necesario.<br>
+                - Damos soporte antes y después de la compra para que tu equipo funcione correctamente y tengas una experiencia segura.<br>
+
+            </p>
+            <p class="lead mb-4">
+            </p>
+            <p class="lead mb-4">
+            </p>
+            <p class="lead mb-4">
+                
+            </p>
+        </div>
+        <div class="col-md-6">
+            <img class="img-fluid rounded" style="max-width: 82%; height: auto; aspect-ratio: 4.5/3; border: 1px solid #ffffff;" src="{% static 'images/funcionamiento.png' %}" alt="About">
+        </div>
+    </div>
+
+    <!-- About Section (sin imagen) -->
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="fw-bold mb-4">¿Qué servicios ofrecemos TechNova Solutions?</h2>
+            <p class="lead mb-4">
+                <b>Venta de Productos Tecnológicos de Calidad:</b> Ofrecemos equipos y accesorios tecnológicos seleccionados por su rendimiento y durabilidad. Garantizamos productos confiables que se adaptan a las necesidades de usuarios y empresas.
+            </p>
+            <p class="lead mb-4">
+                <b>Soporte Técnico y Asistencia Personalizada:</b> Brindamos ayuda en configuración, diagnóstico y uso de equipos y software. Nuestro soporte es rápido, claro y pensado para resolver dudas o problemas tecnológicos.
+            </p>
+            <p class="lead mb-4">
+                <b>Encargos de Equipos desde el Exterior:</b> Gestionamos la compra y entrega de dispositivos tecnológicos que no estén disponibles localmente. Trabajamos con proveedores seguros para traer equipos de alta gama y últimas tendencias.
+            </p>
+        </div>
+    </div>
+</div>    
+{% endblock %}  

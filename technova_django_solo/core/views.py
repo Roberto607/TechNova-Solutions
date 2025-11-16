@@ -3,7 +3,7 @@ Vistas principales de TechNova Solutions
 Páginas principales del sitio web
 """
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.db.models import Q, Count, Avg
 from django.http import JsonResponse
@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from products.models import Product, Category
 from orders.models import Cart, CartItem
 from core.models import ContactMessage
+from .forms import ContactForm
 
 
 def home(request):
@@ -57,26 +58,17 @@ def about(request):
 def contact(request):
     """Página de contacto"""
     if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        phone = request.POST.get('phone')
-        subject = request.POST.get('subject')
-        message = request.POST.get('message')
-        
-        if name and email and subject and message:
-            ContactMessage.objects.create(
-                name=name,
-                email=email,
-                phone=phone,
-                subject=subject,
-                message=message
-            )
-            messages.success(request, 'Tu mensaje ha sido enviado. Te contactaremos pronto.')
-            return render(request, 'core/contact.html', {'success': True})
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Tu mensaje ha sido enviado correctamente. Te contactaremos pronto.')
+            return redirect('core:contact')
         else:
-            messages.error(request, 'Por favor completa todos los campos requeridos.')
-    
-    return render(request, 'core/contact.html')
+            messages.error(request, 'Por favor corrige los errores en el formulario.')
+    else:
+        form = ContactForm()
+
+    return render(request, 'contact.html', {'form': form})
 
 
 def terms(request):
