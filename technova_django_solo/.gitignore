@@ -1,35 +1,27 @@
-echo "__pycache__/
+# Python
+__pycache__/
 *.py[cod]
 *$py.class
 *.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+.pytest_cache/
+.mypy_cache/
 
 # Django
 *.log
-local_settings.py
+logs/
 db.sqlite3
+*.sqlite3
 db.sqlite3-journal
+local_settings.py
+media/
+staticfiles/
 
 # Virtual Environment
 venv/
 env/
 ENV/
+.env.*
+.venv
 
 # IDE
 .idea/
@@ -38,4 +30,9 @@ ENV/
 *.swo
 
 # Environment variables
-.env" > .gitignore
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
