@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contacto{% endblock %}
+{% block description %}Tecnología de calidad a precios competitivos. Smartphones, laptops, tablets y accesorios con el mejor servicio al cliente.{% endblock %}
+{% block keywords %}tecnología, smartphones, laptops, tablets, accesorios, electrónicos{% endblock %}
+{% block og_title %}Contacto{% endblock %}
+{% block og_image %}{% static 'images/contact.png' %}{% endblock %}
+
+{% block content %}
+<div class="contact-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="fw-bold">¿Necesitas Ayuda?</h1>
+            <p class="lead text-muted">Estamos aquí para ayudarte. Completa el formulario y nos pondremos en contacto contigo lo antes posible.</p>
+        </div>
+
+        <div class="row gx-4 align-items-start">
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <div class="card bg-light-gradient h-100">
+                    <div class="card-body">
+                        <h3 class="h5 text-primary mb-3">Información de contacto</h3>
+                        <p class="text-muted">¿Tienes alguna pregunta o comentario? Escríbenos.</p>
+
+                        <div class="mb-3">
+                            <h6 class="small text-secondary text-uppercase mb-1">Ubicación</h6>
+                            <p class="mb-0">Cuba | Univeridad de las Ciencias Informaticas de La Habana</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <h6 class="small text-secondary text-uppercase mb-1">Email</h6>
+                            <p class="mb-0">robertocarlosvaldes4@gmail.com<br>maikelcanario0@gmail.com</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <h6 class="small text-secondary text-uppercase mb-1">Teléfono</h6>
+                            <p class="mb-0">+53 55551122</p>
+                            <p class="mb-0">+53 55551123</p>
+                        </div>
+
+                        <div class="mt-3">
+                            <h6 class="small text-secondary mb-2">Síguenos</h6>
+                            <div class="d-flex gap-2">
+                                <a href="#" class="btn btn-outline-primary btn-sm"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="btn btn-outline-primary btn-sm"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="btn btn-outline-primary btn-sm"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="btn btn-outline-primary btn-sm"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="h5 mb-3">Formulario de contacto</h3>
+                        <p class="text-muted small mb-3">Completa el formulario y te responderemos en menos de 24 horas.</p>
+
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show" role="alert">
+                                    <i class="fas fa-{% if message.tags == 'success' %}check-circle{% else %}exclamation-circle{% endif %} me-2"></i>
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <form method="POST" action="{% url 'core:contact' %}" id="contactForm" novalidate>
+                            {% csrf_token %}
+
+                            {% if form.non_field_errors %}
+                                <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+                            {% endif %}
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="name" class="form-label small">Nombre Completo *</label>
+                                    {{ form.name }}
+                                    {% if form.name.errors %}<div class="text-danger small">{{ form.name.errors.0 }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label small">Email *</label>
+                                    {{ form.email }}
+                                    {% if form.email.errors %}<div class="text-danger small">{{ form.email.errors.0 }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label small">Teléfono</label>
+                                    {{ form.phone }}
+                                    {% if form.phone.errors %}<div class="text-danger small">{{ form.phone.errors.0 }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="subject" class="form-label small">Asunto *</label>
+                                    {{ form.subject }}
+                                    {% if form.subject.errors %}<div class="text-danger small">{{ form.subject.errors.0 }}</div>{% endif %}
+                                </div>
+                                <div class="col-12">
+                                    <label for="message" class="form-label small">Mensaje *</label>
+                                    {{ form.message }}
+                                    {% if form.message.errors %}<div class="text-danger small">{{ form.message.errors.0 }}</div>{% endif %}
+                                </div>
+                            </div>
+
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-primary btn-lg w-100">
+                                    <i class="fas fa-paper-plane me-2"></i> Enviar Mensaje
+                                </button>
+                            </div>
+
+                            <p class="small text-muted mt-3">
+                                Al enviar este formulario aceptas nuestra <a href="#">Política de Privacidad</a>.
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Minimal client-side validation
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    if (!name || !email || !message) {
+        e.preventDefault();
+        alert('Por favor completa los campos requeridos.');
+        return false;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        e.preventDefault();
+        alert('Por favor ingresa un email válido.');
+        return false;
+    }
+});
+</script>
+{% endblock %}

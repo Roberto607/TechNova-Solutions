@@ -6639,3 +6639,15 @@ Watching for file changes with StatReloader
 C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\technova\urls.py changed, reloading.
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
+<<<<<<< HEAD
+=======
+C:\Users\Maikel De Arma\Desktop\E-Comers\TechNova-Solutions\technova_django_solo\newsletter\apps.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 13530
+"GET / HTTP/1.1" 200 43223
+"GET /nosotros/ HTTP/1.1" 200 14908
+"GET /static/images/funcionamiento.png HTTP/1.1" 200 307148
+"GET /static/images/about_somos.png HTTP/1.1" 200 1149201
+"GET /contacto/ HTTP/1.1" 200 17976
+"POST /contacto/ HTTP/1.1" 200 18983
+>>>>>>> rama_maikel
