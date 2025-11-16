@@ -103,6 +103,14 @@
                         </a>
                         <ul class="dropdown-menu">
                             {% if request.user.is_authenticated %}
+                                {% if request.user.is_superuser %}
+                                    <!-- Opciones de Administrador -->
+                                    <li><a class="dropdown-item" href="{% url 'admin_panel:admin_dashboard' %}">
+                                        <i class="fas fa-cog me-2"></i>Panel de Administración
+                                    </a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                {% endif %}
+                                <!-- Opciones de Usuario Autenticado -->
                                 <li><a class="dropdown-item" href="{% url 'users:dashboard' %}">
                                     <i class="fas fa-tachometer-alt me-2"></i>Mi Cuenta
                                 </a></li>

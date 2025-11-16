@@ -18,6 +18,7 @@ User = get_user_model()
 
 
 @csrf_protect
+@csrf_protect
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -26,9 +27,25 @@ def login_view(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
+                print(f"Usuario autenticado: {user.username}")
+                print(f"Is superuser: {user.is_superuser}")
+                print(f"Is staff: {user.is_staff}")
+                
                 login(request, user)
+                print("Login exitoso")
+                
+                # Verificar después del login
+                print(f"Después del login - Is superuser: {request.user.is_superuser}")
+                print(f"Después del login - Is staff: {request.user.is_staff}")
+                
                 messages.success(request, f'¡Bienvenido {username}!')
-                return redirect('core:home')  # Asegúrate de que 'home' esté definido en tus URLs
+                
+                if user.is_superuser or user.is_staff:
+                    print("Redirigiendo al panel de administración")
+                    return redirect('admin_panel:admin_dashboard')
+                else:
+                    print("Redirigiendo al home")
+                    return redirect('core:home')
             else:
                 messages.error(request, 'Usuario o contraseña incorrectos')
         else:
@@ -37,6 +54,10 @@ def login_view(request):
         form = AuthenticationForm()
     
     return render(request, 'login.html', {'form': form})
+
+
+
+
 
 
 

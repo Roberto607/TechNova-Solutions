@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'products',
     'orders',
     'newsletter',
+    'admin_panel',
 ]
 
 # Configuración de autenticación personalizada
