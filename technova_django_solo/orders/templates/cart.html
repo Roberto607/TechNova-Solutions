@@ -22,23 +22,38 @@
                     {% for item in cart_items %}
                     <div class="row mb-3 pb-3 border-bottom">
                         <div class="col-md-2">
-                            {% if item.product.primary_image %}
-                                <img src="{{ item.product.primary_image.url }}" class="img-fluid" alt="{{ item.product.name }}">
-                            {% else %}
-                                <img src="https://via.placeholder.com/100x100?text=Producto" class="img-fluid" alt="{{ item.product.name }}">
-                            {% endif %}
+                            {% with item_image=item.get_item_image %}
+                                {% if item_image %}
+                                    <img src="{{ item_image }}" class="img-fluid" 
+                                         alt="{% if item.is_offer %}{{ item.offer_title }}{% else %}{{ item.product.name }}{% endif %}">
+                                {% else %}
+                                    {% if item.is_offer %}
+                                        <div class="no-image-placeholder">
+                                            <i class="fas fa-tag fa-2x"></i>
+                                        </div>
+                                    {% else %}
+                                        <img src="https://via.placeholder.com/100x100?text=Producto" class="img-fluid" 
+                                             alt="{{ item.product.name }}">
+                                    {% endif %}
+                                {% endif %}
+                            {% endwith %}
                         </div>
                         <div class="col-md-4">
-                            <h5>{{ item.product.name }}</h5>
-                            <p class="text-muted">{{ item.product.category.name }}</p>
+                            <h5>{% if item.is_offer %}{{ item.offer_title }}{% else %}{{ item.product.name }}{% endif %}</h5>
+                            {% if not item.is_offer and item.product.category %}
+                                <p class="text-muted">{{ item.product.category.name }}</p>
+                            {% endif %}
                         </div>
                         <div class="col-md-3">
                             <form method="POST" action="/carrito/cart/update/" class="d-flex align-items-center">
                                 {% csrf_token %}
                                 <input type="hidden" name="item_id" value="{{ item.id }}">
-                                <button type="submit" name="quantity" value="{{ item.quantity|add:'-1' }}" class="btn btn-outline-secondary btn-sm">-</button>
-                                <input type="number" name="quantity" value="{{ item.quantity }}" class="form-control mx-2 text-center" style="width: 60px;" readonly>
-                                <button type="submit" name="quantity" value="{{ item.quantity|add:'1' }}" class="btn btn-outline-secondary btn-sm">+</button>
+                                <button type="submit" name="quantity" value="{{ item.quantity|add:'-1' }}" 
+                                        class="btn btn-outline-secondary btn-sm">-</button>
+                                <input type="number" name="quantity" value="{{ item.quantity }}" 
+                                       class="form-control mx-2 text-center" style="width: 60px;" readonly>
+                                <button type="submit" name="quantity" value="{{ item.quantity|add:'1' }}" 
+                                        class="btn btn-outline-secondary btn-sm">+</button>
                             </form>
                         </div>
                         <div class="col-md-2 text-end">
@@ -93,4 +108,39 @@
     </div>
     {% endif %}
 </div>
+
+<style>
+.no-image-placeholder {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    color: #6c757d;
+}
+
+.img-fluid {
+    border-radius: 8px;
+    object-fit: cover;
+    height: 100px;
+    width: 100px;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #dee2e6 !important;
+}
+
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: none;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+}
+</style>
 {% endblock %}
+

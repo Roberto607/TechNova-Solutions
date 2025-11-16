@@ -1,6 +1,6 @@
-
-
 # Vista de ejemplo para el perfil de usuario
+from .models import Offer
+from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from .models import Category, Product, ProductImage, Review
@@ -95,20 +95,28 @@ def search(request):
 
 
 def all_products(request):
-    """Vista para mostrar todos los productos activos"""
+    """Vista para mostrar todos los productos"""
     products = Product.objects.filter(
         status='active',
         stock_quantity__gt=0
     ).select_related('category').prefetch_related('additional_images')
     
     context = {
-        'products': products,
+        'products': products,  # Asegúrate de que el nombre de la variable sea 'products'
         'title': 'Todos los Productos',
     }
     return render(request, 'all.html', context)
 
+
 def sale_products(request):
-    """Vista para mostrar productos en oferta"""
+    """Vista para mostrar ofertas especiales y productos con descuento"""
+    
+    # Obtener ofertas especiales activas
+    offer_images = Offer.objects.filter(
+        is_active=True
+    ).order_by('-created_at')
+    
+    # Obtener productos con descuento
     products = Product.objects.filter(
         status='active',
         stock_quantity__gt=0,
@@ -116,9 +124,19 @@ def sale_products(request):
     ).select_related('category').prefetch_related('additional_images')
     
     context = {
+        'offer_images': offer_images,
         'products': products,
-        'title': 'Productos en Oferta',
+        'title': 'Ofertas Especiales',
     }
     return render(request, 'sale.html', context)
 
 
+def offer_detail(request, offer_id):
+    """Vista para mostrar detalles de una oferta"""
+    offer = get_object_or_404(Offer, id=offer_id, is_active=True)
+    
+    context = {
+        'offer': offer,
+        'title': offer.title,
+    }
+    return render(request, 'offer_detail.html', context)
