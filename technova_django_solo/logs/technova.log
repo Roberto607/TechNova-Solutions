@@ -6388,3 +6388,16 @@ Traceback (most recent call last):
 django.template.exceptions.TemplateDoesNotExist: pages/contact.html
 "GET /contacto/ HTTP/1.1" 500 91872
 "GET /productstodos/ HTTP/1.1" 200 15400
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 19777
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /media/products/primary/laptops/photo_2025-11-11_00-47-17.jpg HTTP/1.1" 304 0
+"GET /media/products/primary/tablets/photo_2025-11-11_00-47-18.jpg HTTP/1.1" 304 0
+"GET /media/products/primary/audiovideo/photo_2025-perra.jpg HTTP/1.1" 304 0
+"GET /media/products/primary/iphone-15-pro/1200_900.jpeg HTTP/1.1" 304 0
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 4057
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4168
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4168
