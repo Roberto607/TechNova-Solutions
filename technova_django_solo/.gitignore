@@ -1,90 +1,39 @@
-# =============================================
+
 # Python
-# =============================================
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
 .pytest_cache/
 .mypy_cache/
 
-# =============================================
-# Django específico - ESTO FALTA EN EL ACTUAL
-# =============================================
+# Django
 *.log
-logs/           # ← NUEVO: ignora TODA la carpeta logs
-technova_django_solo/logs/  # ← NUEVO: ruta específica de tu proyecto
-local_settings.py
+logs/
 db.sqlite3
-db.sqlite3-journal
 *.sqlite3
+db.sqlite3-journal
+local_settings.py
 media/
 staticfiles/
 
-# =============================================
-# Entornos virtuales
-# =============================================
+# Virtual Environment
 venv/
 env/
 ENV/
 .env.*
 .venv
-venv*/
 
-# =============================================
-# IDEs y editores
-# =============================================
+# IDE
 .idea/
 .vscode/
 *.swp
 *.swo
-*~
-.project
-.settings/
 
-# =============================================
-# Variables de entorno - MÁS COMPLETO
-# =============================================
+# Environment variables
 .env
 .env.local
-.env.production
-.env.development
-.secret
-config.py
 
-# =============================================
-# Sistema operativo
-# =============================================
+# OS
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
-
-# =============================================
-# Archivos temporales y de backup
-# =============================================
-*.tmp
-*.temp
-*.bak
-*.backup
-*~
