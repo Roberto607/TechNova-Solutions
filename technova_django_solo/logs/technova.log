@@ -5631,6 +5631,7 @@ D:\Programacion\ComercioE\technova_django_solo\users\views.py changed, reloading
 Watching for file changes with StatReloader
 D:\Programacion\ComercioE\technova_django_solo\users\views.py changed, reloading.
 Watching for file changes with StatReloader
+<<<<<<< Updated upstream
 Forbidden (CSRF token from POST incorrect.): /usuarios/login/
 "POST /usuarios/login/ HTTP/1.1" 403 2514
 "GET /usuarios/login/ HTTP/1.1" 200 13650
@@ -6388,6 +6389,7 @@ Traceback (most recent call last):
 django.template.exceptions.TemplateDoesNotExist: pages/contact.html
 "GET /contacto/ HTTP/1.1" 500 91872
 "GET /productstodos/ HTTP/1.1" 200 15400
+<<<<<<< HEAD
 Watching for file changes with StatReloader
 "GET / HTTP/1.1" 200 19777
 "GET /static/css/style.css HTTP/1.1" 304 0
@@ -6401,3 +6403,25 @@ Not Found: /.well-known/appspecific/com.chrome.devtools.json
 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4168
 Not Found: /.well-known/appspecific/com.chrome.devtools.json
 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4168
+=======
+=======
+"GET / HTTP/1.1" 200 42730
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /media/products/primary/audiovideo/photo_2025-perra.jpg HTTP/1.1" 304 0
+"GET /media/products/primary/tablets/photo_2025-11-11_00-47-18.jpg HTTP/1.1" 304 0
+"GET /media/products/primary/laptops/photo_2025-11-11_00-47-17.jpg HTTP/1.1" 304 0
+"GET /media/products/primary/iphone-15-pro/1200_900.jpeg HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 42730
+"GET /productstodos/ HTTP/1.1" 200 15684
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /media/products/primary/audiovideo/photo_2025-perra.jpg HTTP/1.1" 304 0
+"GET /media/products/primary/tablets/photo_2025-11-11_00-47-18.jpg HTTP/1.1" 304 0
+"GET /media/products/primary/laptops/photo_2025-11-11_00-47-17.jpg HTTP/1.1" 304 0
+"GET /media/products/primary/iphone-15-pro/1200_900.jpeg HTTP/1.1" 304 0
+"GET /productsproducto/audio-video/audiovideo/ HTTP/1.1" 200 13862
+"GET / HTTP/1.1" 200 42730
+"GET /carrito/cart/ HTTP/1.1" 302 0
+"GET /usuarios/login/?next=/carrito/cart/ HTTP/1.1" 200 13242
+"GET /productstodos/ HTTP/1.1" 200 15684
+>>>>>>> Stashed changes
+>>>>>>> 607748ae6ba5612dc890130a3ab9e09140c3797c
