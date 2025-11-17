@@ -41,3 +41,4 @@ Traceback (most recent call last):
     raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
 django.template.exceptions.TemplateDoesNotExist: pages/contact.html
 "GET /contacto/ HTTP/1.1" 500 92405
+Watching for file changes with StatReloader
