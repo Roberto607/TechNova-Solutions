@@ -3,21 +3,35 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.so
+.Python
 
 # Django
 *.log
-db.sqlite3
+logs/
+
+# db.sqlite3 - mantener comentado por ahora
+# db.sqlite3
 db.sqlite3-journal
-media/
-staticfiles/
+
+# Media y Static
+/media
+/staticfiles
+/static
 
 # Entornos virtuales
 venv/
 env/
 ENV/
+.venv/
 
 # IDEs
 .vscode/
 .idea/
 *.swp
 *.swo
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
