@@ -15,7 +15,7 @@
                             <label for="{{ form.username.id_for_label }}" class="form-label">
                                 {{ form.username.label }}
                             </label>
-                            <input type="{{ form.username.field.input_type }}" 
+                            <input type="text" 
                                    name="{{ form.username.html_name }}" 
                                    id="{{ form.username.id_for_label }}" 
                                    class="form-control {% if form.username.errors %}is-invalid{% endif %}"
@@ -33,7 +33,7 @@
                             <label for="{{ form.password.id_for_label }}" class="form-label">
                                 {{ form.password.label }}
                             </label>
-                            <input type="{{ form.password.field.input_type }}" 
+                            <input type="password" 
                                    name="{{ form.password.html_name }}" 
                                    id="{{ form.password.id_for_label }}" 
                                    class="form-control {% if form.password.errors %}is-invalid{% endif %}"

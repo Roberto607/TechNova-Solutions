@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if query %}Resultados de búsqueda: "{{ query }}"{% else %}Búsqueda{% endif %} - TechNova Solutions
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'products:home' %}">Inicio</a></li>
+            <li class="breadcrumb-item active">Búsqueda</li>
+        </ol>
+    </nav>
+
+    <!-- Título y término de búsqueda -->
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="h3">
+                {% if query %}
+                    Resultados de búsqueda: "{{ query }}"
+                    <span class="badge bg-secondary">{{ products.count }} producto{{ products.count|pluralize }}</span>
+                {% else %}
+                    Búsqueda de productos
+                {% endif %}
+            </h1>
+        </div>
+    </div>
+
+    <!-- Formulario de búsqueda -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <form method="get" action="{% url 'products:search' %}">
+                <div class="input-group">
+                    <input type="text" 
+                           class="form-control" 
+                           name="q" 
+                           value="{{ query }}"
+                           placeholder="Buscar productos..."
+                           aria-label="Buscar">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Resultados -->
+    {% if query %}
+        {% if products %}
+            <!-- Grid de productos -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                {% for product in products %}
+                    <div class="col">
+                        <div class="card h-100 product-card">
+                            <!-- Imagen del producto -->
+                            <div class="product-image-container">
+                                {% if product.primary_image %}
+                                    <img src="{{ product.primary_image.url }}" 
+                                         class="card-img-top product-image" 
+                                         alt="{{ product.name }}"
+                                         loading="lazy">
+                                {% elif product.additional_images.first %}
+                                    <img src="{{ product.additional_images.first.image.url }}" 
+                                         class="card-img-top product-image" 
+                                         alt="{{ product.additional_images.first.alt_text|default:product.name }}"
+                                         loading="lazy">
+                                {% else %}
+                                    <img src="https://via.placeholder.com/300x200?text=No+Image" 
+                                         class="card-img-top product-image" 
+                                         alt="Sin imagen">
+                                {% endif %}
+                                
+                                {% if product.is_on_sale %}
+                                    <span class="badge bg-danger position-absolute top-0 end-0 m-2">
+                                        Oferta -{{ product.discount_percentage }}%
+                                    </span>
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Información del producto -->
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text text-muted small">
+                                    {{ product.category.name }}{% if product.brand %} - {{ product.brand }}{% endif %}
+                                </p>
+                                <p class="card-text">
+                                    {% if product.is_on_sale %}
+                                        <span class="text-decoration-line-through text-muted">
+                                            ${{ product.compare_at_price }}
+                                        </span>
+                                        <span class="text-danger fw-bold">
+                                            ${{ product.price }}
+                                        </span>
+                                    {% else %}
+                                        <span class="fw-bold">
+                                            ${{ product.price }}
+                                        </span>
+                                    {% endif %}
+                                </p>
+                                {% if product.is_low_stock %}
+                                    <p class="card-text text-warning small">
+                                        <i class="fas fa-exclamation-triangle"></i> ¡Últimas {{ product.stock_quantity }} unidades!
+                                    </p>
+                                {% endif %}
+                                <div class="mt-auto">
+                                    <a href="{% url 'products:detail' product.category.slug product.slug %}" 
+                                       class="btn btn-outline-primary btn-sm w-100">
+                                        Ver detalles
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Mensaje de no resultados -->
+            <div class="alert alert-info">
+                <h4 class="alert-heading">No se encontraron resultados</h4>
+                <p>No hay productos que coincidan con tu búsqueda: "{{ query }}"</p>
+                <hr>
+                <p class="mb-0">Sugerencias:</p>
+                <ul>
+                    <li>Usa términos más generales</li>
+                    <li>Intenta con diferentes palabras clave</li>
+                    <li>Verifica la ortografía</li>
+                    <li>Navega por nuestras categorías</li>
+                </ul>
+                <div class="mt-3">
+                    <a href="{% url 'products:home' %}" class="btn btn-primary">
+                        <i class="fas fa-home me-2"></i>Ir al inicio
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+
+<style>
+.product-card {
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.product-image-container {
+    position: relative;
+    overflow: hidden;
+    padding-top: 66.67%; /* 3:2 Aspect Ratio */
+}
+
+.product-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.badge {
+    z-index: 10;
+}
+</style>
+{% endblock %}

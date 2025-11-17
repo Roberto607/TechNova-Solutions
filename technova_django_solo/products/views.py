@@ -91,7 +91,7 @@ def search(request):
         'query': query,
         'products': products,
     }
-    return render(request, 'products/search.html', context)
+    return render(request, 'search.html', context)
 
 
 def all_products(request):
@@ -119,6 +119,6 @@ def sale_products(request):
         'products': products,
         'title': 'Productos en Oferta',
     }
-    return render(request, 'products/sale.html', context)
+    return render(request, 'sale.html', context)
 
 
