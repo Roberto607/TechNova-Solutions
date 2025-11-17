@@ -64,13 +64,58 @@ def add_to_cart(request, product_slug):
 
 
 @login_required
+def add_offer_to_cart(request, offer_id):
+    """Agregar oferta al carrito"""
+    from products.models import Offer
+    
+    offer = get_object_or_404(Offer, id=offer_id)
+    
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity', 1))
+        
+        if quantity <= 0:
+            messages.error(request, 'La cantidad debe ser mayor a 0')
+            return redirect('products:sale_products')
+        
+        cart, created = Cart.objects.get_or_create(user=request.user)
+        
+        # Verificar que la oferta tenga imagen
+        if not offer.image:
+            messages.error(request, 'Esta oferta no tiene imagen')
+            return redirect('products:sale_products')
+        
+        # Crear un item de carrito para la oferta (sin copiar imagen)
+        cart_item = CartItem.objects.create(
+            cart=cart,
+            offer_title=offer.title,
+            offer_price=offer.final_price,
+            quantity=quantity,
+            is_offer=True,
+            offer_id=offer.id
+        )
+        
+        messages.success(request, f'{offer.title} agregado al carrito')
+        return redirect('orders:cart')
+    
+    return redirect('products:sale_products')
+
+
+
+
+@login_required
 def remove_from_cart(request, item_id):
     """Remover item del carrito"""
     cart_item = get_object_or_404(CartItem, id=item_id, cart__user=request.user)
-    product_name = cart_item.product.name
+    
+    # Determinar el nombre del item según sea producto u oferta
+    if cart_item.is_offer:
+        item_name = cart_item.offer_title
+    else:
+        item_name = cart_item.product.name
+    
     cart_item.delete()
     
-    messages.success(request, f'{product_name} removido del carrito')
+    messages.success(request, f'{item_name} removido del carrito')
     return redirect('orders:cart')
 
 

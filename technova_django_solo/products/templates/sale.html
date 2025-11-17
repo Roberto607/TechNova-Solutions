@@ -1,44 +1,109 @@
 {% extends 'base.html' %}
-{% block title %}Productos en Oferta - TechNova Solutions{% endblock %}
+{% block title %}Ofertas Especiales - TechNova Solutions{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
     <div class="alert alert-danger" role="alert">
-        <h1 class="alert-heading"><i class="fas fa-fire"></i> Productos en Oferta</h1>
-        <p class="mb-0">¡Aprovecha estas increíbles ofertas por tiempo limitado!</p>
+        <h1 class="alert-heading"><i class="fas fa-fire"></i> Ofertas Especiales</h1>
+        <p class="mb-0">¡Aprovecha estas increíbles ofertas!</p>
     </div>
     
-    {% if products %}
-        <div class="row">
-            {% for product in products %}
-            <div class="col-md-3 mb-4">
-                <div class="card">
-                    <div class="position-relative">
-                        {% if product.primary_image %}
-                        <img src="{{ product.primary_image.url }}" class="card-img-top" alt="{{ product.name }}">
-                        {% endif %}
-                        <span class="position-absolute top-0 start-0 m-2 badge bg-danger">-{{ product.discount_percentage }}%</span>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="card-text">{{ product.short_description }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <span class="text-danger"><strong>${{ product.price }}</strong></span>
-                                <span class="text-muted text-decoration-line-through">${{ product.compare_at_price }}</span>
-                            </div>
+    <!-- Sección de Ofertas Especiales -->
+    {% if offer_images %}
+    <div class="row mb-4">
+        {% for offer in offer_images %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="position-relative">
+                    {% if offer.image %}
+                    <img src="{{ offer.image.url }}" class="card-img-top" alt="{{ offer.title }}" 
+                         style="height: 250px; object-fit: cover;">
+                    {% endif %}
+                    {% if offer.discount_percentage %}
+                    <span class="position-absolute top-0 start-0 m-2 badge bg-danger">
+                        <i class="fas fa-tag"></i> -{{ offer.discount_percentage }}%
+                    </span>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ offer.title }}</h5>
+                    <p class="card-text">{{ offer.description|truncatewords:15 }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            {% if offer.discount_percentage %}
+                                <span class="text-danger"><strong>${{ offer.final_price }}</strong></span>
+                                <span class="text-muted text-decoration-line-through">${{ offer.price }}</span>
+                            {% else %}
+                                <span class="text-danger"><strong>${{ offer.price }}</strong></span>
+                            {% endif %}
                         </div>
-                        <a href="{% url 'products:detail' product.category.slug product.slug %}" class="btn btn-primary mt-2">Ver detalles</a>
+                        {% if offer.discount_percentage %}
+                        <span class="badge bg-danger">-{{ offer.discount_percentage }}%</span>
+                        {% endif %}
                     </div>
+                    <a href="{% url 'products:offer_detail' offer.id %}" class="btn btn-primary mt-2">
+                        <i class="fas fa-eye"></i> Ver detalles
+                    </a>
                 </div>
             </div>
-            {% endfor %}
         </div>
-    {% else %}
-        <div class="text-center">
-            <p class="text-muted">No hay productos en oferta en este momento.</p>
-            <a href="{% url 'products:all' %}" class="btn btn-primary">Ver Todos los Productos</a>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Sección de Productos con Descuento -->
+    {% if products %}
+    <div class="alert alert-warning" role="alert">
+        <h2 class="alert-heading"><i class="fas fa-percentage"></i> Productos con Descuento</h2>
+        <p class="mb-0">Estos productos tienen precios especiales</p>
+    </div>
+    
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                {% if product.primary_image %}
+                <img src="{{ product.primary_image.url }}" class="card-img-top" alt="{{ product.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.short_description }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="text-danger"><strong>${{ product.price }}</strong></span>
+                            <span class="text-muted text-decoration-line-through">${{ product.compare_at_price }}</span>
+                        </div>
+                        <span class="badge bg-warning">-{{ product.discount_percentage }}%</span>
+                    </div>
+                    <a href="{% url 'products:detail' product.category.slug product.slug %}" class="btn btn-primary mt-2">
+                        <i class="fas fa-eye"></i> Ver detalles
+                    </a>
+                </div>
+            </div>
         </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <!-- Mensaje cuando no hay nada -->
+    {% if not offer_images and not products %}
+    <div class="text-center py-5">
+        <i class="fas fa-tag fa-3x text-muted mb-3"></i>
+        <h3 class="text-muted">No hay ofertas disponibles en este momento</h3>
+        <p class="text-muted">Vuelve pronto para encontrar nuevas promociones</p>
+        <a href="{% url 'products:all' %}" class="btn btn-primary">
+            <i class="fas fa-shopping-bag"></i> Ver Todos los Productos
+        </a>
+    </div>
     {% endif %}
 </div>
+
+<style>
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+</style>
 {% endblock %}
+
+

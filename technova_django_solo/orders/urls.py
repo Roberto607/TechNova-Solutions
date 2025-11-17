@@ -26,6 +26,7 @@ urlpatterns = [
     path('orders/', views.order_list, name='orders'),
     path('orders/<str:order_number>/', views.order_detail, name='order_detail'),
     path('orders/<str:order_number>/cancel/', views.cancel_order, name='cancel_order'),
+    path('cart/add/offer/<int:offer_id>/', views.add_offer_to_cart, name='add_offer_to_cart'),
     
     # URLs para wishlist
     path('wishlist/', views.wishlist, name='wishlist'),

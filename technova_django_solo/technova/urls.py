@@ -11,6 +11,7 @@ urlpatterns = [
     path('products', include('products.urls')),
     path('usuarios/', include('users.urls')),
     path('carrito/', include('orders.urls')),
+    path('admin-panel/', include('admin_panel.urls')),
     
     # Páginas estáticas
     path('nosotros/', TemplateView.as_view(template_name='pages/about.html'), name='about'),

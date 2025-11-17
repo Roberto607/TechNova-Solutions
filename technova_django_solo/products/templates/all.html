@@ -1,6 +1,4 @@
 {% extends 'base.html' %}
-
-
 {% block title %}Todos los Productos - TechNova Solutions{% endblock %}
 
 {% block content %}
@@ -38,10 +36,10 @@
             {% endfor %}
         </div>
     {% else %}
-        <div class="text-center">
-            <p class="text-muted">No hay productos disponibles en este momento.</p>
-            <a href="{% url 'core:home' %}" class="btn btn-primary">Volver al Inicio</a>
-        </div>
+    <div class="text-center">
+        <p class="text-muted">No hay productos disponibles en este momento.</p>
+        <a href="{% url 'products:all' %}" class="btn btn-primary">Ver Todos los Productos</a>
+    </div>
     {% endif %}
 </div>
 {% endblock %}

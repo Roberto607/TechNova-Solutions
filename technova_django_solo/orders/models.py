@@ -56,23 +56,48 @@ class Cart(models.Model):
 class CartItem(models.Model):
     """Items del carrito"""
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
-    product = models.ForeignKey('products.Product', on_delete=models.CASCADE)
+    product = models.ForeignKey('products.Product', on_delete=models.CASCADE, null=True, blank=True)
+    # Campos para ofertas (sin guardar imagen)
+    offer_title = models.CharField(max_length=200, null=True, blank=True)
+    offer_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    is_offer = models.BooleanField(default=False)
+    offer_id = models.IntegerField(null=True, blank=True)
     quantity = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        if self.is_offer:
+            return f"{self.quantity}x {self.offer_title} en {self.cart}"
         return f"{self.quantity}x {self.product.name} en {self.cart}"
     
     @property
     def total_price(self):
+        if self.is_offer:
+            return self.offer_price * self.quantity
         return self.product.price * self.quantity
     
     @property
     def total_savings(self):
+        if self.is_offer:
+            return 0  # Las ofertas ya tienen el descuento aplicado
         if self.product.is_on_sale:
             return (self.product.compare_at_price - self.product.price) * self.quantity
         return 0
+    
+    def get_item_image(self):
+        """Obtener la imagen del item (producto u oferta)"""
+        if self.is_offer and self.offer_id:
+            from products.models import Offer
+            try:
+                offer = Offer.objects.get(id=self.offer_id)
+                return offer.image.url if offer.image else None
+            except Offer.DoesNotExist:
+                return None
+        elif self.product:
+            return self.product.primary_image.url if self.product.primary_image else None
+        return None
+
 
 
 class Order(models.Model):
