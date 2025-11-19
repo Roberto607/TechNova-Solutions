@@ -27,12 +27,24 @@ def category_view(request, category_slug):
     """Vista de categoría con productos y subcategorías"""
     category = get_object_or_404(Category, slug=category_slug)
     
+    # Debug
+    print(f"=== Categoría: {category.name} ===")
+    print(f"Slug categoría: {category.slug}")
+    
     # Obtener productos de esta categoría y subcategorías
     products = Product.objects.filter(
         Q(category=category) | Q(category__parent=category),
         status='active',
         stock_quantity__gt=0
     ).select_related('category').prefetch_related('additional_images')
+    
+    # Debug productos
+    for product in products:
+        print(f"Producto: {product.name}")
+        print(f"Slug producto: {product.slug}")
+        print(f"Categoría del producto: {product.category.name}")
+        print(f"Slug categoría del producto: {product.category.slug}")
+        print("---")
     
     # Obtener subcategorías
     subcategories = category.children.filter(is_active=True)

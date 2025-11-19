@@ -4,6 +4,7 @@
 {% block page_title %}Dashboard{% endblock %}
 
 {% block content %}
+<!-- Tarjetas de Estadísticas -->
 <div class="row">
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
@@ -119,6 +120,53 @@
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+<!-- Actividad Reciente -->
+<div class="row">
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Productos Más Vendidos</h6>
+            </div>
+            <div class="card-body">
+                {% for product in top_products %}
+                <div class="d-flex align-items-center mb-3">
+                    {% if product.primary_image %}
+                        <img src="{{ product.primary_image.url }}" alt="{{ product.name }}" 
+                             style="width: 40px; height: 40px; object-fit: cover; margin-right: 10px;">
+                    {% endif %}
+                    <div>
+                        <h6 class="mb-0">{{ product.name }}</h6>
+                        <div class="text-muted small">Vendidos: {{ product.total_sold }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Usuarios Recientes</h6>
+            </div>
+            <div class="card-body">
+                {% for user in recent_users %}
+                <div class="d-flex align-items-center mb-3">
+                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" 
+                         style="width: 40px; height: 40px; margin-right: 10px;">
+                        {{ user.username.0 }}
+                    </div>
+                    <div>
+                        <h6 class="mb-0">{{ user.username }}</h6>
+                        <div class="text-muted small">Registrado: {{ user.date_joined|date:"d/m/Y" }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
