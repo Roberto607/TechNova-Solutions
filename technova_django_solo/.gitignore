@@ -9,8 +9,8 @@ __pycache__/
 *.log
 logs/
 
-# db.sqlite3 - mantener comentado por ahora
-# db.sqlite3
+#db.sqlite3 - mantener comentado por ahora
+db.sqlite3
 db.sqlite3-journal
 
 # Media y Static

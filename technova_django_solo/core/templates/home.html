@@ -1,654 +1,397 @@
 {% extends 'base.html' %}
 {% load static %}
-
+<script src="{% static 'js/vendor/three.min.js' %}"></script>
+<link href="{% static 'css/vendor/fontawesome.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/vendor/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/vendor/fontawesome.min.css' %}" rel="stylesheet">3
 {% block title %}TechNova Solutions - Tecnología Premium{% endblock %}
-
-{% block extra_head %}
-<style>
-    /* Hero Banner */
-    .hero-banner {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 100px 20px;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .hero-banner::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="1200" height="600" fill="%23667eea" /><rect width="1200" height="600" fill="url(%23grid)" /></svg>');
-        opacity: 0.5;
-    }
-
-    .hero-banner > * {
-        position: relative;
-        z-index: 1;
-    }
-
-    .hero-banner h1 {
-        font-size: 3.5rem;
-        font-weight: 800;
-        margin-bottom: 20px;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-
-    .hero-banner p {
-        font-size: 1.3rem;
-        margin-bottom: 30px;
-        opacity: 0.95;
-    }
-
-    .hero-buttons {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .hero-buttons .btn {
-        padding: 12px 30px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        border-radius: 50px;
-        transition: all 0.3s ease;
-    }
-
-    .hero-buttons .btn-primary {
-        background-color: #ff6b6b;
-        border-color: #ff6b6b;
-    }
-
-    .hero-buttons .btn-primary:hover {
-        background-color: #ff5252;
-        border-color: #ff5252;
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
-    }
-
-    .hero-buttons .btn-light:hover {
-        background-color: #f0f0f0;
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(255,255,255,0.4);
-    }
-
-    /* Promo Banner */
-    .promo-banner {
-        background: linear-gradient(90deg, #ff6b6b 0%, #ff9a56 100%);
-        color: white;
-        padding: 20px;
-        text-align: center;
-        font-weight: 600;
-        font-size: 1.1rem;
-        animation: slideDown 0.5s ease;
-    }
-
-    @keyframes slideDown {
-        from {
-            transform: translateY(-100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
-
-    .promo-banner .badge {
-        background-color: rgba(0,0,0,0.2);
-        padding: 5px 10px;
-        margin-right: 10px;
-    }
-
-    /* Categorías Destacadas */
-    .category-card {
-        position: relative;
-        border-radius: 15px;
-        overflow: hidden;
-        height: 250px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        gap: 15px;
-        text-decoration: none;
-    }
-
-    .category-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    }
-
-    .category-card i {
-        font-size: 3rem;
-        opacity: 0.8;
-    }
-
-    .category-card h3 {
-        font-size: 1.5rem;
-        font-weight: 700;
-    }
-
-    /* Product Card Enhancement */
-    .product-card {
-        transition: all 0.3s ease;
-        border: none;
-    }
-
-    .product-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.15) !important;
-    }
-
-    /* Trust Badges */
-    .trust-badges {
-        display: flex;
-        justify-content: center;
-        gap: 40px;
-        margin: 50px 0;
-        flex-wrap: wrap;
-    }
-
-    .trust-badge {
-        text-align: center;
-        flex: 1;
-        min-width: 150px;
-    }
-
-    .trust-badge i {
-        font-size: 2.5rem;
-        color: #667eea;
-        margin-bottom: 10px;
-    }
-
-    .trust-badge h4 {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #333;
-    }
-
-    .trust-badge p {
-        font-size: 0.85rem;
-        color: #666;
-        margin-top: 5px;
-    }
-
-    /* Modal Popup */
-    .offer-modal {
-        backdrop-filter: blur(5px);
-    }
-
-    .offer-modal .modal-content {
-        border-radius: 20px;
-        border: none;
-        overflow: hidden;
-    }
-
-    .offer-modal .modal-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-    }
-
-    .discount-badge {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        background: #ff6b6b;
-        color: white;
-        padding: 15px 20px;
-        border-radius: 50px;
-        font-weight: 700;
-        font-size: 1.5rem;
-        box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
-    }
-
-    /* Testimonials */
-    .testimonial-card {
-        background: #f8f9fa;
-        padding: 25px;
-        border-radius: 15px;
-        border-left: 5px solid #667eea;
-        transition: all 0.3s ease;
-    }
-
-    .testimonial-card:hover {
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        transform: translateY(-5px);
-    }
-
-    .testimonial-card .stars {
-        color: #ffc107;
-        margin-bottom: 10px;
-    }
-
-    /* Newsletter Section */
-    .newsletter-section {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 50px 20px;
-        border-radius: 20px;
-        text-align: center;
-    }
-
-    .newsletter-section h2 {
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 15px;
-    }
-
-    .newsletter-form {
-        display: flex;
-        gap: 10px;
-        margin-top: 25px;
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .newsletter-form input {
-        flex: 1;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 50px;
-        font-size: 1rem;
-    }
-
-    .newsletter-form button {
-        padding: 12px 30px;
-        background: #ff6b6b;
-        color: white;
-        border: none;
-        border-radius: 50px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .newsletter-form button:hover {
-        background: #ff5252;
-        transform: scale(1.05);
-    }
-
-    /* Floating Elements */
-    @keyframes float {
-        0%, 100% {
-            transform: translateY(0);
-        }
-        50% {
-            transform: translateY(-20px);
-        }
-    }
-
-    .float-element {
-        animation: float 3s ease-in-out infinite;
-    }
-
-    /* Section spacing */
-    .section-title {
-        text-align: center;
-        margin-bottom: 50px;
-    }
-
-    .section-title h2 {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: #333;
-        margin-bottom: 10px;
-    }
-
-    .section-title p {
-        font-size: 1.1rem;
-        color: #666;
-    }
-
-    .section-title::after {
-        content: '';
-        display: block;
-        width: 60px;
-        height: 4px;
-        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-        margin: 15px auto 0;
-        border-radius: 2px;
-    }
-</style>
-{% endblock %}
 
 {% block content %}
 <!-- Promo Banner -->
-<div class="promo-banner">
-    <span class="badge">¡OFERTA ESPECIAL!</span>
-    Obtén hasta 40% de descuento en productos seleccionados. <a href="{% url 'products:sale' %}" style="color: white; text-decoration: underline; font-weight: bold;">Ver ofertas →</a>
-</div>
-
-<!-- Hero Banner -->
-<section class="hero-banner">
-    <h1>Tecnología Premium para Tu Vida</h1>
-    <p>Descubre los mejores productos tecnológicos con precios increíbles y garantía de calidad</p>
-    <div class="hero-buttons">
-        <a href="{% url 'products:all' %}" class="btn btn-primary">
-            <i class="fas fa-shopping-bag me-2"></i>Explorar Tienda
-        </a>
-        <a href="#ofertas" class="btn btn-light">
-            <i class="fas fa-fire me-2"></i>Ver Ofertas
-        </a>
+    <div class="promo-banner">
+        <span class="badge">¡OFERTA ESPECIAL!</span>
+        Obtén hasta 40% de descuento en productos seleccionados. <a href="#" style="color: white; text-decoration: underline; font-weight: bold;">Ver ofertas →</a>
     </div>
-</section>
 
-<div class="container">
-    <!-- Trust Badges -->
-    <section class="trust-badges mt-5">
-        <div class="trust-badge" data-aos="zoom-in">
-            <i class="fas fa-truck"></i>
-            <h4>Envío Gratis</h4>
-            <p>En compras mayores a $100</p>
+    <!-- Hero Section -->
+    <div class="hero-container">
+        <!-- 3D Canvas Background -->
+        <canvas id="canvas3d"></canvas>
+
+        <!-- Animated Particles -->
+        <div class="particles" id="particles"></div>
+
+        <!-- Floating Tech Icons -->
+        <div class="floating-icons">
+            <div class="floating-icon"><i class="fas fa-microchip"></i></div>
+            <div class="floating-icon"><i class="fas fa-wifi"></i></div>
+            <div class="floating-icon"><i class="fas fa-cloud"></i></div>
+            <div class="floating-icon"><i class="fas fa-bolt"></i></div>
+            <div class="floating-icon"><i class="fas fa-rocket"></i></div>
+            <div class="floating-icon"><i class="fas fa-star"></i></div>
         </div>
-        <div class="trust-badge" data-aos="zoom-in" data-aos-delay="100">
-            <i class="fas fa-shield-alt"></i>
-            <h4>Compra Segura</h4>
-            <p>Pago 100% protegido</p>
+
+        <!-- Waves Animation -->
+        <div class="waves">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
         </div>
-        <div class="trust-badge" data-aos="zoom-in" data-aos-delay="200">
-            <i class="fas fa-sync-alt"></i>
-            <h4>Devoluciones Gratis</h4>
-            <p>30 días de garantía</p>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="word">Tecnología</span>
+                <span class="word">Premium</span>
+                <span class="word">para</span>
+                <span class="word">Tu</span>
+                <span class="word">Vida</span>
+            </h1>
+            <p class="hero-subtitle">
+                Descubre los mejores productos tecnológicos con precios increíbles y garantía de calidad
+            </p>
+            <div class="hero-buttons">
+                <a href="{% url 'products:all' %}" class="hero-btn btn-primary">
+                    <span><i class="fas fa-shopping-bag"></i> Explorar Tienda</span>
+                </a>
+                <a href="{% url 'products:sale' %}" class="hero-btn btn-secondary">
+                    <span><i class="fas fa-fire"></i> Ver Ofertas</span>
+                </a>
+            </div>
         </div>
-        <div class="trust-badge" data-aos="zoom-in" data-aos-delay="300">
-            <i class="fas fa-headset"></i>
-            <h4>Soporte 24/7</h4>
-            <p>Atención al cliente siempre</p>
+    </div>
+
+    <!-- Trust Badges Section -->
+    <section class="trust-section">
+        <div class="trust-badges">
+            <div class="trust-badge">
+                <i class="fas fa-truck"></i>
+                <h4>Envío Gratis</h4>
+                <p>En compras mayores a $100</p>
+            </div>
+            <div class="trust-badge">
+                <i class="fas fa-shield-alt"></i>
+                <h4>Compra Segura</h4>
+                <p>Pago 100% protegido</p>
+            </div>
+            <div class="trust-badge">
+                <i class="fas fa-sync-alt"></i>
+                <h4>Devoluciones Gratis</h4>
+                <p>30 días de garantía</p>
+            </div>
+            <div class="trust-badge">
+                <i class="fas fa-headset"></i>
+                <h4>Soporte 24/7</h4>
+                <p>Atención al cliente siempre</p>
+            </div>
         </div>
     </section>
 
     <!-- Categorías Destacadas -->
-    <section class="mb-5 mt-5" data-aos="fade-up">
-        <div class="section-title">
-            <h2>Categorías Principales</h2>
-            <p>Explora nuestros productos por categoría</p>
-        </div>
-        <div class="row g-4">
-            <div class="col-lg-3 col-md-6">
-                <a href="{% url 'products:category' 'smartphones' %}" class="category-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>Smartphones</h3>
-                </a>
+    <div class="container">
+        <!-- Categorías Destacadas -->
+        <section class="mb-5 mt-5">
+            <div class="section-title">
+                <h2>Categorías Principales</h2>
+                <p>Explora nuestros productos por categoría</p>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <a href="{% url 'products:category' 'laptops' %}" class="category-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                    <i class="fas fa-laptop"></i>
-                    <h3>Laptops</h3>
-                </a>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <a href="{% url 'products:category' 'smartphones' %}" class="category-card gradient-blue">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Smartphones</h3>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="{% url 'products:category' 'laptops' %}" class="category-card gradient-purple">
+                        <i class="fas fa-laptop"></i>
+                        <h3>Laptops</h3>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="{% url 'products:category' 'tablets' %}" class="category-card gradient-cyan">
+                        <i class="fas fa-tablet-alt"></i>
+                        <h3>Tablets</h3>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="{% url 'products:category' 'audio-video' %}" class="category-card gradient-orange">
+                        <i class="fas fa-headphones"></i>
+                        <h3>Audio & Video</h3>
+                    </a>
+                </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <a href="{% url 'products:category' 'tablets' %}" class="category-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                    <i class="fas fa-tablet-alt"></i>
-                    <h3>Tablets</h3>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <a href="{% url 'products:category' 'audio-video' %}" class="category-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
-                    <i class="fas fa-headphones"></i>
-                    <h3>Audio & Video</h3>
-                </a>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Ofertas Destacadas -->
-    <section class="mb-5" id="ofertas" data-aos="fade-up">
-        <div class="section-title">
-            <h2>⚡ Ofertas Flash</h2>
-            <p>Los mejores descuentos disponibles ahora</p>
-        </div>
-        
-        <div class="row g-4">
-            {% for product in featured_products %}
-            <div class="col-lg-3 col-md-4 col-sm-6" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:100 }}">
-                <div class="product-card h-100 bg-white rounded-3 shadow-sm hover-shadow">
-                    <div class="product-image position-relative">
-                        {% if product.primary_image %}
-                            <img src="{{ product.primary_image.url }}" 
-                                alt="{{ product.name }}" 
-                                class="img-fluid rounded-top-3"
-                                style="width: 300px; height: 300px; object-fit: cover;">
-                        {% else %}
-                            <img src="https://via.placeholder.com/300x300?text=Producto" 
-                                alt="{{ product.name }}" 
-                                class="img-fluid rounded-top-3">
-                        {% endif %}
-                        {% if product.compare_at_price %}
-                        <div class="sale-badge position-absolute top-0 start-0 m-2">
-                            <span class="badge bg-danger">
-                                {% with discount=product.compare_at_price|floatformat:2 %}
-                                    {% with current=product.price|floatformat:2 %}
-                                        {% widthratio discount|add:0 current 100 as percentage %}
-                                        {{ percentage|floatformat:0 }}%
-                                    {% endwith %}
-                                {% endwith %}
-                            </span>
+        <!-- Ofertas Destacadas -->
+        <section class="mb-5" id="ofertas">
+            <div class="section-title">
+                <h2>⚡ Ofertas Flash</h2>
+                <p>Los mejores descuentos disponibles ahora</p>
+            </div>
+            
+            <div class="row g-4">
+                <!-- Producto 1 -->
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="product-card h-100">
+                        <div class="product-image position-relative">
+                            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&h=500&fit=crop" 
+                                alt="iPhone 15 Pro">
+                            <div class="sale-badge">
+                                <span class="badge bg-danger">25%</span>
+                            </div>
+                            <div class="product-actions position-absolute top-0 end-0 p-2">
+                                <button class="btn btn-sm wishlist-btn">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
                         </div>
-                        {% endif %}
-                        <div class="product-actions position-absolute top-0 end-0 p-2">
-                            <button class="btn btn-sm btn-outline-secondary rounded-circle wishlist-btn" 
-                                    data-product-id="{{ product.id }}">
-                                <i class="far fa-heart"></i>
-                            </button>
+                        <div class="product-info">
+                            <h5 class="product-name">iPhone 15 Pro Max 256GB</h5>
+                            <div class="product-price mb-2">
+                                <span class="text-decoration-line-through text-muted">$1,299</span>
+                                <span class="text-danger ms-2">$974</span>
+                            </div>
+                            <div class="product-rating mb-3">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <span class="text-muted small ms-1">(128)</span>
+                            </div>
+                            <a href="#" class="btn btn-primary w-100 btn-sm">
+                                <i class="fas fa-eye me-1"></i>Ver Detalles
+                            </a>
                         </div>
                     </div>
-                    <div class="product-info p-3">
-                        <h5 class="product-name mb-2">{{ product.name }}</h5>
-                        <div class="product-price mb-2">
-                            {% if product.compare_at_price %}
-                                <span class="text-decoration-line-through text-muted">${{ product.compare_at_price }}</span>
-                                <span class="text-danger ms-2">${{ product.price }}</span>
-                            {% else %}
-                                <span>${{ product.price }}</span>
-                            {% endif %}
+                </div>
+
+                <!-- Producto 2 -->
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="product-card h-100">
+                        <div class="product-image position-relative">
+                            <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500&h=500&fit=crop" 
+                                alt="MacBook Pro">
+                            <div class="sale-badge">
+                                <span class="badge bg-danger">15%</span>
+                            </div>
+                            <div class="product-actions position-absolute top-0 end-0 p-2">
+                                <button class="btn btn-sm wishlist-btn">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="product-rating mb-2">
-                            {% if product.average_rating %}
-                                {% for i in "12345"|make_list %}
-                                    {% if forloop.counter <= product.average_rating %}
-                                        <i class="fas fa-star text-warning"></i>
-                                    {% else %}
-                                        <i class="far fa-star text-warning"></i>
-                                    {% endif %}
-                                {% endfor %}
-                                <span class="text-muted small ms-1">({{ product.reviews_count }})</span>
-                            {% else %}
-                                <span class="text-muted small">Sin reseñas</span>
-                            {% endif %}
+                        <div class="product-info">
+                            <h5 class="product-name">MacBook Pro M3 16" 512GB</h5>
+                            <div class="product-price mb-2">
+                                <span class="text-decoration-line-through text-muted">$2,499</span>
+                                <span class="text-danger ms-2">$2,124</span>
+                            </div>
+                            <div class="product-rating mb-3">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="far fa-star text-warning"></i>
+                                <span class="text-muted small ms-1">(89)</span>
+                            </div>
+                            <a href="#" class="btn btn-primary w-100 btn-sm">
+                                <i class="fas fa-eye me-1"></i>Ver Detalles
+                            </a>
                         </div>
-                        <div class="product-actions mt-3">
-                            <a href="{% url 'products:detail' category_slug=product.category.slug product_slug=product.slug %}" class="btn btn-primary w-100 btn-sm">
+                    </div>
+                </div>
+
+                <!-- Producto 3 -->
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="product-card h-100">
+                        <div class="product-image position-relative">
+                            <img src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500&h=500&fit=crop" 
+                                alt="iPad Pro">
+                            <div class="sale-badge">
+                                <span class="badge bg-danger">30%</span>
+                            </div>
+                            <div class="product-actions position-absolute top-0 end-0 p-2">
+                                <button class="btn btn-sm wishlist-btn">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h5 class="product-name">iPad Pro 12.9" M2 256GB</h5>
+                            <div class="product-price mb-2">
+                                <span class="text-decoration-line-through text-muted">$1,099</span>
+                                <span class="text-danger ms-2">$769</span>
+                            </div>
+                            <div class="product-rating mb-3">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <span class="text-muted small ms-1">(156)</span>
+                            </div>
+                            <a href="#" class="btn btn-primary w-100 btn-sm">
+                                <i class="fas fa-eye me-1"></i>Ver Detalles
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 4 -->
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="product-card h-100">
+                        <div class="product-image position-relative">
+                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop" 
+                                alt="AirPods Max">
+                            <div class="sale-badge">
+                                <span class="badge bg-danger">20%</span>
+                            </div>
+                            <div class="product-actions position-absolute top-0 end-0 p-2">
+                                <button class="btn btn-sm wishlist-btn">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h5 class="product-name">AirPods Max - Cancelación Activa</h5>
+                            <div class="product-price mb-2">
+                                <span class="text-decoration-line-through text-muted">$549</span>
+                                <span class="text-danger ms-2">$439</span>
+                            </div>
+                            <div class="product-rating mb-3">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="far fa-star text-warning"></i>
+                                <span class="text-muted small ms-1">(234)</span>
+                            </div>
+                            <a href="#" class="btn btn-primary w-100 btn-sm">
                                 <i class="fas fa-eye me-1"></i>Ver Detalles
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
-            {% empty %}
-            <div class="col-12 text-center">
-                <p class="text-muted">No hay productos destacados disponibles.</p>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
+        </section>
 
-    <!-- Productos en Oferta -->
-    {% if sale_products %}
-    <section class="mb-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="fw-bold">Ofertas Especiales</h2>
-            <p class="text-muted">Aprovecha estos precios increíbles</p>
-        </div>
-        
-        <div class="row g-4">
-            {% for product in sale_products %}
-            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:100 }}">
-                <div class="product-card h-100 bg-white rounded-3 shadow-sm hover-shadow">
-                    <div class="product-image position-relative">
-                        {% if product.primary_image %}
-                            <img src="{{ product.primary_image.url }}" 
-                                alt="{{ product.name }}" 
-                                class="img-fluid rounded-top-3"
-                                style="width: 300px; height: 300px; object-fit: cover;">
-                        {% else %}
-                            <img src="https://via.placeholder.com/300x300?text=Producto" 
-                                alt="{{ product.name }}" 
-                                class="img-fluid rounded-top-3">
-                        {% endif %}
-                        {% if product.compare_at_price %}
-                        <div class="sale-badge position-absolute top-0 start-0 m-2">
-                            <span class="badge bg-danger">
-                                {% with discount=product.compare_at_price|floatformat:2 %}
-                                    {% with current=product.price|floatformat:2 %}
-                                        {% widthratio discount|add:0 current 100 as percentage %}
-                                        {{ percentage|floatformat:0 }}%
-                                    {% endwith %}
-                                {% endwith %}
-                            </span>
+        <!-- Mejor Valorados -->
+        <section class="mb-5">
+            <div class="section-title">
+                <h2>⭐ Mejor Valorados</h2>
+                <p>Los productos mejor calificados por nuestros clientes</p>
+            </div>
+            
+            <div class="row g-4">
+                <!-- Producto 5 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="product-card h-100">
+                        <div class="product-image position-relative">
+                            <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&h=500&fit=crop" 
+                                alt="Galaxy S24">
+                            <div class="product-actions position-absolute top-0 end-0 p-2">
+                                <button class="btn btn-sm wishlist-btn">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
                         </div>
-                        {% endif %}
-                        <div class="product-actions position-absolute top-0 end-0 p-2">
-                            <button class="btn btn-sm btn-outline-secondary rounded-circle wishlist-btn" 
-                                    data-product-id="{{ product.id }}">
-                                <i class="far fa-heart"></i>
-                            </button>
+                        <div class="product-info">
+                            <h5 class="product-name">Lentes Nauth Bluetooth Model 3</h5>
+                            <div class="product-price mb-2">
+                                <span>$1,199</span>
+                            </div>
+                            <div class="product-rating mb-3">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <span class="text-muted small ms-1">(342)</span>
+                            </div>
+                            <a href="#" class="btn btn-primary w-100 btn-sm">
+                                <i class="fas fa-eye me-1"></i>Ver Detalles
+                            </a>
                         </div>
                     </div>
-                    <div class="product-info p-3">
-                        <h5 class="product-name mb-2">{{ product.name }}</h5>
-                        <div class="product-price mb-2">
-                            {% if product.compare_at_price %}
-                                <span class="text-decoration-line-through text-muted">${{ product.compare_at_price }}</span>
-                                <span class="text-danger ms-2">${{ product.price }}</span>
-                            {% else %}
-                                <span>${{ product.price }}</span>
-                            {% endif %}
+                </div>
+
+                <!-- Producto 6 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="product-card h-100">
+                        <div class="product-image position-relative">
+                            <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=500&h=500&fit=crop" 
+                                alt="Dell XPS">
+                            <div class="product-actions position-absolute top-0 end-0 p-2">
+                                <button class="btn btn-sm wishlist-btn">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="product-rating mb-2">
-                            {% if product.average_rating %}
-                                {% for i in "12345"|make_list %}
-                                    {% if forloop.counter <= product.average_rating %}
-                                        <i class="fas fa-star text-warning"></i>
-                                    {% else %}
-                                        <i class="far fa-star text-warning"></i>
-                                    {% endif %}
-                                {% endfor %}
-                                <span class="text-muted small ms-1">({{ product.reviews_count }})</span>
-                            {% else %}
-                                <span class="text-muted small">Sin reseñas</span>
-                            {% endif %}
+                        <div class="product-info">
+                            <h5 class="product-name">Dell XPS 15 Intel i9 32GB RAM</h5>
+                            <div class="product-price mb-2">
+                                <span>$2,299</span>
+                            </div>
+                            <div class="product-rating mb-3">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <span class="text-muted small ms-1">(198)</span>
+                            </div>
+                            <a href="#" class="btn btn-primary w-100 btn-sm">
+                                <i class="fas fa-eye me-1"></i>Ver Detalles
+                            </a>
                         </div>
-                        <div class="product-actions mt-3">
-                            <a href="{% url 'products:detail' category_slug=product.category.slug product_slug=product.slug %}" class="btn btn-primary w-100 btn-sm">
+                    </div>
+                </div>
+
+                <!-- Producto 7 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="product-card h-100">
+                        <div class="product-image position-relative">
+                            <img src="https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=500&h=500&fit=crop" 
+                                alt="Sony WH-1000XM5">
+                            <div class="product-actions position-absolute top-0 end-0 p-2">
+                                <button class="btn btn-sm wishlist-btn">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h5 class="product-name">Sony WH-1000XM5 Bluetooth NC</h5>
+                            <div class="product-price mb-2">
+                                <span>$399</span>
+                            </div>
+                            <div class="product-rating mb-3">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <span class="text-muted small ms-1">(567)</span>
+                            </div>
+                            <a href="#" class="btn btn-primary w-100 btn-sm">
                                 <i class="fas fa-eye me-1"></i>Ver Detalles
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
-
-    <!-- Productos Mejor Valorados -->
-    {% if top_rated_products %}
-    <section class="mb-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="fw-bold">Mejor Valorados</h2>
-            <p class="text-muted">Los productos mejor calificados por nuestros clientes</p>
-        </div>
-        
-        <div class="row g-4">
-            {% for product in top_rated_products %}
-            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:100 }}">
-                <div class="product-card h-100 bg-white rounded-3 shadow-sm hover-shadow">
-                    <div class="product-image position-relative">
-                        {% if product.primary_image %}
-                            <img src="{{ product.primary_image.url }}" 
-                                alt="{{ product.name }}" 
-                                class="img-fluid rounded-top-3"
-                                style="width: 300px; height: 300px; object-fit: cover;">
-                        {% else %}
-                            <img src="https://via.placeholder.com/300x300?text=Producto" 
-                                alt="{{ product.name }}" 
-                                class="img-fluid rounded-top-3">
-                        {% endif %}
-                        {% if product.compare_at_price %}
-                        <div class="sale-badge position-absolute top-0 start-0 m-2">
-                            <span class="badge bg-danger">
-                                {% with discount=product.compare_at_price|floatformat:2 %}
-                                    {% with current=product.price|floatformat:2 %}
-                                        {% widthratio discount|add:0 current 100 as percentage %}
-                                        {{ percentage|floatformat:0 }}%
-                                    {% endwith %}
-                                {% endwith %}
-                            </span>
-                        </div>
-                        {% endif %}
-                        <div class="product-actions position-absolute top-0 end-0 p-2">
-                            <button class="btn btn-sm btn-outline-secondary rounded-circle wishlist-btn" 
-                                    data-product-id="{{ product.id }}">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-info p-3">
-                        <h5 class="product-name mb-2">{{ product.name }}</h5>
-                        <div class="product-price mb-2">
-                            {% if product.compare_at_price %}
-                                <span class="text-decoration-line-through text-muted">${{ product.compare_at_price }}</span>
-                                <span class="text-danger ms-2">${{ product.price }}</span>
-                            {% else %}
-                                <span>${{ product.price }}</span>
-                            {% endif %}
-                        </div>
-                        <div class="product-rating mb-2">
-                            {% if product.average_rating %}
-                                {% for i in "12345"|make_list %}
-                                    {% if forloop.counter <= product.average_rating %}
-                                        <i class="fas fa-star text-warning"></i>
-                                    {% else %}
-                                        <i class="far fa-star text-warning"></i>
-                                    {% endif %}
-                                {% endfor %}
-                                <span class="text-muted small ms-1">({{ product.reviews_count }})</span>
-                            {% else %}
-                                <span class="text-muted small">Sin reseñas</span>
-                            {% endif %}
-                        </div>
-                        <div class="product-actions mt-3">
-                            <a href="{% url 'products:detail' category_slug=product.category.slug product_slug=product.slug %}" class="btn btn-primary w-100 btn-sm">
-                                <i class="fas fa-eye me-1"></i>Ver Detalles
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
-<<<<<<< HEAD
-
-
-=======
->>>>>>> rama_maikel
+        </section>
+    </div>
+    
 </div>
 {% endblock %}
 
+{% block extra_js %}
+<!-- Three.js desde CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-
+<!-- Tu JavaScript personalizado -->
+<script src="{% static 'js/technova-animations.js' %}"></script>
+{% endblock %}
 
