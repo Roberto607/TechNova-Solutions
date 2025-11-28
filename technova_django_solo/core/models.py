@@ -81,7 +81,7 @@ class ContactMessage(models.Model):
     ]
     
     name = models.CharField(max_length=100)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     phone = models.CharField(max_length=20, blank=True)
     subject = models.CharField(max_length=20, choices=SUBJECT_CHOICES)
     message = models.TextField()

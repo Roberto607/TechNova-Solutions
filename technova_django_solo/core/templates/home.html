@@ -4,14 +4,64 @@
 <link href="{% static 'css/vendor/fontawesome.min.css' %}" rel="stylesheet">
 <link href="{% static 'css/vendor/bootstrap.min.css' %}" rel="stylesheet">
 <link href="{% static 'css/vendor/fontawesome.min.css' %}" rel="stylesheet">3
+<link href="{% static 'css/promo.css' %}" rel="stylesheet">
 {% block title %}TechNova Solutions - Tecnología Premium{% endblock %}
 
 {% block content %}
 <!-- Promo Banner -->
     <div class="promo-banner">
         <span class="badge">¡OFERTA ESPECIAL!</span>
-        Obtén hasta 40% de descuento en productos seleccionados. <a href="#" style="color: white; text-decoration: underline; font-weight: bold;">Ver ofertas →</a>
+        Obtén hasta 40% de descuento en productos seleccionados. <a href="{% url 'products:sale' %}">Ver ofertas</a>
     </div>
+
+    <!-- Contenedor de notificaciones promocionales -->
+    <div id="promo-notifications-container"></div>
+    
+    <!-- Data para las notificaciones (invisible) -->
+    <script id="promo-data" type="application/json">
+    [
+        {% for product in sale_products %}
+        {
+            "title": "🔥 ¡Oferta Especial!",
+            "message": "{{ product.name }} - ¡Ahorra ahora!",
+            "price": "${{ product.price }}",
+            "oldPrice": "{% if product.compare_at_price %}${{ product.compare_at_price }}{% endif %}",
+            "discount": "{{ product.discount_percentage }}%",
+            "image": "{{ product.primary_image.url }}",
+            "link": "{% url 'products:detail' product.category.slug product.slug %}"
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+        {% if not sale_products %}
+        {
+            "title": "🎉 ¡Bienvenido a TechNova!",
+            "message": "Descubre los mejores productos tecnológicos",
+            "price": "",
+            "oldPrice": "",
+            "discount": "Hasta 40% OFF",
+            "image": "",
+            "link": "{% url 'products:sale' %}"
+        },
+        {
+            "title": "⚡ Envío Gratis",
+            "message": "En compras mayores a $100",
+            "price": "",
+            "oldPrice": "",
+            "discount": "Promoción",
+            "image": "",
+            "link": "{% url 'products:all' %}"
+        },
+        {
+            "title": "🎁 Ofertas Especiales",
+            "message": "Nuevos productos cada semana",
+            "price": "",
+            "oldPrice": "",
+            "discount": "Ver más",
+            "image": "",
+            "link": "{% url 'products:sale' %}"
+        }
+        {% endif %}
+    ]
+    </script>
 
     <!-- Hero Section -->
     <div class="hero-container">
@@ -129,16 +179,15 @@
                 <h2>⚡ Ofertas Flash</h2>
                 <p>Los mejores descuentos disponibles ahora</p>
             </div>
-            
+            {% if sale_products %}
             <div class="row g-4">
-                <!-- Producto 1 -->
+                {% for product in sale_products %}
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product-card h-100">
                         <div class="product-image position-relative">
-                            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&h=500&fit=crop" 
-                                alt="iPhone 15 Pro">
+                            <img src="{{ product.primary_image.url }}" alt="{{ product.name }}">
                             <div class="sale-badge">
-                                <span class="badge bg-danger">25%</span>
+                                <span class="badge bg-danger">{{ product.discount_percentage|default:"%" }}</span>
                             </div>
                             <div class="product-actions position-absolute top-0 end-0 p-2">
                                 <button class="btn btn-sm wishlist-btn">
@@ -147,10 +196,12 @@
                             </div>
                         </div>
                         <div class="product-info">
-                            <h5 class="product-name">iPhone 15 Pro Max 256GB</h5>
+                            <h5 class="product-name">{{ product.name }}</h5>
                             <div class="product-price mb-2">
-                                <span class="text-decoration-line-through text-muted">$1,299</span>
-                                <span class="text-danger ms-2">$974</span>
+                                {% if product.compare_at_price %}
+                                <span class="text-decoration-line-through text-muted">${{ product.compare_at_price }}</span>
+                                {% endif %}
+                                <span class="text-danger ms-2">${{ product.price }}</span>
                             </div>
                             <div class="product-rating mb-3">
                                 <i class="fas fa-star text-warning"></i>
@@ -160,121 +211,17 @@
                                 <i class="fas fa-star text-warning"></i>
                                 <span class="text-muted small ms-1">(128)</span>
                             </div>
-                            <a href="#" class="btn btn-primary w-100 btn-sm">
+                            <a href="{% url 'products:detail' product.category.slug product.slug %}" class="btn btn-primary w-100 btn-sm">
                                 <i class="fas fa-eye me-1"></i>Ver Detalles
                             </a>
                         </div>
                     </div>
                 </div>
-
-                <!-- Producto 2 -->
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product-card h-100">
-                        <div class="product-image position-relative">
-                            <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500&h=500&fit=crop" 
-                                alt="MacBook Pro">
-                            <div class="sale-badge">
-                                <span class="badge bg-danger">15%</span>
-                            </div>
-                            <div class="product-actions position-absolute top-0 end-0 p-2">
-                                <button class="btn btn-sm wishlist-btn">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h5 class="product-name">MacBook Pro M3 16" 512GB</h5>
-                            <div class="product-price mb-2">
-                                <span class="text-decoration-line-through text-muted">$2,499</span>
-                                <span class="text-danger ms-2">$2,124</span>
-                            </div>
-                            <div class="product-rating mb-3">
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="far fa-star text-warning"></i>
-                                <span class="text-muted small ms-1">(89)</span>
-                            </div>
-                            <a href="#" class="btn btn-primary w-100 btn-sm">
-                                <i class="fas fa-eye me-1"></i>Ver Detalles
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Producto 3 -->
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product-card h-100">
-                        <div class="product-image position-relative">
-                            <img src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500&h=500&fit=crop" 
-                                alt="iPad Pro">
-                            <div class="sale-badge">
-                                <span class="badge bg-danger">30%</span>
-                            </div>
-                            <div class="product-actions position-absolute top-0 end-0 p-2">
-                                <button class="btn btn-sm wishlist-btn">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h5 class="product-name">iPad Pro 12.9" M2 256GB</h5>
-                            <div class="product-price mb-2">
-                                <span class="text-decoration-line-through text-muted">$1,099</span>
-                                <span class="text-danger ms-2">$769</span>
-                            </div>
-                            <div class="product-rating mb-3">
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <span class="text-muted small ms-1">(156)</span>
-                            </div>
-                            <a href="#" class="btn btn-primary w-100 btn-sm">
-                                <i class="fas fa-eye me-1"></i>Ver Detalles
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Producto 4 -->
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product-card h-100">
-                        <div class="product-image position-relative">
-                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop" 
-                                alt="AirPods Max">
-                            <div class="sale-badge">
-                                <span class="badge bg-danger">20%</span>
-                            </div>
-                            <div class="product-actions position-absolute top-0 end-0 p-2">
-                                <button class="btn btn-sm wishlist-btn">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h5 class="product-name">AirPods Max - Cancelación Activa</h5>
-                            <div class="product-price mb-2">
-                                <span class="text-decoration-line-through text-muted">$549</span>
-                                <span class="text-danger ms-2">$439</span>
-                            </div>
-                            <div class="product-rating mb-3">
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="far fa-star text-warning"></i>
-                                <span class="text-muted small ms-1">(234)</span>
-                            </div>
-                            <a href="#" class="btn btn-primary w-100 btn-sm">
-                                <i class="fas fa-eye me-1"></i>Ver Detalles
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
+            {% else %}
+            <p class="text-muted">No hay ofertas disponibles en este momento.</p>
+            {% endif %}
         </section>
 
         <!-- Mejor Valorados -->
@@ -393,5 +340,6 @@
 
 <!-- Tu JavaScript personalizado -->
 <script src="{% static 'js/technova-animations.js' %}"></script>
+<script src="{% static 'js/promo.js' %}"></script>
 {% endblock %}
 

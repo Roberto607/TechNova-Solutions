@@ -10,9 +10,11 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from products.models import Product, Category
+from products.models import Offer
 from orders.models import Cart, CartItem
 from core.models import ContactMessage
 from .forms import ContactForm
+from django.utils import timezone
 
 
 def home(request):
@@ -39,12 +41,21 @@ def home(request):
         parent__isnull=True,
         is_active=True
     ).order_by('sort_order')[:6]
+
+    # Ofertas/promociones activas
+    now = timezone.now()
+    promotional_offers = Offer.objects.filter(
+        is_active=True,
+        start_date__lte=now,
+        end_date__gte=now
+    ).order_by('start_date')[:5]
     
     context = {
         'featured_products': featured_products,
         'sale_products': sale_products,
         'top_rated_products': top_rated_products,
         'main_categories': main_categories,
+        'promotional_offers': promotional_offers,
     }
     
     return render(request, 'home.html', context)

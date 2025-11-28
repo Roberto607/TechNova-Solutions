@@ -1,6 +1,68 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from django import forms
+import json
+from django.core.exceptions import ValidationError
+
 from .models import Category, Product, ProductImage, Review, Offer
+
+
+class ProductAdminForm(forms.ModelForm):
+    """Form para Product en el admin que muestra JSON "bonito" y valida la entrada."""
+    specifications = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 10, 'cols': 80}),
+        required=False,
+        help_text='Especificaciones en formato JSON. Pega aquí un JSON válido.'
+    )
+
+    features = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 6, 'cols': 80}),
+        required=False,
+        help_text='Lista de características en formato JSON (ej: ["característica1", "característica2"]).'
+    )
+
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Inicializar con JSON formateado para que se vea legible en el admin
+        instance = kwargs.get('instance')
+        if instance:
+            try:
+                self.fields['specifications'].initial = json.dumps(instance.specifications or {}, indent=2, ensure_ascii=False)
+            except (TypeError, ValueError):
+                self.fields['specifications'].initial = instance.specifications
+
+            try:
+                self.fields['features'].initial = json.dumps(instance.features or [], indent=2, ensure_ascii=False)
+            except (TypeError, ValueError):
+                self.fields['features'].initial = instance.features
+
+    def clean_specifications(self):
+        data = self.cleaned_data.get('specifications')
+        if not data:
+            return {}
+        try:
+            parsed = json.loads(data)
+            if not isinstance(parsed, dict):
+                raise ValidationError('Las especificaciones deben ser un objeto JSON (diccionario).')
+            return parsed
+        except (ValueError, TypeError) as e:
+            raise ValidationError(f'JSON inválido: {e}')
+
+    def clean_features(self):
+        data = self.cleaned_data.get('features')
+        if not data:
+            return []
+        try:
+            parsed = json.loads(data)
+            if not isinstance(parsed, list):
+                raise ValidationError('Las características deben ser una lista JSON.')
+            return parsed
+        except (ValueError, TypeError) as e:
+            raise ValidationError(f'JSON inválido: {e}')
 
 
 class ProductImageInline(admin.TabularInline):
@@ -28,6 +90,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    form = ProductAdminForm
     list_display = ('name', 'category', 'brand', 'price', 'compare_at_price', 'stock_quantity', 'status', 'is_on_sale')
     list_filter = ('status', 'condition', 'category', 'brand', 'created_at')
     search_fields = ('name', 'description', 'brand')
