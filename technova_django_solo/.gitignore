@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.so
+<<<<<<< HEAD
 
 # Django
 *.log
@@ -10,14 +11,52 @@ db.sqlite3
 db.sqlite3-journal
 media/
 staticfiles/
+=======
+.Python
+
+# Django
+*.log
+logs/
+
+# ⚠️ db.sqlite3 COMENTADO temporalmente (descomentar después del merge)
+# db.sqlite3
+db.sqlite3-journal
+
+# Media y Static
+/media
+/staticfiles
+/static
+>>>>>>> 268fbf00291a17ae8c0360376dc1308270beb694
 
 # Entornos virtuales
 venv/
 env/
 ENV/
+<<<<<<< HEAD
 
 # IDEs
+=======
+.venv/
+
+# IDEs y editores
+>>>>>>> 268fbf00291a17ae8c0360376dc1308270beb694
 .vscode/
 .idea/
 *.swp
 *.swo
+<<<<<<< HEAD
+=======
+*.swn
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Otros
+*.bak
+*.tmp
+.env
+>>>>>>> 268fbf00291a17ae8c0360376dc1308270beb694
