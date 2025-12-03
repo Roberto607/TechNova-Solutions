@@ -15,10 +15,9 @@ urlpatterns = [
     
     # Páginas estáticas
     path('nosotros/', TemplateView.as_view(template_name='pages/about.html'), name='about'),
-    path('contacto/', TemplateView.as_view(template_name='pages/contact.html'), name='contact'),
     path('terminos/', TemplateView.as_view(template_name='pages/terms.html'), name='terms'),
     path('privacidad/', TemplateView.as_view(template_name='pages/privacy.html'), name='privacy'),
-    path('newsletter/', include('newsletter.urls')),
+    # newsletter already included above; duplicated include removed to avoid namespace warning
 ]
 
 if settings.DEBUG:

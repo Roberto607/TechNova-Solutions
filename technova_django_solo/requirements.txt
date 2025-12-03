@@ -1,10 +1,18 @@
 Django==4.2.7
 djangorestframework==3.14.0
-psycopg2-binary==2.9.7
+<<<<<<< HEAD
+psycopg2-binary==2.9.9
 django-cors-headers==4.3.1
 django-extensions==3.2.3
 django-environ==0.11.2
-Pillow==10.0.1
+Pillow>=11.0.0
+=======
+psycopg2-binary
+django-cors-headers==4.3.1
+django-extensions==3.2.3
+django-environ==0.11.2
+Pillow
+>>>>>>> rama_maikel
 gunicorn==21.2.0
 celery==5.3.4
 redis==5.0.1
@@ -16,3 +24,4 @@ pytest-django==4.7.0
 stripe==7.0.0
 django-allauth==0.57.0
 django-filter==23.5
+python-dotenv==1.2.1

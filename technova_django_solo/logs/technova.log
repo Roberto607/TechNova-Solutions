@@ -41,3 +41,185 @@ Traceback (most recent call last):
     raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
 django.template.exceptions.TemplateDoesNotExist: pages/contact.html
 "GET /contacto/ HTTP/1.1" 500 92405
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 34511
+"GET /productsofertas/ HTTP/1.1" 200 15600
+"GET /nosotros/ HTTP/1.1" 200 15590
+"GET /static/images/funcionamiento.png HTTP/1.1" 200 307148
+"GET /static/images/about_somos.png HTTP/1.1" 200 1149201
+"GET /contacto/ HTTP/1.1" 200 18658
+"GET / HTTP/1.1" 200 34511
+"GET /productscategoria/smartphones/ HTTP/1.1" 200 14396
+"GET /productstodos/ HTTP/1.1" 200 16392
+"GET /productsofertas/ HTTP/1.1" 200 15600
+"GET /productscategoria/audio-video/ HTTP/1.1" 200 14384
+"GET /contacto/ HTTP/1.1" 200 18658
+"GET /productsofertas/ HTTP/1.1" 200 15600
+"GET /nosotros/ HTTP/1.1" 200 15590
+"GET / HTTP/1.1" 200 34511
+"GET /nosotros/ HTTP/1.1" 200 15590
+"GET / HTTP/1.1" 200 34511
+"GET /carrito/cart/ HTTP/1.1" 302 0
+"GET /usuarios/login/?next=/carrito/cart/ HTTP/1.1" 200 14868
+"GET /usuarios/login/ HTTP/1.1" 200 14848
+"POST /usuarios/login/ HTTP/1.1" 302 0
+"GET /admin-panel/ HTTP/1.1" 200 14961
+"GET /admin-panel/pedidos/ HTTP/1.1" 200 7879
+"GET /admin-panel/usuarios/ HTTP/1.1" 200 8469
+"GET /productsofertas/ HTTP/1.1" 200 17098
+"GET / HTTP/1.1" 200 35724
+"GET /productstodos/ HTTP/1.1" 200 17605
+"GET /carrito/cart/ HTTP/1.1" 200 18083
+"POST /carrito/cart/remove/10/ HTTP/1.1" 302 0
+"GET /carrito/cart/ HTTP/1.1" 200 14626
+"GET /carrito/cart/ HTTP/1.1" 200 14334
+"GET /admin-panel/ HTTP/1.1" 200 14961
+"GET /usuarios/dashboard/ HTTP/1.1" 200 16184
+"GET /usuarios/orders/ HTTP/1.1" 200 16366
+"GET /usuarios/logout/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 34805
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 34511
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /media/products/primary/audiovideo/photo_2025-perra.jpg HTTP/1.1" 304 0
+"GET /media/products/primary/tablets/photo_2025-11-11_00-47-18.jpg HTTP/1.1" 304 0
+"GET /media/products/primary/iphone-15-pro/1200_900.jpeg HTTP/1.1" 304 0
+"GET /media/products/primary/laptops/photo_2025-11-11_00-47-17.jpg HTTP/1.1" 304 0
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 4148
+"GET /productscategoria/audio-video/ HTTP/1.1" 200 14384
+"GET /productsproducto/audio-video/audiovideo/ HTTP/1.1" 200 14713
+"POST /carrito/cart/add/audiovideo/ HTTP/1.1" 302 0
+"GET /usuarios/login/?next=/carrito/cart/add/audiovideo/ HTTP/1.1" 200 14883
+"GET /productscategoria/laptops/ HTTP/1.1" 200 14327
+"GET /productscategoria/audio-video/ HTTP/1.1" 200 14384
+"GET /productscategoria/smartphones/ HTTP/1.1" 200 14396
+"GET /nosotros/ HTTP/1.1" 200 15590
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /contacto/ HTTP/1.1" 200 18658
+"GET /productsbuscar/?q=iphone HTTP/1.1" 200 16065
+"GET /carrito/cart/ HTTP/1.1" 302 0
+"GET /usuarios/login/?next=/carrito/cart/ HTTP/1.1" 200 14868
+"GET /productscategoria/laptops/ HTTP/1.1" 200 14327
+"GET /productscategoria/audio-video/ HTTP/1.1" 200 14384
+"GET /contacto/ HTTP/1.1" 200 18658
+Internal Server Error: /terminos/
+Traceback (most recent call last):
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: pages/terms.html
+"GET /terminos/ HTTP/1.1" 500 92465
+Internal Server Error: /privacidad/
+Traceback (most recent call last):
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: pages/privacy.html
+"GET /privacidad/ HTTP/1.1" 500 92547
+"GET /contacto/ HTTP/1.1" 200 18658
+"GET /contacto/ HTTP/1.1" 200 18658
+"GET /contacto/ HTTP/1.1" 200 18658
+"GET /productscategoria/audio-video/ HTTP/1.1" 200 14384
+"GET /productsofertas/ HTTP/1.1" 200 15600
+"GET /media/offers/photo_2025-11-16_00-49-33.jpg HTTP/1.1" 200 98420
+"GET /productscategoria/audio-video/ HTTP/1.1" 200 14384
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 34511
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /media/products/primary/tablets/photo_2025-11-11_00-47-18.jpg HTTP/1.1" 304 0
+"GET /media/products/primary/audiovideo/photo_2025-perra.jpg HTTP/1.1" 304 0
+"GET /media/products/primary/laptops/photo_2025-11-11_00-47-17.jpg HTTP/1.1" 304 0
+"GET /media/products/primary/iphone-15-pro/1200_900.jpeg HTTP/1.1" 304 0
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 4148
+"GET /productscategoria/smartphones/ HTTP/1.1" 200 14396
+"GET /productscategoria/laptops/ HTTP/1.1" 200 14327
+"GET /productscategoria/tablets/ HTTP/1.1" 200 14453
+"GET /productscategoria/audio-video/ HTTP/1.1" 200 14384
+"GET /productstodos/ HTTP/1.1" 200 16392
+"GET /carrito/cart/ HTTP/1.1" 302 0
+"GET /usuarios/login/?next=/carrito/cart/ HTTP/1.1" 200 14868
+"POST /usuarios/login/?next=/carrito/cart/ HTTP/1.1" 302 0
+"GET /admin-panel/ HTTP/1.1" 200 14961
+"GET /admin-panel/productos/ HTTP/1.1" 200 10294
+"GET /admin/products/product/add/ HTTP/1.1" 200 46227
+"GET /static/admin/css/base.css HTTP/1.1" 304 0
+"GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+"GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+"GET /static/admin/js/theme.js HTTP/1.1" 304 0
+"GET /static/admin/css/forms.css HTTP/1.1" 304 0
+"GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+"GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+"GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+"GET /static/admin/js/core.js HTTP/1.1" 304 0
+"GET /static/admin/js/inlines.js HTTP/1.1" 304 0
+"GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+"GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+"GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+"GET /static/admin/js/actions.js HTTP/1.1" 304 0
+"GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+"GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+"GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+"GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+"GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+"GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+"GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+"GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+"GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 304 0
+"GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+"GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+"GET /admin/jsi18n/ HTTP/1.1" 200 9208
+"GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+"GET /static/admin/img/inline-delete.svg HTTP/1.1" 304 0
+"GET /static/admin/img/icon-calendar.svg HTTP/1.1" 304 0
+"GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+"GET /admin-panel/usuarios/ HTTP/1.1" 200 8469
+"GET /admin-panel/pedidos/ HTTP/1.1" 200 7879
+"GET /admin-panel/ HTTP/1.1" 200 14961
+"GET /productsofertas/ HTTP/1.1" 200 16607
+"GET /media/offers/photo_2025-11-16_00-49-33.jpg HTTP/1.1" 304 0
+"GET /nosotros/ HTTP/1.1" 200 16597
+"GET /static/images/funcionamiento.png HTTP/1.1" 304 0
+"GET /static/images/about_somos.png HTTP/1.1" 304 0
+"GET /contacto/ HTTP/1.1" 200 19665
+Internal Server Error: /privacidad/
+Traceback (most recent call last):
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "C:\Users\Robert\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: pages/privacy.html
+"GET /privacidad/ HTTP/1.1" 500 92539
+"GET / HTTP/1.1" 200 35518
+"GET /productsofertas/ HTTP/1.1" 200 16607
