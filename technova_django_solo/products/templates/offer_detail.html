@@ -16,11 +16,10 @@
         <!-- Imagen principal -->
         <div class="col-md-6">
             <div class="mb-3">
-                {% if offer.image %}
-                    <img src="{{ offer.image.url }}" class="img-fluid" alt="{{ offer.title }}">
-                {% else %}
-                    <img src="https://via.placeholder.com/600x600?text=Oferta" class="img-fluid" alt="{{ offer.title }}">
-                {% endif %}
+                        {% if offer.image %}
+                            <img src="{{ offer.image.url }}" class="card-img-top" alt="{{ offer.title }}" 
+                                 style="height: 250px; object-fit: cover;">
+                        {% endif %}
             </div>
         </div>
 

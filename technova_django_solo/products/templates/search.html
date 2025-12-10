@@ -67,10 +67,6 @@
                                          class="card-img-top product-image" 
                                          alt="{{ product.additional_images.first.alt_text|default:product.name }}"
                                          loading="lazy">
-                                {% else %}
-                                    <img src="https://via.placeholder.com/300x200?text=No+Image" 
-                                         class="card-img-top product-image" 
-                                         alt="Sin imagen">
                                 {% endif %}
                                 
                                 {% if product.is_on_sale %}
