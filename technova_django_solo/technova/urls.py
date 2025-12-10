@@ -8,7 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('newsletter/', include('newsletter.urls')),
-    path('products', include('products.urls')),
+    path('products/', include('products.urls')),
     path('usuarios/', include('users.urls')),
     path('carrito/', include('orders.urls')),
     path('admin-panel/', include('admin_panel.urls')),

@@ -174,7 +174,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ related.name }}</h5>
                             <p class="card-text">${{ related.price }}</p>
-                            <a href="/products/producto/{{ related.category.slug }}/{{ related.slug }}/" class="btn btn-primary">Ver detalles</a>
+                            <a href="{% url 'products:detail' related.category.slug related.slug %}" class="btn btn-primary">Ver detalles</a>
                         </div>
                     </div>
                 </div>

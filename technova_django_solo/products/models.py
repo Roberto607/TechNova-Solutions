@@ -126,7 +126,8 @@ class Product(models.Model):
     
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('product_detail', args=[self.category.slug, self.slug])
+        # Use the namespaced URL name defined in `products.urls`
+        return reverse('products:detail', args=[self.category.slug, self.slug])
     
     @property
     def is_on_sale(self):
