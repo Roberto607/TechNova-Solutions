@@ -41,7 +41,7 @@ def add_to_cart(request, product_slug):
         
         if quantity <= 0:
             messages.error(request, 'La cantidad debe ser mayor a 0')
-            return redirect('products:product_detail', category_slug=product.category.slug, product_slug=product_slug)
+            return redirect('products:detail', category_slug=product.category.slug, product_slug=product_slug)
         
         cart, created = Cart.objects.get_or_create(user=request.user)
         
@@ -58,7 +58,11 @@ def add_to_cart(request, product_slug):
             cart_item.save()
         
         messages.success(request, f'{product.name} agregado al carrito')
-        return redirect('orders:cart')
+        # Volver a la página desde la que vino el usuario para mantener la misma pantalla
+        referer = request.META.get('HTTP_REFERER')
+        if referer:
+            return redirect(referer)
+        return redirect('products:detail', category_slug=product.category.slug, product_slug=product_slug)
     
     return redirect('products:detail', category_slug=product.category.slug, product_slug=product_slug)
 
@@ -75,7 +79,7 @@ def add_offer_to_cart(request, offer_id):
         
         if quantity <= 0:
             messages.error(request, 'La cantidad debe ser mayor a 0')
-            return redirect('products:sale_products')
+            return redirect('products:sale')
         
         cart, created = Cart.objects.get_or_create(user=request.user)
         
@@ -95,7 +99,10 @@ def add_offer_to_cart(request, offer_id):
         )
         
         messages.success(request, f'{offer.title} agregado al carrito')
-        return redirect('orders:cart')
+        referer = request.META.get('HTTP_REFERER')
+        if referer:
+            return redirect(referer)
+        return redirect('products:sale')
     
     return redirect('products:sale_products')
 
@@ -208,13 +215,30 @@ def checkout_confirm(request):
         
         # Crear items de la orden
         for cart_item in cart_items:
-            OrderItem.objects.create(
-                order=order,
-                product=cart_item.product,
-                quantity=cart_item.quantity,
-                unit_price=cart_item.product.price,
-                total_price=cart_item.total_price,
-            )
+            # Determinar el precio unitario según sea producto u oferta
+            if cart_item.is_offer:
+                unit_price = cart_item.offer_price
+            else:
+                unit_price = cart_item.product.price if cart_item.product else 0
+            # Crear OrderItem. Para ofertas no hay Product: guardamos el título de la oferta
+            if cart_item.is_offer:
+                OrderItem.objects.create(
+                    order=order,
+                    product=None,
+                    quantity=cart_item.quantity,
+                    unit_price=unit_price,
+                    total_price=cart_item.total_price,
+                    product_name=cart_item.offer_title or 'Oferta',
+                )
+            else:
+                OrderItem.objects.create(
+                    order=order,
+                    product=cart_item.product,
+                    quantity=cart_item.quantity,
+                    unit_price=unit_price,
+                    total_price=cart_item.total_price,
+                    product_name=cart_item.product.name,
+                )
         
         # Limpiar carrito
         cart.items.all().delete()
@@ -307,7 +331,8 @@ def add_to_wishlist(request, product_slug):
     else:
         messages.info(request, f'{product.name} ya está en tu lista de deseos')
     
-    return redirect('products:product_detail', category_slug=product.category.slug, product_slug=product_slug)
+    # Redirigir al detalle del producto usando el nombre correcto de la URL del app `products`
+    return redirect('products:detail', category_slug=product.category.slug, product_slug=product_slug)
 
 
 @login_required

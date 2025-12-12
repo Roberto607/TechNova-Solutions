@@ -40,13 +40,7 @@ class UserProfile(models.Model):
     date_of_birth = models.DateField(null=True, blank=True)
     city = models.CharField(max_length=100, blank=True, null=True)
     postal_code = models.CharField(max_length=10, blank=True, null=True)
-    gender = models.CharField(max_length=10, choices=[
-        ('M', 'Masculino'),
-        ('F', 'Femenino'),
-        ('O', 'Otro'),
-    ], blank=True, null=True)
-    profession = models.CharField(max_length=100, blank=True, null=True)
-    interests = models.TextField(blank=True, help_text="Intereses separados por comas")
+    # Removed fields: gender, profession, interests (not required)
     referral_source = models.CharField(max_length=100, blank=True, null=True)
     newsletter_subscription = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)

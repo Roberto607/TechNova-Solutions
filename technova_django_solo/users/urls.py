@@ -15,6 +15,8 @@ urlpatterns = [
     path('verify/<str:token>/', views.verify_email, name='verify'),
     path('resend-verification/', views.resend_verification, name='resend_verification'),
     path('registro-exitoso/', views.registration_success, name='registration_success'),
+    # Perfil
+    path('perfil/editar/', views.edit_profile, name='edit_profile'),
 
 ]
     

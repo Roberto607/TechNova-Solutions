@@ -1,0 +1,50 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}Productos - Panel Admin{% endblock %}
+{% block page_title %}Gestionar Productos{% endblock %}
+
+{% block content %}
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<h6 class="m-0 font-weight-bold text-primary">Lista de Productos</h6>
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table table-bordered" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Precio</th>
+						<th>Categoría</th>
+						<th>Creado</th>
+						<th>Estado</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for product in products %}
+					<tr>
+						<td>{{ product.name }}</td>
+						<td>${{ product.price }}</td>
+						<td>{{ product.category.name if product.category else '-' }}</td>
+						<td>{{ product.created_at|date:"d/m/Y" }}</td>
+						<td>
+							<span class="badge bg-{{ product.is_active|yesno:'success,secondary' }}">
+								{% if product.is_active %}Activo{% else %}Inactivo{% endif %}
+							</span>
+						</td>
+						<td>
+							<a href="/admin/products/product/{{ product.id }}/change/" class="btn btn-sm btn-info">
+								<i class="fas fa-edit"></i>
+							</a>
+						</td>
+					</tr>
+					{% empty %}
+					<tr><td colspan="6" class="text-center text-muted">No hay productos.</td></tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}

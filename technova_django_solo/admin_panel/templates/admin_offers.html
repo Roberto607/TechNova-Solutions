@@ -1,0 +1,46 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}Ofertas - Panel Admin{% endblock %}
+{% block page_title %}Gestionar Ofertas{% endblock %}
+
+{% block content %}
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<h6 class="m-0 font-weight-bold text-primary">Lista de Ofertas</h6>
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table table-bordered" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Título</th>
+						<th>Precio</th>
+						<th>Descuento</th>
+						<th>Activo</th>
+						<th>Creado</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for offer in offers %}
+					<tr>
+						<td>{{ offer.title }}</td>
+						<td>${{ offer.price }}</td>
+						<td>{{ offer.discount_percentage }}%</td>
+						<td><span class="badge bg-{{ offer.is_active|yesno:'success,secondary' }}">{% if offer.is_active %}Si{% else %}No{% endif %}</span></td>
+						<td>{{ offer.created_at|date:"d/m/Y" }}</td>
+						<td>
+							<a href="/admin/products/offer/{{ offer.id }}/change/" class="btn btn-sm btn-info">
+								<i class="fas fa-edit"></i>
+							</a>
+						</td>
+					</tr>
+					{% empty %}
+					<tr><td colspan="6" class="text-center text-muted">No hay ofertas.</td></tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}

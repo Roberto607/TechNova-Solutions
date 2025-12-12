@@ -106,7 +106,7 @@
         <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
         <h3>Tu carrito está vacío</h3>
         <p class="text-muted">¿No sabes qué comprar? ¡Mira nuestros productos destacados!</p>
-        <a href="/" class="btn btn-primary">Ver Productos</a>
+        <a href="{% url 'products:all' %}" class="btn btn-primary">Ver Productos</a>
     </div>
     {% endif %}
 </div>

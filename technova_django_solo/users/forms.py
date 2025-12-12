@@ -43,3 +43,16 @@ class UserRegistrationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        from .models import UserProfile
+        model = UserProfile
+        fields = ('phone', 'date_of_birth', 'city', 'postal_code', 'newsletter_subscription')
