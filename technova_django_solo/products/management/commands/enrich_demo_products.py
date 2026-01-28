@@ -189,8 +189,19 @@ class Command(BaseCommand):
                 prod.model = template.get('model', prod.model)
                 prod.short_description = template.get('short_description', prod.short_description)
                 prod.description = template.get('description', prod.description)
-                prod.specifications = template.get('specifications', prod.specifications or {})
-                prod.features = template.get('features', prod.features or [])
+                # merge specifications and move any template features into specifications under 'Características'
+                specs = dict(prod.specifications or {})
+                specs.update(template.get('specifications', {}))
+                tpl_features = template.get('features', []) or []
+                if tpl_features:
+                    existing_feats = specs.get('Características', [])
+                    if not isinstance(existing_feats, list):
+                        existing_feats = [existing_feats]
+                    for f in tpl_features:
+                        if f not in existing_feats:
+                            existing_feats.append(f)
+                    specs['Características'] = existing_feats
+                prod.specifications = specs
                 # update SKU if missing
                 if not prod.sku:
                     prod.sku = f"SKU-{random.randint(100000,999999)}"

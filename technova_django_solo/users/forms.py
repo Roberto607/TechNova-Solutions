@@ -50,9 +50,27 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = ('first_name', 'last_name', 'email')
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            widget = field.widget
+            existing = widget.attrs.get('class', '')
+            widget.attrs['class'] = (existing + ' form-control').strip()
+
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
         from .models import UserProfile
         model = UserProfile
         fields = ('phone', 'date_of_birth', 'city', 'postal_code', 'newsletter_subscription')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            widget = field.widget
+            existing = widget.attrs.get('class', '')
+            # display checkbox style for boolean
+            if isinstance(widget, (forms.CheckboxInput,)):
+                widget.attrs['class'] = (existing + ' form-check-input').strip()
+            else:
+                widget.attrs['class'] = (existing + ' form-control').strip()

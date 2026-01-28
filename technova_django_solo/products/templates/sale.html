@@ -3,48 +3,51 @@
 
 {% block content %}
 <div class="container mt-4">
-    <div class="alert alert-danger" role="alert">
-        <h1 class="alert-heading"><i class="fas fa-fire"></i> Ofertas Especiales</h1>
-        <p class="mb-0">¡Aprovecha estas increíbles ofertas!</p>
+    <div class="d-flex align-items-center mb-4">
+        <div class="me-3 display-6 text-primary"><i class="fas fa-fire"></i></div>
+        <div>
+            <h1 class="h3 mb-0">Ofertas Especiales</h1>
+            <p class="text-muted small mb-0">Ofertas seleccionadas con descuento exclusivo por tiempo limitado.</p>
+        </div>
     </div>
     
     <!-- Sección de Ofertas Especiales -->
     {% if offer_images %}
     <div class="row mb-4">
         {% for offer in offer_images %}
-        <div class="col-md-3 mb-4">
-            <div class="card h-100 sale-card product-card">
-                <div class="product-image position-relative">
+        <div class="col-6 col-sm-4 col-md-3 mb-4">
+            <article class="offer-card rounded-3 overflow-hidden shadow-sm h-100 d-flex flex-column bg-body">
+                <div class="offer-media position-relative" style="flex:0 0 160px;">
                     {% if offer.image %}
-                    <img src="{{ offer.image.url }}" class="card-img-top" alt="{{ offer.title }}">
+                    <img src="{{ offer.image.url }}" alt="{{ offer.title }}" class="w-100 h-100 object-cover">
+                    {% else %}
+                    <div class="w-100 h-100 bg-secondary bg-opacity-10"></div>
                     {% endif %}
+
                     {% if offer.discount_percentage %}
-                    <span class="position-absolute top-0 start-0 m-2 badge bg-danger sale-badge">
-                        <i class="fas fa-tag"></i> -{{ offer.discount_percentage }}%
-                    </span>
+                    <div class="discount-ribbon position-absolute top-0 end-0 m-2 text-white small fw-bold">-{{ offer.discount_percentage }}%</div>
                     {% endif %}
                 </div>
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">{{ offer.title }}</h5>
-                    <p class="card-text">{{ offer.description|truncatewords:15 }}</p>
-                    <div class="d-flex justify-content-between align-items-center mt-auto">
+
+                <div class="p-3 d-flex flex-column" style="flex:1 1 auto;">
+                    <h3 class="h6 mb-1 text-truncate" title="{{ offer.title }}">{{ offer.title }}</h3>
+                    <p class="text-muted small mb-3">{{ offer.description|truncatewords:12 }}</p>
+
+                    <div class="d-flex align-items-center justify-content-between mt-auto">
                         <div>
                             {% if offer.discount_percentage %}
-                                <span class="text-danger"><strong>${{ offer.final_price }}</strong></span>
-                                <span class="text-muted text-decoration-line-through">${{ offer.price }}</span>
+                                <div class="d-flex align-items-baseline gap-2">
+                                    <span class="price-final text-primary fs-5 fw-bold">${{ offer.final_price }}</span>
+                                    <small class="text-muted text-decoration-line-through">${{ offer.price }}</small>
+                                </div>
                             {% else %}
-                                <span class="text-danger"><strong>${{ offer.price }}</strong></span>
+                                <span class="price-final text-primary fs-5 fw-bold">${{ offer.price }}</span>
                             {% endif %}
                         </div>
-                        {% if offer.discount_percentage %}
-                        <span class="badge bg-danger">-{{ offer.discount_percentage }}%</span>
-                        {% endif %}
+                        <a href="{% url 'products:offer_detail' offer.id %}" class="btn btn-sm btn-outline-primary">Ver</a>
                     </div>
-                    <a href="{% url 'products:offer_detail' offer.id %}" class="btn btn-primary mt-2">
-                        <i class="fas fa-eye"></i> Ver detalles
-                    </a>
                 </div>
-            </div>
+            </article>
         </div>
         {% endfor %}
     </div>
@@ -52,35 +55,40 @@
 
     <!-- Sección de Productos con Descuento -->
     {% if products %}
-    <div class="alert alert-warning" role="alert">
-        <h2 class="alert-heading"><i class="fas fa-percentage"></i> Productos con Descuento</h2>
-        <p class="mb-0">Estos productos tienen precios especiales</p>
+    <div class="d-flex align-items-center mb-3">
+        <div class="me-3 text-warning"><i class="fas fa-percentage fa-lg"></i></div>
+        <div>
+            <h2 class="h5 mb-0">Descuentos</h2>
+            <p class="text-muted small mb-0">Selección con rebajas vigentes.</p>
+        </div>
     </div>
     
     <div class="row">
         {% for product in products %}
-        <div class="col-md-3 mb-4">
-            <div class="card h-100 product-card">
-                <div class="product-image">
+        <div class="col-6 col-sm-4 col-md-3 mb-4">
+            <article class="offer-card rounded-3 overflow-hidden shadow-sm h-100 d-flex flex-column bg-body">
+                <div class="offer-media position-relative" style="flex:0 0 140px;">
                     {% if product.primary_image %}
-                    <img src="{{ product.primary_image.url }}" class="card-img-top" alt="{{ product.name }}">
+                    <img src="{{ product.primary_image.url }}" alt="{{ product.name }}" class="w-100 h-100 object-cover">
+                    {% else %}
+                    <div class="w-100 h-100 bg-secondary bg-opacity-10"></div>
                     {% endif %}
+                    <div class="discount-ribbon position-absolute top-0 end-0 m-2 text-white small fw-bold">-{{ product.discount_percentage }}%</div>
                 </div>
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">{{ product.short_description }}</p>
-                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                <div class="p-3 d-flex flex-column" style="flex:1 1 auto;">
+                    <h3 class="h6 mb-1 text-truncate" title="{{ product.name }}">{{ product.name }}</h3>
+                    <p class="text-muted small mb-3">{{ product.short_description }}</p>
+                    <div class="d-flex align-items-center justify-content-between mt-auto">
                         <div>
-                            <span class="text-danger"><strong>${{ product.price }}</strong></span>
-                            <span class="text-muted text-decoration-line-through">${{ product.compare_at_price }}</span>
+                            <div class="d-flex align-items-baseline gap-2">
+                                <span class="price-final text-primary fs-5 fw-bold">${{ product.price }}</span>
+                                <small class="text-muted text-decoration-line-through">${{ product.compare_at_price }}</small>
+                            </div>
                         </div>
-                        <span class="badge bg-warning">-{{ product.discount_percentage }}%</span>
+                        <a href="{% url 'products:detail' product.category.slug product.slug %}" class="btn btn-sm btn-outline-primary">Ver</a>
                     </div>
-                    <a href="{% url 'products:detail' product.category.slug product.slug %}" class="btn btn-primary mt-2">
-                        <i class="fas fa-eye"></i> Ver detalles
-                    </a>
                 </div>
-            </div>
+            </article>
         </div>
         {% endfor %}
     </div>
@@ -100,10 +108,33 @@
 </div>
 
 <style>
-.btn-sm {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.875rem;
+/* Offers premium card styles (light and dark mode) */
+.offer-card {
+    background: linear-gradient(180deg, #ffffff, #fbfdff);
+    border: 1px solid rgba(2,6,23,0.06);
+    color: #0b1724;
 }
+.offer-card .text-muted { color: rgba(11,23,36,0.6); }
+.offer-card:hover { transform: translateY(-4px); transition: transform .18s ease; box-shadow: 0 10px 30px rgba(2,6,23,0.08); }
+.offer-media img.object-cover { object-fit: cover; display:block; }
+.discount-ribbon { background: linear-gradient(90deg,#ef4444,#dc2626); padding: 6px 10px; border-radius:8px; box-shadow: 0 4px 10px rgba(220,38,38,0.12); }
+.price-final { color: #0ea5e9; }
+.offer-card .btn-outline-primary { border-color: rgba(14,165,233,0.12); color: #0ea5e9; }
+.offer-card .btn-outline-primary:hover { background: rgba(14,165,233,0.06); }
+
+/* Dark mode overrides when <html> has .theme-dark */
+.theme-dark .offer-card {
+    background: linear-gradient(180deg, #071428, #031722);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #e6f2fb;
+}
+.theme-dark .offer-card .text-muted { color: rgba(230,242,251,0.65); }
+.theme-dark .discount-ribbon { box-shadow: 0 4px 12px rgba(0,0,0,0.45); }
+.theme-dark .price-final { color: #38bdf8; }
+.theme-dark .offer-card .btn-outline-primary { border-color: rgba(56,189,248,0.14); color: #7dd3fc; }
+.theme-dark .offer-card .btn-outline-primary:hover { background: rgba(56,189,248,0.06); }
+
+@media (max-width:575px){ .offer-media{ flex:0 0 120px !important } }
 </style>
 {% endblock %}
 

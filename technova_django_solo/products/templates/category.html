@@ -4,21 +4,12 @@
 
 {% block content %}
 <div class="container mt-4">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 9.5L12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5z"></path></svg>
-                    Inicio
-                </a></li>
-            <li class="breadcrumb-item active">{{ category.name }}</li>
-        </ol>
-    </nav>
-
-    <div class="row mb-4">
-        <div class="col-12">
-            <h1>{{ category.name }}</h1>
+    <div class="d-flex align-items-center mb-3">
+        <div class="me-3 display-6 text-primary"><i class="fas fa-tags"></i></div>
+        <div>
+            <h1 class="h3 mb-0">{{ category.name }}</h1>
             {% if category.description %}
-            <p class="lead">{{ category.description }}</p>
+            <p class="text-muted small mb-0">{{ category.description }}</p>
             {% endif %}
         </div>
     </div>
@@ -49,11 +40,7 @@
     </div>
     {% endif %}
 
-    <!-- Productos -->
     <div class="row">
-        <div class="col-12 mb-3">
-            <h3>Productos</h3>
-        </div>
         {% for product in products %}
         <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
             <div class="card h-100 product-card">
@@ -78,7 +65,7 @@
                             <a href="{% url 'products:detail' product.category.slug product.slug %}" class="btn btn-primary btn-sm">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <form method="POST" action="{% url 'orders:add_to_cart' product.slug %}" class="d-inline">
+                            <form method="POST" action="{% url 'orders:add_to_cart' product.slug %}" class="d-inline ajax-add-to-cart">
                                 {% csrf_token %}
                                 <input type="hidden" name="quantity" value="1">
                                 <button type="submit" class="btn btn-outline-secondary btn-sm">

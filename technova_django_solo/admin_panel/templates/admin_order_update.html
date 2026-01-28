@@ -1,0 +1,27 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card premium">
+	<div class="card-header">Actualizar Estado Pedido</div>
+	<div class="card-body">
+		<form method="post">
+			{% csrf_token %}
+			<div class="mb-3">
+				<label for="status" class="form-label">Estado</label>
+				<select name="status" id="status" class="form-control">
+					<option value="pending" {% if order.status == 'pending' %}selected{% endif %}>Pendiente</option>
+					<option value="processing" {% if order.status == 'processing' %}selected{% endif %}>En proceso</option>
+					<option value="completed" {% if order.status == 'completed' %}selected{% endif %}>Completado</option>
+					<option value="cancelled" {% if order.status == 'cancelled' %}selected{% endif %}>Cancelado</option>
+				</select>
+			</div>
+			<div class="d-flex justify-content-end gap-2">
+				<a href="{% url 'admin_panel:admin_order_detail' order.pk %}" class="btn btn-outline-secondary">Cancelar</a>
+				<button class="btn btn-primary" type="submit">Actualizar</button>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}

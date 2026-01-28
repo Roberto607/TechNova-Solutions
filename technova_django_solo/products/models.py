@@ -26,6 +26,7 @@ def default_specifications():
 
 
 def default_features():
+    # Mantener para compatibilidad con migraciones históricas
     return []
 
 
@@ -87,7 +88,6 @@ class Product(models.Model):
     
     # Especificaciones técnicas
     specifications = models.JSONField(default=default_specifications, blank=True, help_text="Especificaciones técnicas en formato JSON")
-    features = models.JSONField(default=default_features, blank=True, help_text="Lista de características")
     
     # Imágenes
     primary_image = models.ImageField(upload_to=get_product_image_path, blank=True, null=True)
@@ -95,13 +95,9 @@ class Product(models.Model):
     # Propiedades del producto
     condition = models.CharField(max_length=20, choices=CONDITION_CHOICES, default='new')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
-    weight = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    dimensions = models.CharField(max_length=100, blank=True, help_text="Largo x Ancho x Alto en cm")
     
-    # SEO
-    meta_title = models.CharField(max_length=200, blank=True)
-    meta_description = models.CharField(max_length=300, blank=True)
-    meta_keywords = models.CharField(max_length=500, blank=True)
+    
+    # Nota: los campos SEO se gestionan externamente; no se almacenan aquí.
     
     # Rating y reviews
     average_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])

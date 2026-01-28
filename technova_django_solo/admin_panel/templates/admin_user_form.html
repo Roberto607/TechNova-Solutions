@@ -1,0 +1,64 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card premium">
+	<div class="card-header">{{ title }}</div>
+	<div class="card-body">
+		<form method="post">
+			{% csrf_token %}
+			{% if form.errors %}
+			<div class="alert alert-danger">
+				<ul class="mb-0">
+				{% for field, errs in form.errors.items %}
+					{% for err in errs %}
+						<li>{% if field != '__all__' %}<strong>{{ field }}:</strong> {% endif %}{{ err }}</li>
+					{% endfor %}
+				{% endfor %}
+				</ul>
+			</div>
+			{% endif %}
+			<div class="row g-3">
+				<div class="col-md-6">
+					<label class="form-label">{{ form.username.label }}</label>
+					{{ form.username }}
+				</div>
+				<div class="col-md-6">
+					<label class="form-label">{{ form.email.label }}</label>
+					{{ form.email }}
+				</div>
+				<div class="col-md-6">
+					<label class="form-label">{{ form.first_name.label }}</label>
+					{{ form.first_name }}
+				</div>
+				<div class="col-md-6">
+					<label class="form-label">{{ form.last_name.label }}</label>
+					{{ form.last_name }}
+				</div>
+				<div class="col-12">
+					<label class="form-label">{{ form.password.label }}</label>
+					{{ form.password }}
+					<div class="form-help">{{ form.password.help_text }}</div>
+				</div>
+				<div class="col-12 d-flex gap-3 align-items-center">
+					<div class="form-check">
+						{{ form.is_active }} <label class="form-check-label">Activo</label>
+					</div>
+					<div class="form-check">
+						{{ form.is_staff }} <label class="form-check-label">Staff</label>
+					</div>
+					<div class="form-check">
+						{{ form.is_superuser }} <label class="form-check-label">Superusuario</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="d-flex gap-2 justify-content-end mt-3">
+				<a href="{% url 'admin_panel:admin_users' %}" class="btn btn-secondary">Cancelar</a>
+				<button class="btn btn-primary" type="submit">Guardar</button>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}

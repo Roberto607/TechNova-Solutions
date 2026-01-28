@@ -1,0 +1,57 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card premium">
+	<div class="card-header">{{ title }}</div>
+	<div class="card-body">
+		<form method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			{% if form.errors %}
+			<div class="alert alert-danger">
+				<ul class="mb-0">
+				{% for field, errs in form.errors.items %}
+					{% for err in errs %}
+						<li>{% if field != '__all__' %}<strong>{{ field }}:</strong> {% endif %}{{ err }}</li>
+					{% endfor %}
+				{% endfor %}
+				</ul>
+			</div>
+			{% endif %}
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="mb-3">
+						<label class="form-label">{{ form.title.label }}</label>
+						{{ form.title }}
+					</div>
+					<div class="mb-3">
+						<label class="form-label">{{ form.description.label }}</label>
+						{{ form.description }}
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="mb-3">
+						<label class="form-label">{{ form.image.label }}</label>
+						{{ form.image }}
+						<div class="form-help">Imagen de la oferta</div>
+					</div>
+					<div class="mb-3">
+						<label class="form-label">{{ form.price.label }}</label>
+						{{ form.price }}
+					</div>
+					<div class="mb-3">
+						<label class="form-label">{{ form.discount_percentage.label }}</label>
+						{{ form.discount_percentage }}
+					</div>
+				</div>
+			</div>
+
+			<div class="d-flex gap-2 justify-content-end mt-3">
+				<a href="{% url 'admin_panel:admin_offers' %}" class="btn btn-secondary">Cancelar</a>
+				<button class="btn btn-primary" type="submit">Guardar</button>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}

@@ -4,16 +4,13 @@
 
 {% block content %}
 <div class="container mt-4">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 9.5L12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5z"></path></svg>
-                    Inicio
-                </a></li>
-            <li class="breadcrumb-item"><a href="/products/categoria/{{ product.category.slug }}/">{{ product.category.name }}</a></li>
-            <li class="breadcrumb-item active">{{ product.name }}</li>
-        </ol>
-    </nav>
+    <div class="d-flex align-items-center mb-3">
+        <div class="me-3 display-6 text-primary"><i class="fas fa-box-open"></i></div>
+        <div>
+            <h1 class="h3 mb-0">{{ product.name }}</h1>
+            <p class="text-muted small mb-0">{{ product.brand }} {{ product.model }} — {{ product.category.name }}</p>
+        </div>
+    </div>
 
     <div class="row">
         <!-- Imagen principal -->
@@ -81,11 +78,11 @@
             </div>
 
             <!-- Especificaciones -->
-            {% if product.specifications %}
+            {% if display_specs %}
             <div class="mb-4">
                 <h4>Especificaciones</h4>
                 <table class="table">
-                    {% for key, value in product.specifications.items %}
+                    {% for key, value in display_specs.items %}
                     <tr>
                         <td><strong>{{ key }}:</strong></td>
                         <td>{{ value }}</td>
@@ -95,20 +92,10 @@
             </div>
             {% endif %}
 
-            <!-- Características -->
-            {% if product.features %}
-            <div class="mb-4">
-                <h4>Características</h4>
-                <ul>
-                    {% for feature in product.features %}
-                    <li>{{ feature }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
+            <!-- Características eliminadas: ahora se gestionan dentro de Especificaciones -->
 
             <!-- Formulario de compra -->
-            <form class="d-flex gap-2" method="POST" action="{% url 'orders:add_to_cart' product.slug %}">
+            <form class="d-flex gap-2 ajax-add-to-cart" method="POST" action="{% url 'orders:add_to_cart' product.slug %}">
                 {% csrf_token %}
                 <input type="hidden" name="product_id" value="{{ product.id }}">
                 <div class="input-group" style="max-width: 200px;">
@@ -158,11 +145,10 @@
     </div>
     {% endif %}
 
-    <!-- Productos relacionados -->
     {% if related_products %}
     <div class="row mt-5">
         <div class="col-12">
-            <h3>Productos relacionados</h3>
+            <h3>Relacionados</h3>
             <div class="row">
                 {% for related in related_products %}
                 <div class="col-md-3 mb-4">

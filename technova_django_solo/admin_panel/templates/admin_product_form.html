@@ -1,0 +1,115 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card">
+	<div class="card-header">{{ title }}</div>
+	<div class="card-body">
+		<form method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			{% if form.errors %}
+			<div class="alert alert-danger">
+				<ul class="mb-0">
+				{% for field, errs in form.errors.items %}
+					{% for err in errs %}
+						<li>{% if field != '__all__' %}<strong>{{ field }}:</strong> {% endif %}{{ err }}</li>
+					{% endfor %}
+				{% endfor %}
+				</ul>
+			</div>
+			{% endif %}
+			<div class="row g-4">
+				<div class="col-lg-7">
+					<div class="form-section">
+						<div class="mb-3">
+							<label class="form-label">{{ form.name.label }}</label>
+							{{ form.name }}
+							<div class="form-help">{{ form.name.help_text }}</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label class="form-label">{{ form.slug.label }}</label>
+								{{ form.slug }}
+							</div>
+							<div class="col-md-6 mb-3">
+								<label class="form-label">{{ form.category.label }}</label>
+								{{ form.category }}
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">{{ form.short_description.label }}</label>
+							{{ form.short_description }}
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">{{ form.description.label }}</label>
+							{{ form.description }}
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Especificaciones</label>
+							{{ form.specifications_text }}
+							<div class="form-help">{{ form.specifications_text.help_text }}</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-5">
+					<div class="form-section">
+						<div class="mb-3 text-center">
+							{% if product and product.primary_image %}
+								<img class="image-preview mb-2" src="{{ product.primary_image.url }}" alt="{{ product.name }}">
+								<div class="form-help">Imagen actual</div>
+							{% endif %}
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">{{ form.primary_image.label }}</label>
+							<div class="file-drop">
+								{{ form.primary_image }}
+								<div class="form-help">Arrastra una imagen o haz clic para seleccionar (JPEG/PNG)</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label class="form-label">{{ form.price.label }}</label>
+								{{ form.price }}
+							</div>
+							<div class="col-md-6 mb-3">
+								<label class="form-label">{{ form.stock_quantity.label }}</label>
+								{{ form.stock_quantity }}
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label class="form-label">{{ form.low_stock_threshold.label }}</label>
+								{{ form.low_stock_threshold }}
+								<div class="form-help">Umbral para advertencia de bajo stock</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label class="form-label">{{ form.status.label }}</label>
+								{{ form.status }}
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">{{ form.condition.label }}</label>
+							{{ form.condition }}
+						</div>
+
+						<div class="d-flex gap-2 justify-content-end mt-3">
+							<a href="{% url 'admin_panel:admin_products' %}" class="btn btn-secondary">Cancelar</a>
+							<button class="btn btn-primary" type="submit">Guardar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}

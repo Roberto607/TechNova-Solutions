@@ -15,12 +15,6 @@ class ProductAdminForm(forms.ModelForm):
         help_text='Especificaciones en formato JSON. Pega aquí un JSON válido.'
     )
 
-    features = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': 6, 'cols': 80}),
-        required=False,
-        help_text='Lista de características en formato JSON (ej: ["característica1", "característica2"]).'
-    )
-
     class Meta:
         model = Product
         fields = '__all__'
@@ -35,11 +29,6 @@ class ProductAdminForm(forms.ModelForm):
             except (TypeError, ValueError):
                 self.fields['specifications'].initial = instance.specifications
 
-            try:
-                self.fields['features'].initial = json.dumps(instance.features or [], indent=2, ensure_ascii=False)
-            except (TypeError, ValueError):
-                self.fields['features'].initial = instance.features
-
     def clean_specifications(self):
         data = self.cleaned_data.get('specifications')
         if not data:
@@ -48,18 +37,6 @@ class ProductAdminForm(forms.ModelForm):
             parsed = json.loads(data)
             if not isinstance(parsed, dict):
                 raise ValidationError('Las especificaciones deben ser un objeto JSON (diccionario).')
-            return parsed
-        except (ValueError, TypeError) as e:
-            raise ValidationError(f'JSON inválido: {e}')
-
-    def clean_features(self):
-        data = self.cleaned_data.get('features')
-        if not data:
-            return []
-        try:
-            parsed = json.loads(data)
-            if not isinstance(parsed, list):
-                raise ValidationError('Las características deben ser una lista JSON.')
             return parsed
         except (ValueError, TypeError) as e:
             raise ValidationError(f'JSON inválido: {e}')
@@ -118,10 +95,7 @@ class ProductAdmin(admin.ModelAdmin):
             'description': 'La imagen principal del producto. Las imágenes adicionales se pueden agregar abajo'
         }),
         ('Especificaciones', {
-            'fields': ('specifications', 'features', 'weight', 'dimensions')
-        }),
-        ('SEO', {
-            'fields': ('meta_title', 'meta_description', 'meta_keywords')
+            'fields': ('specifications',)
         }),
         ('Fechas', {
             'fields': ('created_at', 'updated_at', 'published_at'),

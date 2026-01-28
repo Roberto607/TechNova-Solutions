@@ -80,8 +80,7 @@ class Command(BaseCommand):
 
             p.specifications = specs
 
-            # expand features list
-            features = list(p.features or [])
+            # expand features into specifications under key 'Características'
             additions = []
             if cat_slug == 'laptops':
                 additions = ['Backlit keyboard', 'Fast charging', 'Thunderbolt support', 'Fingerprint reader']
@@ -99,10 +98,14 @@ class Command(BaseCommand):
                 additions = ['Low latency mode', 'Custom performance profiles', 'RGB lighting']
 
             for a in additions:
-                if a not in features:
-                    features.append(a)
-
-            p.features = features
+                # add to specifications 'Características' list
+                spec_features = specs.get('Características', [])
+                if not isinstance(spec_features, list):
+                    spec_features = [spec_features]
+                if a not in spec_features:
+                    spec_features.append(a)
+                specs['Características'] = spec_features
+            p.specifications = specs
             p.save()
             updated += 1
 

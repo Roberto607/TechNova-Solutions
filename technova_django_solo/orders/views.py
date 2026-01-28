@@ -40,6 +40,9 @@ def add_to_cart(request, product_slug):
         quantity = int(request.POST.get('quantity', 1))
         
         if quantity <= 0:
+            # For AJAX requests return JSON
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'success': False, 'message': 'La cantidad debe ser mayor a 0'}, status=400)
             messages.error(request, 'La cantidad debe ser mayor a 0')
             return redirect('products:detail', category_slug=product.category.slug, product_slug=product_slug)
         
@@ -57,6 +60,18 @@ def add_to_cart(request, product_slug):
             cart_item.quantity += quantity
             cart_item.save()
         
+        # Compute updated cart count
+        cart_items = cart.items.all()
+        cart_count = sum(item.quantity for item in cart_items)
+
+        # If AJAX, return JSON so frontend can update without reload
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success': True,
+                'message': f'{product.name} agregado al carrito',
+                'cart_count': cart_count,
+            })
+
         messages.success(request, f'{product.name} agregado al carrito')
         # Volver a la página desde la que vino el usuario para mantener la misma pantalla
         referer = request.META.get('HTTP_REFERER')

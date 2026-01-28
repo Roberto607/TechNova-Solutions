@@ -1,0 +1,37 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card premium">
+	<div class="card-header d-flex justify-content-between align-items-center">
+		<div>
+			<strong>Pedido</strong>
+			<div class="text-muted">{{ order.order_number }}</div>
+		</div>
+		<div class="d-flex gap-2">
+			<a href="{% url 'admin_panel:admin_order_update' order.pk %}" class="btn btn-sm btn-primary">Actualizar Estado</a>
+			<a href="{% url 'admin_panel:admin_orders' %}" class="btn btn-sm btn-secondary">Volver</a>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="row">
+			<div class="col-md-6">
+				<p><strong>Cliente:</strong> {{ order.user.get_full_name }} ({{ order.user.username }})</p>
+				<p><strong>Total:</strong> ${{ order.total_amount }}</p>
+				<p><strong>Estado:</strong> {{ order.get_status_display }}</p>
+			</div>
+			<div class="col-md-6">
+				<h6>Items</h6>
+				<ul>
+					{% for item in order.items.all %}
+						<li>{{ item.product.name }} x {{ item.quantity }} — ${{ item.price }}</li>
+					{% empty %}
+						<li>No hay items.</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

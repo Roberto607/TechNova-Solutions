@@ -1,0 +1,32 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card premium">
+	<div class="card-header d-flex justify-content-between align-items-center">
+		<div>
+			<strong>Usuario</strong>
+			<div class="text-muted">{{ user_obj.username }}</div>
+		</div>
+		<div class="d-flex gap-2">
+			<a href="{% url 'admin_panel:admin_user_edit' user_obj.pk %}" class="btn btn-sm btn-primary">Editar</a>
+			<a href="{% url 'admin_panel:admin_user_permissions' user_obj.pk %}" class="btn btn-sm btn-warning">Permisos</a>
+			<a href="{% url 'admin_panel:admin_users' %}" class="btn btn-sm btn-secondary">Volver</a>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="row">
+			<div class="col-md-6">
+				<p><strong>Email:</strong> {{ user_obj.email }}</p>
+				<p><strong>Nombre:</strong> {{ user_obj.get_full_name }}</p>
+			</div>
+			<div class="col-md-6">
+				<p><strong>Activo:</strong> {{ user_obj.is_active }}</p>
+				<p><strong>Staff:</strong> {{ user_obj.is_staff }}</p>
+				<p><strong>Superuser:</strong> {{ user_obj.is_superuser }}</p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

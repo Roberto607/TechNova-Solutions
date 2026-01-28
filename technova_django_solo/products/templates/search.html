@@ -6,28 +6,18 @@
 
 {% block content %}
 <div class="container mt-4">
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'products:home' %}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 9.5L12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5z"></path></svg>
-                    Inicio
-                </a></li>
-            <li class="breadcrumb-item active">Búsqueda</li>
-        </ol>
-    </nav>
-
-    <!-- Título y término de búsqueda -->
-    <div class="row mb-4">
-        <div class="col">
-            <h1 class="h3">
+    <div class="d-flex align-items-center mb-3">
+        <div class="me-3 display-6 text-primary"><i class="fas fa-search"></i></div>
+        <div>
+            <h1 class="h3 mb-0">
                 {% if query %}
-                    Resultados de búsqueda: "{{ query }}"
+                    Resultados: "{{ query }}"
                     <span class="badge bg-secondary">{{ products.count }} producto{{ products.count|pluralize }}</span>
                 {% else %}
-                    Búsqueda de productos
+                    Búsqueda
                 {% endif %}
             </h1>
+            <p class="text-muted small mb-0">Usa palabras clave para encontrar productos rápidamente.</p>
         </div>
     </div>
 

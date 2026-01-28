@@ -1,0 +1,42 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card premium">
+	<div class="card-header d-flex justify-content-between align-items-center">
+		<div>
+			<strong>Producto</strong>
+			<div class="text-muted">{{ product.name }}</div>
+		</div>
+		<div class="d-flex gap-2">
+			<a href="{% url 'admin_panel:admin_product_edit' product.pk %}" class="btn btn-sm btn-primary">Editar</a>
+			<a href="{% url 'admin_panel:admin_products' %}" class="btn btn-sm btn-secondary">Volver</a>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="row">
+			<div class="col-lg-4">
+				{% if product.primary_image %}
+					<img src="{{ product.primary_image.url }}" class="image-preview" alt="{{ product.name }}">
+				{% endif %}
+			</div>
+			<div class="col-lg-8">
+				<h4>{{ product.short_description }}</h4>
+				<p><strong>Categoría:</strong> {% if product.category %}{{ product.category.name }}{% else %}-{% endif %}</p>
+				<p><strong>Precio:</strong> ${{ product.price }}</p>
+				<p><strong>Stock:</strong> {{ product.stock_quantity }}</p>
+				{% if product.specifications %}
+				<hr />
+				<h6>Especificaciones</h6>
+				<ul>
+					{% for k, v in product.specifications.items %}
+						<li><strong>{{ k }}:</strong> {{ v }}</li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
