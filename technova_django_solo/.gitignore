@@ -35,3 +35,16 @@ ENV/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Environment files
+.env
+.env.*
+
+# Secrets / keys
+*.pem
+*.key
+
+# Frontend / build outputs
+node_modules/
+build/
+dist/

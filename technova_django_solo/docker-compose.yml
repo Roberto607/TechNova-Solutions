@@ -1,0 +1,87 @@
+networks:
+  technova-network:
+    driver: bridge
+
+services:
+  web:
+    build: .
+    command: sh -c "python manage.py runserver 0.0.0.0:8000 --insecure --nostatic"
+    volumes:
+      - .:/app
+    ports:
+      - "80:8000"
+    env_file:
+      - ./.env
+    environment:
+      - DEBUG=1
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/technova_db
+      - REDIS_URL=redis://redis:6379/1
+      - ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
+      - SECURE_SSL_REDIRECT=False
+      - SITE_URL=http://localhost
+      - EMAIL_HOST=smtp.gmail.com
+      - EMAIL_PORT=587
+      - EMAIL_USE_TLS=True
+      - EMAIL_HOST_USER=lissetmejias686@gmail.com
+      - EMAIL_HOST_PASSWORD=bwdocolifmchqguw
+
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - technova-network
+
+
+  db:
+    image: postgres:13-alpine  # Vuelta a la versión 13
+    container_name: postgres_db
+    restart: always
+    environment:
+      - POSTGRES_DB=technova_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - technova-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d technova_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+
+  redis:
+    image: redis:alpine
+    container_name: redis_cache
+    restart: always
+    networks:
+      - technova-network
+    ports:
+      - "6379:6379"
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=robert@technova.com
+      - PGADMIN_DEFAULT_PASSWORD=*Robert123
+    ports:
+      - "5556:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - technova-network
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  postgres_data:
+  pgadmin_data:

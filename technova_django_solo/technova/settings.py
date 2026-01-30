@@ -7,9 +7,6 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-
-
-
 # Cargar variables de entorno
 load_dotenv()
 
@@ -25,9 +22,10 @@ if not os.path.exists(logs_dir):
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-technova-development-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+DEBUG = True  # Forzado a True para desarrollo
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,0.0.0.0').split(',')
 
 # Configuración de aplicaciones
 INSTALLED_APPS = [
@@ -98,25 +96,28 @@ WSGI_APPLICATION = 'technova.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB', 'technova_db'),
+        'USER': os.getenv('POSTGRES_USER', 'postgres'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'postgres'),
+        'HOST': os.getenv('DB_HOST', 'db'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
-
 
 # Cache configuration
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': os.getenv('REDIS_URL', 'redis://localhost:6379/1'),
+        'LOCATION': os.getenv('REDIS_URL', 'redis://redis:6379/1'),
         'KEY_PREFIX': 'technova_',
-        'TIMEOUT': 3600,  # 1 hora
+        'TIMEOUT': 3600,
     }
 }
 
-# Configuración de Celery (tareas asíncronas)
-CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')
-CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
+# Configuración de Celery
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://redis:6379/0')
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://redis:6379/0')
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -134,7 +135,6 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_SESSION_REMEMBER = True
-
 
 # Configuración de REST Framework
 REST_FRAMEWORK = {
@@ -166,6 +166,10 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+else:
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
 
 # Configuración de archivos estáticos
 STATIC_URL = '/static/'
@@ -174,33 +178,28 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Configuración de archivos multimedia
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Configuración de email
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Cambiar según tu proveedor
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'lissetmejias686@gmail.com'  # Tu email
-EMAIL_HOST_PASSWORD = 'apkd mimn dvsp iobi'  # Tu contraseña
-DEFAULT_FROM_EMAIL = 'robertocarlosvaldes4@gmail.com'  # Email por defecto
-DEFAULT_FROM_NAME = 'TechNova Solutions'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'lissetmejias686@gmail.com')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'robertocarlosvaldes4@gmail.com')
+EMAIL_TIMEOUT = 30  # Timeout para Docker
+EMAIL_USE_SSL = False  # Importante para Docker
 
 # Configuración del sitio
-SITE_URL = 'http://127.0.0.1:8000'  # Cambiar en producción
+SITE_URL = os.getenv('SITE_URL', 'http://localhost:8000')
 SITE_NAME = 'TechNova Solutions'
 
 # Configuración de autenticación
-AUTH_USER_MODEL = 'users.User'  # Si usas un modelo User personalizado
-LOGIN_URL = '/usuarios/login/'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-
-# Configuración de tokens de autenticación
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -219,7 +218,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Configuración de internacionalización
 LANGUAGE_CODE = 'es-mx'
 TIME_ZONE = 'America/Mexico_City'
@@ -231,12 +229,11 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
-       'file': {
+        'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
             'filename': os.path.join(BASE_DIR, 'logs', 'technova.log'),
         },
-
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
@@ -262,21 +259,17 @@ STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', 'sk_test_...')
 
 # Configuración del sitio
 SITE_ID = 1
-SITE_NAME = 'TechNova Solutions'
-SITE_URL = os.getenv('SITE_URL', 'http://localhost:8000')
 
 # Configuración de cookies
-SESSION_COOKIE_AGE = 86400  # 24 horas
+SESSION_COOKIE_AGE = 86400
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_SAVE_EVERY_REQUEST = True
 
-# Configuración de CSRF
+# Configuración de CSRF y CORS
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://localhost:8000,http://127.0.0.1:8000').split(',')
-
-# Configuración de CORS
 CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:8000,http://127.0.0.1:8000').split(',')
 
-# Configuración de Whitenoise para archivos estáticos en producción
+# Configuración de Whitenoise
 WHITENOISE_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Configuración del admin
