@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Django==4.2.7
 djangorestframework==3.14.0
 psycopg2-binary==2.9.9
@@ -17,3 +18,24 @@ stripe==7.0.0
 django-allauth==0.57.0
 django-filter==23.5
 python-dotenv==1.2.1
+=======
+Django
+djangorestframework
+psycopg2-binary
+django-cors-headers
+django-extensions
+django-environ
+Pillow
+gunicorn
+celery
+redis
+whitenoise
+django-debug-toolbar
+coverage
+pytest
+pytest-django
+stripe
+django-allauth
+django-filter
+python-dotenv
+>>>>>>> origin/rama_maikel

@@ -1,0 +1,44 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}Pedidos - Panel Admin{% endblock %}
+{% block page_title %}Gestionar Pedidos{% endblock %}
+
+{% block content %}
+<div class="card premium mb-4">
+	<div class="card-header py-3 d-flex justify-content-between align-items-center">
+		<h6 class="m-0">Pedidos</h6>
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table table-hover align-middle" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Número</th>
+						<th>Cliente</th>
+						<th>Total</th>
+						<th>Estado</th>
+						<th>Fecha</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for order in orders %}
+					<tr>
+						<td>{{ order.order_number }}</td>
+						<td>{{ order.user.username }}</td>
+						<td>${{ order.total_amount }}</td>
+						<td><span class="badge bg-{{ order.status|yesno:'success,danger' }}">{{ order.get_status_display }}</span></td>
+						<td>{{ order.created_at|date:"d/m/Y" }}</td>
+						<td>
+							<a href="{% url 'admin_panel:admin_order_detail' order.pk %}" class="btn btn-sm btn-outline-primary" title="Ver"><i class="fas fa-eye"></i></a>
+						</td>
+					</tr>
+					{% empty %}
+					<tr><td colspan="6" class="text-center text-muted">No hay pedidos.</td></tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}

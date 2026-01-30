@@ -15,6 +15,7 @@ from orders.models import Cart, CartItem
 from core.models import ContactMessage
 from .forms import ContactForm
 from django.utils import timezone
+from django.urls import reverse
 
 
 def home(request):
@@ -159,3 +160,19 @@ def error_404(request, exception):
 def error_500(request):
     """Manejo de error 500"""
     return render(request, 'core/errors/500.html', status=500)
+
+
+def affiliates(request):
+    """Página de programa de Afiliados: información y solicitud"""
+    if request.method == 'POST':
+        # Si el usuario está autenticado, registrar la petición y notificar
+        if request.user.is_authenticated:
+            user_email = request.user.email or ''
+            # Mensaje de confirmación; en futuro se puede guardar en DB o enviar email
+            messages.success(request, f'Gracias por tu interés. Te contactaremos en {user_email} con más información.')
+            return redirect('core:affiliates')
+        # Si no está autenticado, redirigir al login con next
+        login_url = reverse('users:login')
+        return redirect(f"{login_url}?next={request.path}")
+
+    return render(request, 'affiliates.html')

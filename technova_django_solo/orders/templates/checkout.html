@@ -102,6 +102,47 @@
                                 PayPal
                             </label>
                         </div>
+                        
+                        <!-- Campos para tarjeta (se muestran sólo si payment_method==credit_card) -->
+                        <div id="card_fields" class="mt-3">
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <label for="card_name" class="form-label">Nombre en la tarjeta</label>
+                                    <input type="text" class="form-control" id="card_name" name="card_name" placeholder="Nombre tal como aparece en la tarjeta">
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="card_number" class="form-label">Número de tarjeta</label>
+                                    <input type="text" class="form-control" id="card_number" name="card_number" placeholder="XXXX XXXX XXXX XXXX" inputmode="numeric" maxlength="19">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="card_exp" class="form-label">Fecha de expiración</label>
+                                    <div class="d-flex gap-2">
+                                        <input type="text" class="form-control" id="card_exp_month" name="card_exp_month" placeholder="MM" maxlength="2">
+                                        <input type="text" class="form-control" id="card_exp_year" name="card_exp_year" placeholder="AA" maxlength="2">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="card_cvc" class="form-label">CVC / CVV</label>
+                                    <input type="text" class="form-control" id="card_cvc" name="card_cvc" placeholder="123" maxlength="4" inputmode="numeric">
+                                </div>
+                            </div>
+                            <p class="small text-muted">Los datos de la tarjeta se procesarán de forma segura. Esta es una simulación; implementa un gateway (Stripe, PayPal, etc.) para pagos reales.</p>
+                        </div>
+                        
+                        <!-- Campos para PayPal (se muestran sólo si payment_method==paypal) -->
+                        <div id="paypal_fields" class="mt-3" style="display: none;">
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <label for="paypal_email" class="form-label">Correo PayPal</label>
+                                    <input type="email" class="form-control" id="paypal_email" name="paypal_email" placeholder="tu-correo@ejemplo.com">
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="paypal_note" class="form-label">Nota (opcional)</label>
+                                    <input type="text" class="form-control" id="paypal_note" name="paypal_note" placeholder="Alguna referencia o mensaje para la transacción">
+                                </div>
+                            </div>
+                            <p class="small text-muted">Al confirmar, serás redirigido a PayPal para completar el pago (simulación). En producción integra la API/SDK de PayPal.</p>
+                        </div>
                     </div>
                 </div>
 
@@ -143,4 +184,51 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Toggle billing address fields when checkbox changes
+document.addEventListener('DOMContentLoaded', function(){
+    var sameCheckbox = document.getElementById('same_as_shipping');
+    var billingFields = document.querySelector('.billing-fields');
+    function toggleBilling(){
+        if(sameCheckbox.checked){
+            billingFields.style.display = 'none';
+        } else {
+            billingFields.style.display = 'block';
+        }
+    }
+    if(sameCheckbox){
+        // initial
+        toggleBilling();
+        sameCheckbox.addEventListener('change', toggleBilling);
+    }
+
+    // Toggle payment-specific fields when payment method changes
+    var creditRadio = document.getElementById('credit_card');
+    var paypalRadio = document.getElementById('paypal');
+    var cardFields = document.getElementById('card_fields');
+    var paypalFields = document.getElementById('paypal_fields');
+
+    function togglePaymentFields(){
+        if(creditRadio && creditRadio.checked){
+            if(cardFields) cardFields.style.display = 'block';
+            if(paypalFields) paypalFields.style.display = 'none';
+        } else if(paypalRadio && paypalRadio.checked){
+            if(cardFields) cardFields.style.display = 'none';
+            if(paypalFields) paypalFields.style.display = 'block';
+        } else {
+            if(cardFields) cardFields.style.display = 'none';
+            if(paypalFields) paypalFields.style.display = 'none';
+        }
+    }
+
+    if(creditRadio && paypalRadio){
+        togglePaymentFields();
+        creditRadio.addEventListener('change', togglePaymentFields);
+        paypalRadio.addEventListener('change', togglePaymentFields);
+    }
+});
+</script>
 {% endblock %}

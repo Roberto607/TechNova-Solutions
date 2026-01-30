@@ -27,7 +27,7 @@
             "price": "${{ product.price }}",
             "oldPrice": "{% if product.compare_at_price %}${{ product.compare_at_price }}{% endif %}",
             "discount": "{{ product.discount_percentage }}%",
-            "image": "{{ product.primary_image.url }}",
+            "image": "{% if product.primary_image %}{{ product.primary_image.url }}{% else %}{% endif %}",
             "link": "{% url 'products:detail' product.category.slug product.slug %}"
         }{% if not forloop.last %},{% endif %}
         {% endfor %}
@@ -185,7 +185,9 @@
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product-card h-100">
                         <div class="product-image position-relative">
+                            {% if product.primary_image %}
                             <img src="{{ product.primary_image.url }}" alt="{{ product.name }}">
+                            {% endif %}
                             <div class="sale-badge">
                                 <span class="badge bg-danger">{{ product.discount_percentage|default:"%" }}</span>
                             </div>
@@ -257,9 +259,10 @@
                                 <i class="fas fa-star text-warning"></i>
                                 <span class="text-muted small ms-1">(342)</span>
                             </div>
-                            <a href="#" class="btn btn-primary w-100 btn-sm">
+                            <!--<a href="#" class="btn btn-primary w-100 btn-sm">
                                 <i class="fas fa-eye me-1"></i>Ver Detalles
-                            </a>
+                            </a>-->
+                                
                         </div>
                     </div>
                 </div>
@@ -289,9 +292,9 @@
                                 <i class="fas fa-star text-warning"></i>
                                 <span class="text-muted small ms-1">(198)</span>
                             </div>
-                            <a href="#" class="btn btn-primary w-100 btn-sm">
+                            <!--<a href="#" class="btn btn-primary w-100 btn-sm">
                                 <i class="fas fa-eye me-1"></i>Ver Detalles
-                            </a>
+                            </a>-->
                         </div>
                     </div>
                 </div>
@@ -321,9 +324,9 @@
                                 <i class="fas fa-star text-warning"></i>
                                 <span class="text-muted small ms-1">(567)</span>
                             </div>
-                            <a href="#" class="btn btn-primary w-100 btn-sm">
+                            <!--<a href="#" class="btn btn-primary w-100 btn-sm">
                                 <i class="fas fa-eye me-1"></i>Ver Detalles
-                            </a>
+                            </a>-->
                         </div>
                     </div>
                 </div>

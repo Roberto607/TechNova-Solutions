@@ -186,7 +186,8 @@ class Order(models.Model):
 class OrderItem(models.Model):
     """Items de pedidos"""
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
-    product = models.ForeignKey('products.Product', on_delete=models.PROTECT)
+    # Allow product to be null for items created from offers (no product instance)
+    product = models.ForeignKey('products.Product', on_delete=models.PROTECT, null=True, blank=True)
     
     quantity = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -204,12 +205,15 @@ class OrderItem(models.Model):
     
     def save(self, *args, **kwargs):
         # Guardar información del producto al momento de la compra
-        if not self.product_name:
-            self.product_name = self.product.name
-        if not self.product_sku:
-            self.product_sku = self.product.sku or ''
-        if not self.product_image and self.product.primary_image:
-            self.product_image = self.product.primary_image
+        # Only access related `product` if it has been provided (avoid RelatedObjectDoesNotExist)
+        if getattr(self, 'product_id', None):
+            if not self.product_name:
+                self.product_name = self.product.name
+            if not self.product_sku:
+                self.product_sku = self.product.sku or ''
+            # copy primary image file if present
+            if not self.product_image and getattr(self.product, 'primary_image', None):
+                self.product_image = self.product.primary_image
             
         self.total_price = self.unit_price * self.quantity
         super().save(*args, **kwargs)

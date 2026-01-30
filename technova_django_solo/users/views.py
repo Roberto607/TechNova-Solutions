@@ -14,9 +14,12 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from orders.models import Order
 from orders.models import Wishlist
+from django.core.paginator import Paginator
 User = get_user_model()
 from django.urls import reverse
 
+
+from .forms import UserRegistrationForm, UserUpdateForm, UserProfileForm
 
 
 @csrf_protect
@@ -210,10 +213,36 @@ def logout_view(request):
 
 
 def orders(request):
-    return render(request, 'orders.html')
+    # Mostrar lista de pedidos dentro del panel 'Mi Cuenta'
+    if not request.user.is_authenticated:
+        return redirect('users:login')
+
+    orders_qs = Order.objects.filter(user=request.user).order_by('-created_at')
+    paginator = Paginator(orders_qs, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'orders': page_obj,
+        'page_obj': page_obj,
+        'active_tab': 'orders',
+    }
+
+    return render(request, 'orders.html', context)
 
 def wishlist(request):
-    return render(request, 'wishlist.html')
+    # Render wishlist within Mi Cuenta to keep consistent menu
+    if not request.user.is_authenticated:
+        return redirect('users:login')
+
+    wishlist_items = Wishlist.objects.filter(user=request.user).select_related('product')
+
+    context = {
+        'wishlist_items': wishlist_items,
+        'active_tab': 'wishlist',
+    }
+
+    return render(request, 'wishlist.html', context)
 
 
 @login_required
@@ -228,6 +257,42 @@ def dashboard_view(request):
         'recent_orders': orders,
         'wishlist_count': Wishlist.objects.filter(user=request.user).count(),
         'recent_wishlist': wishlist_items,
+        'active_tab': 'dashboard',
     }
     
     return render(request, 'dashboard.html', context)
+
+
+@login_required
+def edit_profile(request):
+    """Editar información básica y perfil del usuario dentro de Mi Cuenta"""
+    user = request.user
+
+    try:
+        profile = user.profile
+    except Exception:
+        from .models import UserProfile
+        profile = UserProfile.objects.create(user=user)
+
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=user)
+        profile_form = UserProfileForm(request.POST, instance=profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Perfil actualizado correctamente')
+            return redirect('users:dashboard')
+        else:
+            messages.error(request, 'Por favor corrige los errores en el formulario')
+    else:
+        user_form = UserUpdateForm(instance=user)
+        profile_form = UserProfileForm(instance=profile)
+
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'active_tab': 'dashboard',
+    }
+
+    return render(request, 'edit_profile.html', context)

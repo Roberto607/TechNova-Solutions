@@ -63,12 +63,20 @@ def product_detail(request, category_slug, product_slug):
     
     # Obtener reseñas aprobadas
     approved_reviews = product.reviews.filter(is_approved=True)
-    
+    # Prepare display-friendly specifications (convert lists to comma-separated strings)
+    specs = {}
+    for k, v in (product.specifications or {}).items():
+        if isinstance(v, list):
+            specs[k] = ', '.join(str(x) for x in v)
+        else:
+            specs[k] = v
+
     context = {
         'product': product,
         'category': category,
         'related_products': related_products,
         'approved_reviews': approved_reviews,
+        'display_specs': specs,
     }
     return render(request, 'detail.html', context)
 
