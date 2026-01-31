@@ -10,9 +10,12 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from products.models import Product, Category
+from products.models import Offer
 from orders.models import Cart, CartItem
 from core.models import ContactMessage
 from .forms import ContactForm
+from django.utils import timezone
+from django.urls import reverse
 
 
 def home(request):
@@ -39,12 +42,21 @@ def home(request):
         parent__isnull=True,
         is_active=True
     ).order_by('sort_order')[:6]
+
+    # Ofertas/promociones activas
+    now = timezone.now()
+    promotional_offers = Offer.objects.filter(
+        is_active=True,
+        start_date__lte=now,
+        end_date__gte=now
+    ).order_by('start_date')[:5]
     
     context = {
         'featured_products': featured_products,
         'sale_products': sale_products,
         'top_rated_products': top_rated_products,
         'main_categories': main_categories,
+        'promotional_offers': promotional_offers,
     }
     
     return render(request, 'home.html', context)
@@ -148,3 +160,19 @@ def error_404(request, exception):
 def error_500(request):
     """Manejo de error 500"""
     return render(request, 'core/errors/500.html', status=500)
+
+
+def affiliates(request):
+    """Página de programa de Afiliados: información y solicitud"""
+    if request.method == 'POST':
+        # Si el usuario está autenticado, registrar la petición y notificar
+        if request.user.is_authenticated:
+            user_email = request.user.email or ''
+            # Mensaje de confirmación; en futuro se puede guardar en DB o enviar email
+            messages.success(request, f'Gracias por tu interés. Te contactaremos en {user_email} con más información.')
+            return redirect('core:affiliates')
+        # Si no está autenticado, redirigir al login con next
+        login_url = reverse('users:login')
+        return redirect(f"{login_url}?next={request.path}")
+
+    return render(request, 'affiliates.html')

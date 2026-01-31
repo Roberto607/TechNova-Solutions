@@ -1,0 +1,33 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card premium">
+	<div class="card-header d-flex justify-content-between align-items-center">
+		<div>
+			<strong>Oferta</strong>
+			<div class="text-muted">{{ offer.title }}</div>
+		</div>
+		<div class="d-flex gap-2">
+			<a href="{% url 'admin_panel:admin_offer_edit' offer.pk %}" class="btn btn-sm btn-primary">Editar</a>
+			<a href="{% url 'admin_panel:admin_offers' %}" class="btn btn-sm btn-secondary">Volver</a>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="row">
+			<div class="col-lg-4">
+				{% if offer.image %}
+					<img src="{{ offer.image.url }}" class="image-preview" alt="{{ offer.title }}">
+				{% endif %}
+			</div>
+			<div class="col-lg-8">
+				<h4>{{ offer.description }}</h4>
+				<p><strong>Precio:</strong> ${{ offer.price }}</p>
+				<p><strong>Descuento:</strong> {{ offer.discount_percentage }}%</p>
+				<p><strong>Activo:</strong> {% if offer.is_active %}Si{% else %}No{% endif %}</p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

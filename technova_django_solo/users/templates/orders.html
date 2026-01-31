@@ -10,13 +10,13 @@
                 <div class="card-body">
                     <h5 class="card-title">Mi Menú</h5>
                     <div class="list-group">
-                        <a href="{% url 'users:dashboard' %}" class="list-group-item list-group-item-action active">
+                        <a href="{% url 'users:dashboard' %}" class="list-group-item list-group-item-action {% if active_tab == 'dashboard' %}active{% endif %}">
                             <i class="fas fa-tachometer-alt me-2"></i>Dashboard
                         </a>
-                        <a href="{% url 'users:orders' %}" class="list-group-item list-group-item-action">
+                        <a href="{% url 'users:orders' %}" class="list-group-item list-group-item-action {% if active_tab == 'orders' %}active{% endif %}">
                             <i class="fas fa-box me-2"></i>Mis Pedidos
                         </a>
-                        <a href="{% url 'users:wishlist' %}" class="list-group-item list-group-item-action">
+                        <a href="{% url 'users:wishlist' %}" class="list-group-item list-group-item-action {% if active_tab == 'wishlist' %}active{% endif %}">
                             <i class="fas fa-heart me-2"></i>Wishlist
                         </a>
                         <a href="{% url 'users:logout' %}" class="list-group-item list-group-item-action">
@@ -30,9 +30,87 @@
         <div class="col-md-9">
             <div class="card">
                 <div class="card-body">
+                    {% if orders %}
+                    <h2 class="card-title">Mis Pedidos</h2>
+                    <div class="table-responsive mt-3">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Número de Pedido</th>
+                                    <th>Fecha</th>
+                                    <th>Total</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'orders:order_detail' order.order_number %}" class="text-decoration-none">
+                                            {{ order.order_number }}
+                                        </a>
+                                    </td>
+                                    <td>{{ order.created_at|date:"d/m/Y H:i" }}</td>
+                                    <td>${{ order.total_amount }}</td>
+                                    <td>
+                                        {% if order.status == 'pending' %}
+                                            <span class="badge bg-warning">Pendiente</span>
+                                        {% elif order.status == 'processing' %}
+                                            <span class="badge bg-info">Procesando</span>
+                                        {% elif order.status == 'shipped' %}
+                                            <span class="badge bg-primary">Enviado</span>
+                                        {% elif order.status == 'delivered' %}
+                                            <span class="badge bg-success">Entregado</span>
+                                        {% elif order.status == 'cancelled' %}
+                                            <span class="badge bg-danger">Cancelado</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'orders:order_detail' order.order_number %}" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        {% if order.is_cancellable %}
+                                        <form method="POST" action="{% url 'orders:cancel_order' order.order_number %}" class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Estás seguro de que quieres cancelar este pedido?')">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </form>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Paginación -->
+                    {% if page_obj.has_other_pages %}
+                    <nav aria-label="Page navigation" class="mt-3">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+                            {% endif %}
+
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                                {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    {% endif %}
+                    {% else %}
+                    <!-- Si no hay pedidos, mostrar la vista resumida (igual que dashboard) -->
                     <h2 class="card-title">Bienvenido, {{ user.username }}!</h2>
                     <p class="card-text">Aquí puedes ver y gestionar tu cuenta.</p>
-                    
                     <div class="row mt-4">
                         <div class="col-md-4">
                             <div class="card text-center">
@@ -64,6 +142,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

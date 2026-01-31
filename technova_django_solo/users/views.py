@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from .forms import UserRegistrationForm
+# Forms
 from django.conf import settings
 from django.core.mail import EmailMessage
 from django.contrib.auth import get_user_model
@@ -14,10 +14,14 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from orders.models import Order
 from orders.models import Wishlist
+from django.core.paginator import Paginator
 User = get_user_model()
+from django.urls import reverse
+
+# Local forms
+from .forms import UserRegistrationForm, UserUpdateForm, UserProfileForm
 
 
-@csrf_protect
 @csrf_protect
 def login_view(request):
     if request.method == 'POST':
@@ -80,11 +84,18 @@ def register_view(request):
                 expires_at=timezone.now() + timezone.timedelta(hours=24)
             )
             
-            # Preparar contexto para el email
+            # Preparar contexto para el email (usar URL absoluta desde la request)
+            verification_url = request.build_absolute_uri(reverse('users:verify', args=[token]))
+            print(f"URL de verificación: {verification_url}")  # Debug
+            print(f"SITE_URL: {settings.SITE_URL}")  # Debug
+            print(f"Token: {token}")  # Debug
+            
             context = {
                 'user': user,
-                'verification_url': f"{settings.SITE_URL}/usuarios/verify/{token}",
+                'verification_url': verification_url,
             }
+            
+            print(f"Contexto del email: {context}")  # Debug
             
             # Renderizar template HTML
             html_content = render_to_string('verification_email.html', context)
@@ -97,24 +108,36 @@ def register_view(request):
                 to=[user.email],
             )
             email.content_subtype = "html"
-            email.send()
             
-            return redirect('users:registration_success')
+            try:
+                result = email.send()
+                print(f"Resultado del envío: {result}")  # Debug
+                messages.success(request, 'Se ha enviado un email de verificación.')
+                return redirect('users:registration_success')
+            except Exception as e:
+                print(f"Error al enviar email: {str(e)}")  # Debug
+                messages.error(request, f'Error al enviar el email: {str(e)}')
+                user.delete()  # Eliminar el usuario si el email no se pudo enviar
+                return redirect('users:register')
+        else:
+            messages.error(request, 'Por favor, corrige los errores del formulario')
     else:
         form = UserRegistrationForm()
     
     return render(request, 'register.html', {'form': form})
 
-                
-def registration_success(request):
-    """Vista que muestra el mensaje de registro exitoso"""
-    return render(request, 'registration_success.html')
-                
+
 def verify_email(request, token):
     """Verificar email del usuario"""
+    print(f"Token recibido: {token}")  # Debug
+    
     try:
         verification_token = VerificationToken.objects.get(token=token)
+        print(f"Token encontrado: {verification_token}")  # Debug
+        print(f"Válido hasta: {verification_token.expires_at}")  # Debug
+        
         if verification_token.is_valid():
+            print("Token válido")  # Debug
             user = verification_token.user
             user.is_active = True
             user.save()
@@ -127,9 +150,11 @@ def verify_email(request, token):
             messages.success(request, '¡Tu cuenta ha sido verificada! Bienvenido a TechNova Solutions.')
             return redirect('core:home')
         else:
+            print("Token inválido o expirado")  # Debug
             messages.error(request, 'El enlace de verificación ha expirado. Por favor, solicita uno nuevo.')
             return redirect('users:register')
     except VerificationToken.DoesNotExist:
+        print("Token no existe en la base de datos")  # Debug
         messages.error(request, 'Enlace de verificación inválido.')
         return redirect('users:register')
 
@@ -152,11 +177,11 @@ def resend_verification(request):
             # Preparar contexto para el email
             context = {
                 'user': user,
-                'verification_url': f"{settings.SITE_URL}/usuarios/verificar/{token}/",
+                'verification_url': request.build_absolute_uri(reverse('users:verify', args=[token])),
             }
             
             # Renderizar template HTML
-            html_content = render_to_string('users/verification_email.html', context)
+            html_content = render_to_string('verification_email.html', context)
             
             # Crear y enviar email
             email = EmailMessage(
@@ -177,6 +202,9 @@ def resend_verification(request):
     
     return render(request, 'resend_verification.html')
 
+def registration_success(request):
+    """Vista que muestra el mensaje de registro exitoso"""
+    return render(request, 'registration_success.html')
 def logout_view(request):
     logout(request)
     messages.info(request, "Has cerrado sesión exitosamente.")
@@ -185,10 +213,36 @@ def logout_view(request):
 
 
 def orders(request):
-    return render(request, 'orders.html')
+    # Mostrar lista de pedidos dentro del panel 'Mi Cuenta'
+    if not request.user.is_authenticated:
+        return redirect('users:login')
+
+    orders_qs = Order.objects.filter(user=request.user).order_by('-created_at')
+    paginator = Paginator(orders_qs, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'orders': page_obj,
+        'page_obj': page_obj,
+        'active_tab': 'orders',
+    }
+
+    return render(request, 'orders.html', context)
 
 def wishlist(request):
-    return render(request, 'wishlist.html')
+    # Render wishlist within Mi Cuenta to keep consistent menu
+    if not request.user.is_authenticated:
+        return redirect('users:login')
+
+    wishlist_items = Wishlist.objects.filter(user=request.user).select_related('product')
+
+    context = {
+        'wishlist_items': wishlist_items,
+        'active_tab': 'wishlist',
+    }
+
+    return render(request, 'wishlist.html', context)
 
 
 @login_required
@@ -203,10 +257,40 @@ def dashboard_view(request):
         'recent_orders': orders,
         'wishlist_count': Wishlist.objects.filter(user=request.user).count(),
         'recent_wishlist': wishlist_items,
+        'active_tab': 'dashboard',
     }
     
     return render(request, 'dashboard.html', context)
+@login_required
+def edit_profile(request):
+    """Editar información básica y perfil del usuario dentro de Mi Cuenta"""
+    user = request.user
 
+    try:
+        profile = user.profile
+    except Exception:
+        from .models import UserProfile
+        profile = UserProfile.objects.create(user=user)
 
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=user)
+        profile_form = UserProfileForm(request.POST, instance=profile)
 
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Perfil actualizado correctamente')
+            return redirect('users:dashboard')
+        else:
+            messages.error(request, 'Por favor corrige los errores en el formulario')
+    else:
+        user_form = UserUpdateForm(instance=user)
+        profile_form = UserProfileForm(instance=profile)
 
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'active_tab': 'dashboard',
+    }
+
+    return render(request, 'edit_profile.html', context)

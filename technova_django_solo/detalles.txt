@@ -1,0 +1,145 @@
+Aquí está el listado completo de comandos con su justificación:
+
+Limpieza inicial
+bash
+
+
+
+
+docker-compose down
+docker system prune -f
+Justificación: Elimina contenedores antiguos y recursos no utilizados para evitar conflictos.
+
+Construcción de imágenes
+bash
+
+
+
+
+docker-compose up --build -d
+Justificación: Construye las imágenes Docker con los cambios recientes y levanta los contenedores en modo detached.
+
+Verificación de contenedores
+bash
+
+
+
+
+docker-compose ps
+Justificación: Confirma que todos los contenedores estén corriendo correctamente.
+
+Esperar a que la base de datos esté lista
+bash
+
+
+
+
+docker-compose exec db pg_isready -U postgres
+Justificación: Asegura que PostgreSQL esté completamente inicializado antes de ejecutar migraciones.
+
+Ejecutar migraciones
+bash
+
+
+
+
+docker-compose exec web python manage.py migrate
+Justificación: Crea las tablas necesarias en la base de datos según los modelos de Django.
+
+Crear superusuario (solo primera vez)
+bash
+
+
+
+
+docker-compose exec web python manage.py createsuperuser
+Justificación: Crea el administrador para acceder al panel de Django.
+
+Recolectar archivos estáticos
+bash
+
+
+
+
+docker-compose exec web python manage.py collectstatic --noinput
+Justificación: Agrupa todos los archivos estáticos en un solo lugar para servirlos eficientemente.
+
+Verificar logs de la aplicación
+bash
+
+
+
+
+docker-compose logs web
+Justificación: Revisa que no haya errores en la aplicación.
+
+Verificar logs de la base de datos
+bash
+
+
+
+
+docker-compose logs db
+Justificación: Confirma que la base de datos esté funcionando correctamente.
+
+Verificar logs de Redis
+bash
+
+
+
+
+docker-compose logs redis
+Justificación: Asegura que el sistema de caché esté operativo.
+
+Verificar logs de pgAdmin
+bash
+
+
+
+
+docker-compose logs pgadmin
+Justificación: Confirma que la interfaz de administración de la base de datos esté funcionando.
+
+Probar la aplicación
+bash
+
+
+
+
+curl http://localhost:8000
+Justificación: Verifica que la aplicación responda correctamente.
+
+Probar el panel de administración
+bash
+
+
+
+
+curl http://localhost:8000/admin
+Justificación: Confirma que el panel de administración sea accesible.
+
+Verificar el estado de los servicios
+bash
+
+
+
+
+docker-compose exec web python manage.py check --deploy
+Justificación: Ejecuta las verificaciones de despliegue de Django para asegurar que todo esté configurado correctamente.
+
+Reiniciar servicios si es necesario
+bash
+
+
+
+
+docker-compose restart
+Justificación: Reinicia todos los servicios para aplicar cualquier cambio pendiente.
+
+Verificación final
+bash
+
+
+
+
+docker-compose ps

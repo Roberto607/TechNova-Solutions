@@ -223,3 +223,12 @@ django.template.exceptions.TemplateDoesNotExist: pages/privacy.html
 "GET /privacidad/ HTTP/1.1" 500 92539
 "GET / HTTP/1.1" 200 35518
 "GET /productsofertas/ HTTP/1.1" 200 16607
+Watching for file changes with StatReloader
+/app/users/views.py changed, reloading.
+Watching for file changes with StatReloader
+/app/users/views.py changed, reloading.
+Watching for file changes with StatReloader
+/app/core/migrations/0003_alter_contactmessage_email.py changed, reloading.
+Watching for file changes with StatReloader
+/app/core/migrations/0003_alter_contactmessage_email.py changed, reloading.
+Watching for file changes with StatReloader

@@ -4,13 +4,13 @@
 
 {% block content %}
 <div class="container mt-4">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-            <li class="breadcrumb-item"><a href="/products/categoria/{{ product.category.slug }}/">{{ product.category.name }}</a></li>
-            <li class="breadcrumb-item active">{{ product.name }}</li>
-        </ol>
-    </nav>
+    <div class="d-flex align-items-center mb-3">
+        <div class="me-3 display-6 text-primary"><i class="fas fa-box-open"></i></div>
+        <div>
+            <h1 class="h3 mb-0">{{ product.name }}</h1>
+            <p class="text-muted small mb-0">{{ product.brand }} {{ product.model }} — {{ product.category.name }}</p>
+        </div>
+    </div>
 
     <div class="row">
         <!-- Imagen principal -->
@@ -18,8 +18,6 @@
             <div class="mb-3">
                 {% if product.primary_image %}
                     <img src="{{ product.primary_image.url }}" class="img-fluid" alt="{{ product.name }}">
-                {% else %}
-                    <img src="https://via.placeholder.com/600x600?text=Producto" class="img-fluid" alt="{{ product.name }}">
                 {% endif %}
             </div>
             {% if product.additional_images.all %}
@@ -80,11 +78,11 @@
             </div>
 
             <!-- Especificaciones -->
-            {% if product.specifications %}
+            {% if display_specs %}
             <div class="mb-4">
                 <h4>Especificaciones</h4>
                 <table class="table">
-                    {% for key, value in product.specifications.items %}
+                    {% for key, value in display_specs.items %}
                     <tr>
                         <td><strong>{{ key }}:</strong></td>
                         <td>{{ value }}</td>
@@ -94,20 +92,10 @@
             </div>
             {% endif %}
 
-            <!-- Características -->
-            {% if product.features %}
-            <div class="mb-4">
-                <h4>Características</h4>
-                <ul>
-                    {% for feature in product.features %}
-                    <li>{{ feature }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
+            <!-- Características eliminadas: ahora se gestionan dentro de Especificaciones -->
 
             <!-- Formulario de compra -->
-            <form class="d-flex gap-2" method="POST" action="{% url 'orders:add_to_cart' product.slug %}">
+            <form class="d-flex gap-2 ajax-add-to-cart" method="POST" action="{% url 'orders:add_to_cart' product.slug %}">
                 {% csrf_token %}
                 <input type="hidden" name="product_id" value="{{ product.id }}">
                 <div class="input-group" style="max-width: 200px;">
@@ -121,7 +109,7 @@
                     Agregar al carrito
                     {% endif %}
                 </button>
-                <a href="/orders/wishlist/add/{{ product.id }}/" class="btn btn-outline-danger">
+                <a href="{% url 'orders:add_to_wishlist' product.slug %}" class="btn btn-outline-danger">
                     <i class="far fa-heart"></i>
                 </a>
             </form>
@@ -157,24 +145,21 @@
     </div>
     {% endif %}
 
-    <!-- Productos relacionados -->
     {% if related_products %}
     <div class="row mt-5">
         <div class="col-12">
-            <h3>Productos relacionados</h3>
+            <h3>Relacionados</h3>
             <div class="row">
                 {% for related in related_products %}
                 <div class="col-md-3 mb-4">
                     <div class="card">
                         {% if related.primary_image %}
                             <img src="{{ related.primary_image.url }}" class="card-img-top" alt="{{ related.name }}">
-                        {% else %}
-                            <img src="https://via.placeholder.com/300x300?text=Producto" class="card-img-top" alt="{{ related.name }}">
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ related.name }}</h5>
                             <p class="card-text">${{ related.price }}</p>
-                            <a href="/products/producto/{{ related.category.slug }}/{{ related.slug }}/" class="btn btn-primary">Ver detalles</a>
+                            <a href="{% url 'products:detail' related.category.slug related.slug %}" class="btn btn-primary">Ver detalles</a>
                         </div>
                     </div>
                 </div>

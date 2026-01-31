@@ -1,0 +1,12 @@
+Proximos pasos: 
+- Corregir Cards de productos en todas las paginas para que tengan el mismo tamaño ✅
+- Rediseñar el navar de ubicacion (breadcrumb) a traves de / para hacerlo mas atractivo ✅
+- Terminar con la perfeccion del panel de Admin ✅
+- Rediseñar las seccionesde productos para hacerlas mas pequeñas y que asi se viauslice mejor en telefonos o pantallas pequenas
+- Cambiar de modo claro a oscuro ✅
+- Permitir que la pagina soporte Igles y Español 
+- Corregir las ofertas para darles un mejor enfoque 
+- Migrar la BD a PostgreSQL
+- eliminae de las ofertas la seccion de productos en descuento 
+- colocvar un filtro dentro de la seccion de productos para que solo aparezcan los productos que tengan descuento
+- unificar el tamaño de las cards de productos en toda la pagina 

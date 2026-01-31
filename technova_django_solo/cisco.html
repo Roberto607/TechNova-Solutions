@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANTL - Diseño de Red Corporativa Segura</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'gray-750': '#374151',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos adicionales para mejorar la apariencia */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-button.active {
+            color: #60a5fa;
+            border-bottom: 2px solid #60a5fa;
+        }
+        .network-node {
+            transition: all 0.3s ease;
+        }
+        .network-node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .connector-line {
+            position: relative;
+        }
+        .connector-line::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background-color: #60a5fa;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="w-full min-h-screen p-4 md:p-6 overflow-auto">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-2xl md:text-3xl font-bold mb-2 text-center text-blue-400">
+                Agencia Nacional de Transporte y Logística (ANTL)
+            </h1>
+            <h2 class="text-lg md:text-xl mb-6 text-center text-gray-400">
+                Diseño de Red Corporativa Segura
+            </h2>
+
+            <!-- Tabs -->
+            <div class="flex flex-wrap gap-2 md:gap-4 mb-6 border-b border-gray-700 pb-2">
+                <button
+                    onclick="switchTab('fisica')"
+                    id="tab-fisica"
+                    class="tab-button px-4 md:px-6 py-2 md:py-3 font-semibold transition-all text-blue-400 border-b-2 border-blue-400 active"
+                >
+                    Topología Física
+                </button>
+                <button
+                    onclick="switchTab('logica')"
+                    id="tab-logica"
+                    class="tab-button px-4 md:px-6 py-2 md:py-3 font-semibold transition-all text-gray-400 hover:text-gray-200"
+                >
+                    Topología Lógica
+                </button>
+                <button
+                    onclick="switchTab('equipos')"
+                    id="tab-equipos"
+                    class="tab-button px-4 md:px-6 py-2 md:py-3 font-semibold transition-all text-gray-400 hover:text-gray-200"
+                >
+                    Lista de Equipos
+                </button>
+            </div>
+
+            <!-- Topología Física -->
+            <div id="content-fisica" class="tab-content bg-gray-800 rounded-lg p-4 md:p-8 active">
+                <h3 class="text-xl md:text-2xl font-bold mb-6 text-green-400">Topología Física - Vista General</h3>
+                
+                <!-- Internet y Perímetro -->
+                <div class="mb-8 text-center">
+                    <div class="inline-block bg-blue-600 rounded-full p-3 md:p-4 mb-2">
+                        <i class="fas fa-globe text-3xl md:text-4xl"></i>
+                    </div>
+                    <p class="font-bold text-lg">INTERNET</p>
+                    <div class="connector-line mx-auto w-1 h-6 md:h-8 bg-blue-400"></div>
+                </div>
+
+                <!-- Sede Central -->
+                <div class="border-4 border-yellow-500 rounded-lg p-4 md:p-6 mb-8 bg-gray-750">
+                    <h4 class="text-lg md:text-xl font-bold text-yellow-400 mb-6 text-center">
+                        SEDE CENTRAL - Ciudad Industrial
+                    </h4>
+
+                    <!-- Firewall -->
+                    <div class="flex justify-center mb-6">
+                        <div class="network-node bg-red-700 rounded-lg p-3 md:p-4 text-center max-w-xs">
+                            <i class="fas fa-shield-alt text-3xl md:text-4xl mx-auto mb-2"></i>
+                            <p class="font-bold">Firewall ASA</p>
+                            <p class="text-sm text-gray-300">192.168.1.1</p>
+                        </div>
+                    </div>
+                    <div class="connector-line w-1 h-6 md:h-8 bg-yellow-400 mx-auto"></div>
+
+                    <!-- Router Principal -->
+                    <div class="flex justify-center mb-6">
+                        <div class="network-node bg-blue-700 rounded-lg p-3 md:p-4 text-center max-w-xs">
+                            <i class="fas fa-router text-3xl md:text-4xl mx-auto mb-2"></i>
+                            <p class="font-bold">Router Principal</p>
+                            <p class="text-sm text-gray-300">R1 (2911)</p>
+                        </div>
+                    </div>
+                    <div class="connector-line w-1 h-6 md:h-8 bg-yellow-400 mx-auto"></div>
+
+                    <!-- Switch Core -->
+                    <div class="flex justify-center mb-6">
+                        <div class="network-node bg-purple-700 rounded-lg p-3 md:p-4 text-center max-w-xs">
+                            <i class="fas fa-network-wired text-3xl md:text-4xl mx-auto mb-2"></i>
+                            <p class="font-bold">Switch Core L3</p>
+                            <p class="text-sm text-gray-300">SW-Core (3560)</p>
+                        </div>
+                    </div>
+
+                    <!-- Segmentos de Red -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+                        <!-- DMZ -->
+                        <div class="network-node bg-red-900 border-2 border-red-500 rounded-lg p-4">
+                            <h5 class="font-bold text-red-300 mb-3 flex items-center gap-2">
+                                <i class="fas fa-shield-alt"></i> DMZ
+                            </h5>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-server"></i>
+                                    <span>Web Server</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-server"></i>
+                                    <span>Mail Server</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-lock"></i>
+                                    <span>VPN Server</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2">192.168.10.0/24</p>
+                        </div>
+
+                        <!-- Servidores -->
+                        <div class="network-node bg-green-900 border-2 border-green-500 rounded-lg p-4">
+                            <h5 class="font-bold text-green-300 mb-3 flex items-center gap-2">
+                                <i class="fas fa-database"></i> Servidores
+                            </h5>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-server"></i>
+                                    <span>ERP</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-database"></i>
+                                    <span>Base de Datos</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-server"></i>
+                                    <span>GPS Tracking</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-server"></i>
+                                    <span>Backup</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2">10.1.0.0/24</p>
+                        </div>
+
+                        <!-- Red Administrativa -->
+                        <div class="network-node bg-blue-900 border-2 border-blue-500 rounded-lg p-4">
+                            <h5 class="font-bold text-blue-300 mb-3">VLAN 10 - Admin</h5>
+                            <div class="space-y-2 text-sm">
+                                <p>• PCs Directivos</p>
+                                <p>• PCs Administrativos</p>
+                                <p>• Impresoras</p>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2">10.1.10.0/24</p>
+                        </div>
+
+                        <!-- Red Monitoreo -->
+                        <div class="network-node bg-orange-900 border-2 border-orange-500 rounded-lg p-4">
+                            <h5 class="font-bold text-orange-300 mb-3 flex items-center gap-2">
+                                <i class="fas fa-video"></i> VLAN 20 - Monitoreo
+                            </h5>
+                            <div class="space-y-2 text-sm">
+                                <p>• Cámaras IP</p>
+                                <p>• Sistema RFID</p>
+                                <p>• Sensores</p>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2">10.1.20.0/24</p>
+                        </div>
+
+                        <!-- Red WiFi -->
+                        <div class="network-node bg-teal-900 border-2 border-teal-500 rounded-lg p-4">
+                            <h5 class="font-bold text-teal-300 mb-3 flex items-center gap-2">
+                                <i class="fas fa-wifi"></i> VLAN 30 - WiFi
+                            </h5>
+                            <div class="space-y-2 text-sm">
+                                <p>• Access Points</p>
+                                <p>• Dispositivos móviles</p>
+                                <p>• Invitados</p>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2">10.1.30.0/24</p>
+                        </div>
+
+                        <!-- Enlaces WAN -->
+                        <div class="network-node bg-purple-900 border-2 border-purple-500 rounded-lg p-4">
+                            <h5 class="font-bold text-purple-300 mb-3">Enlaces WAN/VPN</h5>
+                            <div class="space-y-2 text-sm">
+                                <p>• 5 Túneles IPSec</p>
+                                <p>• Hacia Regionales</p>
+                                <p>• Cifrado AES</p>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2">172.16.x.0/30</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Oficinas Regionales -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mt-8">
+                    <div class="network-node border-2 border-cyan-500 rounded-lg p-4 bg-gray-750">
+                        <h5 class="font-bold text-cyan-400 mb-3 text-center">
+                            REGIONAL 1
+                        </h5>
+                        <div class="space-y-3">
+                            <div class="bg-blue-800 rounded p-2 text-center text-sm">
+                                <i class="fas fa-router text-xl mx-auto mb-1"></i>
+                                <p>Router + VPN</p>
+                                <p class="text-xs text-gray-300">10.2.0.1</p>
+                            </div>
+                            <div class="bg-purple-800 rounded p-2 text-center text-sm">
+                                <i class="fas fa-network-wired text-xl mx-auto mb-1"></i>
+                                <p>Switch Acceso</p>
+                            </div>
+                            <div class="text-xs space-y-1">
+                                <p>• VLAN 10: Admin</p>
+                                <p>• VLAN 20: Monitoreo</p>
+                                <p>• VLAN 30: WiFi</p>
+                            </div>
+                            <p class="text-xs text-gray-400 text-center">Red: 10.2.0.0/22</p>
+                        </div>
+                    </div>
+                    
+                    <div class="network-node border-2 border-cyan-500 rounded-lg p-4 bg-gray-750">
+                        <h5 class="font-bold text-cyan-400 mb-3 text-center">
+                            REGIONAL 2
+                        </h5>
+                        <div class="space-y-3">
+                            <div class="bg-blue-800 rounded p-2 text-center text-sm">
+                                <i class="fas fa-router text-xl mx-auto mb-1"></i>
+                                <p>Router + VPN</p>
+                                <p class="text-xs text-gray-300">10.3.0.1</p>
+                            </div>
+                            <div class="bg-purple-800 rounded p-2 text-center text-sm">
+                                <i class="fas fa-network-wired text-xl mx-auto mb-1"></i>
+                                <p>Switch Acceso</p>
+                            </div>
+                            <div class="text-xs space-y-1">
+                                <p>• VLAN 10: Admin</p>
+                                <p>• VLAN 20: Monitoreo</p>
+                                <p>• VLAN 30: WiFi</p>
+                            </div>
+                            <p class="text-xs text-gray-400 text-center">Red: 10.3.0.0/22</p>
+                        </div>
+                    </div>
+                    
+                    <div class="network-node border-2 border-cyan-500 rounded-lg p-4 bg-gray-750">
+                        <h5 class="font-bold text-cyan-400 mb-3 text-center">
+                            REGIONAL 3
+                        </h5>
+                        <div class="space-y-3">
+                            <div class="bg-blue-800 rounded p-2 text-center text-sm">
+                                <i class="fas fa-router text-xl mx-auto mb-1"></i>
+                                <p>Router + VPN</p>
+                                <p class="text-xs text-gray-300">10.4.0.1</p>
+                            </div>
+                            <div class="bg-purple-800 rounded p-2 text-center text-sm">
+                                <i class="fas fa-network-wired text-xl mx-auto mb-1"></i>
+                                <p>Switch Acceso</p>
+                            </div>
+                            <div class="text-xs space-y-1">
+                                <p>• VLAN 10: Admin</p>
+                                <p>• VLAN 20: Monitoreo</p>
+                                <p>• VLAN 30: WiFi</p>
+                            </div>
+                            <p class="text-xs text-gray-400 text-center">Red: 10.4.0.0/22</p>
+                        </div>
+                    </div>
+                    
+                    <div class="network-node border-2 border-cyan-500 rounded-lg p-4 bg-gray-750">
+                        <h5 class="font-bold text-cyan-400 mb-3 text-center">
+                            REGIONAL 4
+                        </h5>
+                        <div class="space-y-3">
+                            <div class="bg-blue-800 rounded p-2 text-center text-sm">
+                                <i class="fas fa-router text-xl mx-auto mb-1"></i>
+                                <p>Router + VPN</p>
+                                <p class="text-xs text-gray-300">10.5.0.1</p>
+                            </div>
+                            <div class="bg-purple-800 rounded p-2 text-center text-sm">
+                                <i class="fas fa-network-wired text-xl mx-auto mb-1"></i>
+                                <p>Switch Acceso</p>
+                            </div>
+                            <div class="text-xs space-y-1">
+                                <p>• VLAN 10: Admin</p>
+                                <p>• VLAN 20: Monitoreo</p>
+                                <p>• VLAN 30: WiFi</p>
+                            </div>
+                            <p class="text-xs text-gray-400 text-center">Red: 10.5.0.0/22</p>
+                        </div>
+                    </div>
+                    
+                    <div class="network-node border-2 border-cyan-500 rounded-lg p-4 bg-gray-750">
+                        <h5 class="font-bold text-cyan-400 mb-3 text-center">
+                            REGIONAL 5
+                        </h5>
+                        <div class="space-y-3">
+                            <div class="bg-blue-800 rounded p-2 text-center text-sm">
+                                <i class="fas fa-router text-xl mx-auto mb-1"></i>
+                                <p>Router + VPN</p>
+                                <p class="text-xs text-gray-300">10.6.0.1</p>
+                            </div>
+                            <div class="bg-purple-800 rounded p-2 text-center text-sm">
+                                <i class="fas fa-network-wired text-xl mx-auto mb-1"></i>
+                                <p>Switch Acceso</p>
+                            </div>
+                            <div class="text-xs space-y-1">
+                                <p>• VLAN 10: Admin</p>
+                                <p>• VLAN 20: Monitoreo</p>
+                                <p>• VLAN 30: WiFi</p>
+                            </div>
+                            <p class="text-xs text-gray-400 text-center">Red: 10.6.0.0/22</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topología Lógica -->
+            <div id="content-logica" class="tab-content bg-gray-800 rounded-lg p-4 md:p-8">
+                <h3 class="text-xl md:text-2xl font-bold mb-6 text-green-400">Topología Lógica - Direccionamiento IP</h3>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Sede Central -->
+                    <div class="bg-gray-750 rounded-lg p-4 md:p-6 border-2 border-yellow-500">
+                        <h4 class="text-lg md:text-xl font-bold text-yellow-400 mb-4">SEDE CENTRAL</h4>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-red-900 rounded p-3">
+                                <h5 class="font-bold text-red-300 mb-2">DMZ - 192.168.10.0/24</h5>
+                                <div class="text-sm space-y-1 ml-4">
+                                    <p>→ Gateway: 192.168.10.1</p>
+                                    <p>→ Web Server: 192.168.10.10</p>
+                                    <p>→ Mail Server: 192.168.10.20</p>
+                                    <p>→ VPN Server: 192.168.10.30</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-green-900 rounded p-3">
+                                <h5 class="font-bold text-green-300 mb-2">Servidores - 10.1.0.0/24</h5>
+                                <div class="text-sm space-y-1 ml-4">
+                                    <p>→ Gateway: 10.1.0.1</p>
+                                    <p>→ ERP: 10.1.0.10</p>
+                                    <p>→ Base de Datos: 10.1.0.20</p>
+                                    <p>→ GPS Tracking: 10.1.0.30</p>
+                                    <p>→ Backup: 10.1.0.40</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-blue-900 rounded p-3">
+                                <h5 class="font-bold text-blue-300 mb-2">VLAN 10 - Administrativa - 10.1.10.0/24</h5>
+                                <div class="text-sm space-y-1 ml-4">
+                                    <p>→ Gateway: 10.1.10.1</p>
+                                    <p>→ DHCP Pool: 10.1.10.10-250</p>
+                                    <p>→ PCs Administrativos</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-orange-900 rounded p-3">
+                                <h5 class="font-bold text-orange-300 mb-2">VLAN 20 - Monitoreo - 10.1.20.0/24</h5>
+                                <div class="text-sm space-y-1 ml-4">
+                                    <p>→ Gateway: 10.1.20.1</p>
+                                    <p>→ Cámaras IP: 10.1.20.10-50</p>
+                                    <p>→ RFID: 10.1.20.51-100</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-teal-900 rounded p-3">
+                                <h5 class="font-bold text-teal-300 mb-2">VLAN 30 - WiFi - 10.1.30.0/24</h5>
+                                <div class="text-sm space-y-1 ml-4">
+                                    <p>→ Gateway: 10.1.30.1</p>
+                                    <p>→ DHCP Pool: 10.1.30.10-250</p>
+                                    <p>→ Dispositivos inalámbricos</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Regionales -->
+                    <div class="space-y-4">
+                        <div class="bg-gray-750 rounded-lg p-4 border-2 border-cyan-500">
+                            <h4 class="text-lg font-bold text-cyan-400 mb-3">REGIONAL 1</h4>
+                            <div class="text-sm space-y-2">
+                                <div class="bg-purple-900 rounded p-2">
+                                    <p class="font-bold text-purple-300">Red Principal: 10.2.0.0/22</p>
+                                </div>
+                                <div class="ml-4 space-y-1">
+                                    <p>• VLAN 10 (Admin): 10.2.10.0/24</p>
+                                    <p class="ml-4 text-gray-400">GW: 10.2.10.1</p>
+                                    <p>• VLAN 20 (Monitoreo): 10.2.20.0/24</p>
+                                    <p class="ml-4 text-gray-400">GW: 10.2.20.1</p>
+                                    <p>• VLAN 30 (WiFi): 10.2.30.0/24</p>
+                                    <p class="ml-4 text-gray-400">GW: 10.2.30.1</p>
+                                    <p class="text-yellow-400 mt-2">• Túnel VPN: 172.16.1.0/30</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-750 rounded-lg p-4 border-2 border-cyan-500">
+                            <h4 class="text-lg font-bold text-cyan-400 mb-3">REGIONAL 2</h4>
+                            <div class="text-sm space-y-2">
+                                <div class="bg-purple-900 rounded p-2">
+                                    <p class="font-bold text-purple-300">Red Principal: 10.3.0.0/22</p>
+                                </div>
+                                <div class="ml-4 space-y-1">
+                                    <p>• VLAN 10 (Admin): 10.3.10.0/24</p>
+                                    <p class="ml-4 text-gray-400">GW: 10.3.10.1</p>
+                                    <p>• VLAN 20 (Monitoreo): 10.3.20.0/24</p>
+                                    <p class="ml-4 text-gray-400">GW: 10.3.20.1</p>
+                                    <p>• VLAN 30 (WiFi): 10.3.30.0/24</p>
+                                    <p class="ml-4 text-gray-400">GW: 10.3.30.1</p>
+                                    <p class="text-yellow-400 mt-2">• Túnel VPN: 172.16.2.0/30</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-750 rounded-lg p-4 border-2 border-cyan-500">
+                            <h4 class="text-lg font-bold text-cyan-400 mb-3">REGIONAL 3</h4>
+                            <div class="text-sm space-y-2">
+                                <div class="bg-purple-900 rounded p-2">
+                                    <p class="font-bold text-purple-300">Red Principal: 10.4.0.0/22</p>
+                                </div>
+                                <div class="ml-4 space-y-1">
+                                    <p>• VLAN 10 (Admin): 10.4.10.0/24</p>
+                                    <p class="ml-4 text-gray-400">GW: 10.4.10.1</p>
+                                    <p>• VLAN 20 (Monitoreo): 10.4.20.0/24</p>
+                                    <p class="ml-4 text-gray-400">GW: 10.4.20.1</p>
+                                    <p>• VLAN 30 (WiFi): 10.4.30.0/24</p>
+                                    <p class="ml-4 text-gray-400">GW: 10.4.30.1</p>
+                                    <p class="text-yellow-400 mt-2">• Túnel VPN: 172.16.3.0/30</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de Resumen -->
+                <div class="mt-8 bg-gray-750 rounded-lg p-4 md:p-6">
+                    <h4 class="text-lg md:text-xl font-bold text-green-400 mb-4">Resumen de Direccionamiento</h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="border-b-2 border-gray-600">
+                                    <th class="text-left p-2">Ubicación</th>
+                                    <th class="text-left p-2">Red/VLAN</th>
+                                    <th class="text-left p-2">Rango IP</th>
+                                    <th class="text-left p-2">Gateway</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-300">
+                                <tr class="border-b border-gray-700">
+                                    <td class="p-2">Sede Central</td>
+                                    <td class="p-2">DMZ</td>
+                                    <td class="p-2">192.168.10.0/24</td>
+                                    <td class="p-2">192.168.10.1</td>
+                                </tr>
+                                <tr class="border-b border-gray-700">
+                                    <td class="p-2">Sede Central</td>
+                                    <td class="p-2">Servidores</td>
+                                    <td class="p-2">10.1.0.0/24</td>
+                                    <td class="p-2">10.1.0.1</td>
+                                </tr>
+                                <tr class="border-b border-gray-700">
+                                    <td class="p-2">Sede Central</td>
+                                    <td class="p-2">VLAN 10-30</td>
+                                    <td class="p-2">10.1.10-30.0/24</td>
+                                    <td class="p-2">10.1.X.1</td>
+                                </tr>
+                                <tr class="border-b border-gray-700">
+                                    <td class="p-2">Regionales 1-5</td>
+                                    <td class="p-2">VLANs</td>
+                                    <td class="p-2">10.2-6.0.0/22</td>
+                                    <td class="p-2">10.X.Y.1</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2">Túneles VPN</td>
+                                    <td class="p-2">WAN Links</td>
+                                    <td class="p-2">172.16.1-5.0/30</td>
+                                    <td class="p-2">172.16.X.1/.2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lista de Equipos -->
+            <div id="content-equipos" class="tab-content bg-gray-800 rounded-lg p-4 md:p-8">
+                <h3 class="text-xl md:text-2xl font-bold mb-6 text-green-400">Lista de Equipos para Packet Tracer</h3>
+                
+                <div class="space-y-6">
+                    <!-- Sede Central -->
+                    <div class="bg-gray-750 rounded-lg p-4 md:p-6">
+                        <h4 class="text-lg md:text-xl font-bold text-yellow-400 mb-4">SEDE CENTRAL</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h5 class="font-bold text-blue-300 mb-2">Equipos de Red</h5>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-center gap-2">
+                                        <i class="fas fa-shield-alt text-red-400"></i>
+                                        <span>1x Firewall ASA 5506-X</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i class="fas fa-router text-blue-400"></i>
+                                        <span>1x Router Cisco 2911 (R1-Central)</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i class="fas fa-network-wired text-purple-400"></i>
+                                        <span>1x Switch Cisco 3560 (Core L3)</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i class="fas fa-network-wired text-purple-400"></i>
+                                        <span>3x Switch Cisco 2960 (Acceso)</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i class="fas fa-wifi text-teal-400"></i>
+                                        <span>4x Access Point (WiFi)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-green-300 mb-2">Servidores</h5>
+                                <ul class="space-y-2 text-sm">
+                                    <li>• 1x Servidor Web (DMZ)</li>
+                                    <li>• 1x Servidor Email (DMZ)</li>
+                                    <li>• 1x Servidor VPN (DMZ)</li>
+                                    <li>• 1x Servidor ERP</li>
+                                    <li>• 1x Servidor Base de Datos</li>
+                                    <li>• 1x Servidor GPS</li>
+                                    <li>• 1x Servidor Backup</li>
+                                    <li>• 1x Servidor DHCP/DNS</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-orange-300 mb-2">Dispositivos Finales</h5>
+                                <ul class="space-y-2 text-sm">
+                                    <li>• 20x PCs Administrativos</li>
+                                    <li>• 5x PCs Directivos</li>
+                                    <li>• 10x Laptops/Tablets (WiFi)</li>
+                                    <li>• 8x Cámaras IP</li>
+                                    <li>• 4x Impresoras</li>
+                                    <li>• 6x Dispositivos RFID</li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-900 rounded p-3">
+                                <h5 class="font-bold text-blue-300 mb-2">Total Estimado</h5>
+                                <p class="text-2xl font-bold text-white">~70 dispositivos</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Por Regional -->
+                    <div class="bg-gray-750 rounded-lg p-4 md:p-6">
+                        <h4 class="text-lg md:text-xl font-bold text-cyan-400 mb-4">CADA OFICINA REGIONAL (x5)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <h5 class="font-bold text-blue-300 mb-2">Equipos de Red</h5>
+                                <ul class="space-y-2 text-sm">
+                                    <li>• 1x Router Cisco 2911</li>
+                                    <li>• 2x Switch Cisco 2960</li>
+                                    <li>• 2x Access Point</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-green-300 mb-2">Servidores Locales</h5>
+                                <ul class="space-y-2 text-sm">
+                                    <li>• 1x Servidor Local (opcional)</li>
+                                    <li>• 1x Servidor DHCP</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-orange-300 mb-2">Dispositivos Finales</h5>
+                                <ul class="space-y-2 text-sm">
+                                    <li>• 15x PCs</li>
+                                    <li>• 5x Laptops</li>
+                                    <li>• 4x Cámaras IP</li>
+                                    <li>• 2x Impresoras</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-4 bg-cyan-900 rounded p-3 text-center">
+                            <p class="text-sm text-gray-300">Por regional: ~30 dispositivos</p>
+                            <p class="text-xl font-bold text-white mt-1">5 Regionales = ~150 dispositivos</p>
+                        </div>
+                    </div>
+
+                    <!-- Total General -->
+                    <div class="bg-gradient-to-r from-blue-900 to-purple-900 rounded-lg p-6 text-center">
+                        <h4 class="text-xl md:text-2xl font-bold text-white mb-2">TOTAL RED COMPLETA</h4>
+                        <p class="text-3xl md:text-4xl font-bold text-yellow-400">~220 dispositivos</p>
+                        <p class="text-sm text-gray-300 mt-2">
+                            (Puedes simplificar para Packet Tracer usando menos PCs por sede)
+                        </p>
+                    </div>
+
+                    <!-- Configuraciones Importantes -->
+                    <div class="bg-gray-750 rounded-lg p-4 md:p-6">
+                        <h4 class="text-lg md:text-xl font-bold text-red-400 mb-4">⚠️ Configuraciones Críticas a Implementar</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2 text-sm">
+                                <p class="font-bold text-green-400">✓ Seguridad Perimetral:</p>
+                                <ul class="ml-4 space-y-1">
+                                    <li>• NAT/PAT en router principal</li>
+                                    <li>• ACLs en firewall y routers</li>
+                                    <li>• DMZ aislada</li>
+                                </ul>
+                                
+                                <p class="font-bold text-green-400 mt-3">✓ Segmentación:</p>
+                                <ul class="ml-4 space-y-1">
+                                    <li>• VLANs por función</li>
+                                    <li>• Inter-VLAN routing controlado</li>
+                                    <li>• ACLs entre VLANs</li>
+                                </ul>
+                            </div>
+                            <div class="space-y-2 text-sm">
+                                <p class="font-bold text-green-400">✓ Conectividad WAN:</p>
+                                <ul class="ml-4 space-y-1">
+                                    <li>• VPN IPSec Site-to-Site</li>
+                                    <li>• Cifrado AES</li>
+                                    <li>• Autenticación PSK</li>
+                                </ul>
+                                
+                                <p class="font-bold text-green-400 mt-3">✓ Servicios:</p>
+                                <ul class="ml-4 space-y-1">
+                                    <li>• DHCP por VLAN</li>
+                                    <li>• DNS interno</li>
+                                    <li>• Rutas estáticas/OSPF</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notas al pie -->
+            <div class="mt-8 bg-blue-900 rounded-lg p-4">
+                <h4 class="font-bold text-blue-200 mb-2">📝 Notas Importantes:</h4>
+                <ul class="text-sm space-y-1 text-gray-200">
+                    <li>• Este diseño cumple con los requisitos de segmentación y protección de la ANTL</li>
+                    <li>• Incluye DMZ para servicios públicos, separación de servidores críticos y segmentación por VLANs</li>
+                    <li>• Las VPN IPSec conectan de forma segura las 5 oficinas regionales con la sede central</li>
+                    <li>• Puedes simplificar en Packet Tracer usando menos dispositivos finales (5-10 PCs por segmento)</li>
+                    <li>• Asegúrate de configurar ACLs restrictivas entre segmentos según el análisis de riesgos</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para cambiar entre pestañas
+        function switchTab(tabName) {
+            // Ocultar todos los contenidos de pestañas
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Desactivar todos los botones de pestaña
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active', 'text-blue-400', 'border-blue-400');
+                button.classList.add('text-gray-400');
+            });
+            
+            // Mostrar la pestaña seleccionada
+            document.getElementById(`content-${tabName}`).classList.add('active');
+            
+            // Activar el botón de la pestaña seleccionada
+            document.getElementById(`tab-${tabName}`).classList.add('active', 'text-blue-400', 'border-blue-400');
+            document.getElementById(`tab-${tabName}`).classList.remove('text-gray-400');
+        }
+        
+        // Inicializar con la primera pestaña activa
+        document.addEventListener('DOMContentLoaded', function() {
+            switchTab('fisica');
+            
+            // Añadir interactividad a los nodos de red
+            const networkNodes = document.querySelectorAll('.network-node');
+            networkNodes.forEach(node => {
+                node.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.2)';
+                });
+                
+                node.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                    this.style.boxShadow = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

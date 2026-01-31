@@ -4,23 +4,22 @@
 {% block page_title %}Gestionar Productos{% endblock %}
 
 {% block content %}
-<div class="card shadow mb-4">
-    <div class="card-header py-3 d-flex justify-content-between">
-        <h6 class="m-0 font-weight-bold text-primary">Lista de Productos</h6>
-        <a href="/admin/products/product/add/" class="btn btn-primary btn-sm">
-            <i class="fas fa-plus"></i> Nuevo Producto
+<div class="card premium mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="m-0">Lista de Productos</h6>
+        <a href="{% url 'admin_panel:admin_product_add' %}" class="btn btn-success btn-sm">
+            <i class="fas fa-plus me-1"></i> Agregar Producto
         </a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" width="100%" cellspacing="0">
+            <table class="table table-hover align-middle" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Imagen</th>
                         <th>Nombre</th>
-                        <th>Categoría</th>
                         <th>Precio</th>
-                        <th>Stock</th>
+                        <th>Categoría</th>
+                        <th>Creado</th>
                         <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
@@ -28,34 +27,26 @@
                 <tbody>
                     {% for product in products %}
                     <tr>
-                        <td>
-                            {% if product.primary_image %}
-                                <img src="{{ product.primary_image.url }}" alt="{{ product.name }}" 
-                                     style="width: 50px; height: 50px; object-fit: cover;">
-                            {% else %}
-                                <div class="bg-secondary" style="width: 50px; height: 50px;"></div>
-                            {% endif %}
-                        </td>
                         <td>{{ product.name }}</td>
-                        <td>{{ product.category.name }}</td>
                         <td>${{ product.price }}</td>
-                        <td>{{ product.stock_quantity }}</td>
+                        <td>{% if product.category %}{{ product.category.name }}{% else %}-{% endif %}</td>
+                        <td>{{ product.created_at|date:"d/m/Y" }}</td>
                         <td>
-                            <span class="badge bg-{{ product.status|yesno:'success,secondary' }}">
-                                {{ product.get_status_display }}
+                            <span class="badge bg-{{ product.is_active|yesno:'success,secondary' }}">
+                                {% if product.is_active %}Activo{% else %}Inactivo{% endif %}
                             </span>
                         </td>
                         <td>
-                            <a href="/admin/products/product/{{ product.id }}/change/" 
-                               class="btn btn-sm btn-info">
+                            <a href="{% url 'admin_panel:admin_product_edit' product.pk %}" class="btn btn-sm btn-outline-primary" title="Editar">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="/admin/products/product/{{ product.id }}/delete/" 
-                               class="btn btn-sm btn-danger">
-                                <i class="fas fa-trash"></i>
+                            <a href="{% url 'admin_panel:admin_product_detail' product.pk %}" class="btn btn-sm btn-outline-secondary" title="Ver">
+                                <i class="fas fa-eye"></i>
                             </a>
                         </td>
                     </tr>
+                    {% empty %}
+                    <tr><td colspan="6" class="text-center text-muted">No hay productos.</td></tr>
                     {% endfor %}
                 </tbody>
             </table>

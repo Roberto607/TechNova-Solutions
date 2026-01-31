@@ -27,6 +27,7 @@
     <!-- Custom CSS -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_home.css' %}">
     
     {% block extra_head %}{% endblock %}
 </head>
@@ -76,6 +77,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'core:affiliates' %}">Afiliados</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'about' %}">Nosotros</a>
                     </li>
                     <li class="nav-item">
@@ -96,6 +100,10 @@
                 
                 <!-- User Actions -->
                 <div class="d-flex align-items-center">
+                    <!-- Theme toggle -->
+                    <button id="theme-toggle" class="btn btn-outline-secondary btn-sm me-2" title="Cambiar tema">
+                        <i class="fas fa-moon"></i>
+                    </button>
                     <!-- User Menu -->
                     <div class="dropdown me-3">
                         <a class="btn btn-outline-secondary btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -152,12 +160,27 @@
     <!-- Messages -->
     {% if messages %}
     <div class="container mt-2">
+        <div id="site-toasts">
         {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <div class="custom-toast alert alert-{{ message.tags }}" role="alert">
+            <div class="icon-wrap">
+                {% if 'success' in message.tags %}
+                    <i class="fas fa-check"></i>
+                {% elif 'error' in message.tags or 'danger' in message.tags %}
+                    <i class="fas fa-exclamation-triangle"></i>
+                {% elif 'warning' in message.tags %}
+                    <i class="fas fa-exclamation-circle"></i>
+                {% else %}
+                    <i class="fas fa-info-circle"></i>
+                {% endif %}
+            </div>
+            <div class="message-body">
+                <p class="message-title">{% if 'success' in message.tags %}Éxito{% elif 'error' in message.tags or 'danger' in message.tags %}Error{% elif 'warning' in message.tags %}Atención{% else %}Información{% endif %}</p>
+                <p class="message-text">{{ message }}</p>
+            </div>
         </div>
         {% endfor %}
+        </div>
     </div>
     {% endif %}
 
@@ -166,111 +189,106 @@
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white mt-5">
-        <div class="container">
-            <div class="row py-5">
-                <div class="col-md-3">
-                    <h5 class="fw-bold mb-3">
-                        <i class="fas fa-microchip me-2"></i>TechNova Solutions
-                    </h5>
-<<<<<<< HEAD
-                    <p class="text-white-50">
-=======
-                    <p class="text-muted mb-0"></p>
->>>>>>> rama_maikel
-                        Democratizando el acceso a la tecnología de calidad con el mejor servicio al cliente.
-                    </p>
-                    <div class="social-links">
-                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-youtube"></i></a>
+    <!-- Premium Compact Footer -->
+    <footer class="bg-dark text-white small border-top" role="contentinfo">
+        <div class="container py-4">
+            <div class="row gy-3 align-items-start">
+                <div class="col-md-4 col-lg-3">
+                    <a class="d-inline-flex align-items-center text-decoration-none mb-2" href="{% url 'core:home' %}">
+                        <i class="fas fa-microchip fa-2x text-primary me-2"></i>
+                        <span class="fw-bold fs-6">TechNova</span>
+                    </a>
+                    <p class="text-white-50 mb-2">Tecnología de confianza, soporte excepcional.</p>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="text-white opacity-85 footer-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white opacity-85 footer-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white opacity-85 footer-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white opacity-85 footer-icon"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <h6 class="fw-bold mb-3">Productos</h6>
-<<<<<<< HEAD
+
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h6 class="text-uppercase text-muted small mb-2">Productos</h6>
                     <ul class="list-unstyled">
-                        <li><a href="{% url 'products:category' 'smartphones' %}" class="text-white text-decoration-none">Smartphones</a></li>
-                        <li><a href="{% url 'products:category' 'laptops' %}" class="text-white text-decoration-none">Laptops</a></li>
-                        <li><a href="{% url 'products:category' 'tablets' %}" class="text-white text-decoration-none">Tablets</a></li>
-                        <li><a href="{% url 'products:category' 'audio-video' %}" class="text-white text-decoration-none">Audio & Video</a></li>
-                        <li><a href="{% url 'products:sale' %}" class="text-white text-decoration-none">Ofertas</a></li>
-=======
-                    <ul class="list-unstyled mb-0">
-                        <li><a href="{% url 'products:category' 'smartphones' %}" class="text-muted text-decoration-none ">Smartphones</a></li>
-                        <li><a href="{% url 'products:category' 'laptops' %}" class="text-muted text-decoration-none mb-0">Laptops</a></li>
-                        <li><a href="{% url 'products:category' 'tablets' %}" class="text-muted text-decoration-none mb-0">Tablets</a></li>
-                        <li><a href="{% url 'products:category' 'audio-video' %}" class="text-muted text-decoration-none mb-0">Audio & Video</a></li>
-                        <li><a href="{% url 'products:sale' %}" class="text-muted text-decoration-none mb-0">Ofertas</a></li>
->>>>>>> rama_maikel
+                        <li><a class="footer-link" href="{% url 'products:category' 'smartphones' %}">Smartphones</a></li>
+                        <li><a class="footer-link" href="{% url 'products:category' 'laptops' %}">Laptops</a></li>
+                        <li><a class="footer-link" href="{% url 'products:category' 'tablets' %}">Tablets</a></li>
+                        <li><a class="footer-link" href="{% url 'products:sale' %}">Ofertas</a></li>
                     </ul>
                 </div>
-                <div class="col-md-3">
-                    <h6 class="fw-bold mb-3">Soporte</h6>
+
+                <div class="col-6 col-md-3 col-lg-3">
+                    <h6 class="text-uppercase text-muted small mb-2">Atención</h6>
                     <ul class="list-unstyled">
-                        <li><a href="{% url 'core:contact' %}" class="text-white text-decoration-none">Centro de Ayuda</a></li>
-                        <li><a href="{% url 'core:contact' %}" class="text-white text-decoration-none">Chat en Vivo</a></li>
-                        <li><a href="{% url 'core:contact' %}" class="text-white text-decoration-none">Contacto</a></li>
-                        <li><a href="{% url 'terms' %}" class="text-white text-decoration-none">Términos</a></li>
-                        <li><a href="{% url 'privacy' %}" class="text-white text-decoration-none">Privacidad</a></li>
+                        <li><a class="footer-link" href="{% url 'core:contact' %}">Centro de Ayuda</a></li>
+                        <li><a class="footer-link" href="{% url 'users:orders' %}">Estado de pedido</a></li>
+                        <li><a class="footer-link" href="{% url 'terms' %}">Términos &amp; Privacidad</a></li>
                     </ul>
                 </div>
-                <div class="col-md-3">
-                    <h6 class="fw-bold mb-3">Contacto</h6>
-<<<<<<< HEAD
-                    <ul class="list-unstyled text-white">
-                        <li><i class="fas fa-phone me-2"></i>1-800-TECH-NOVA</li>
-                        <li><i class="fas fa-envelope me-2"></i>info@technovasolutions.com</li>
-                        <li><i class="fas fa-map-marker-alt me-2"></i>Ciudad de México, México</li>
-=======
-                    <ul class="list-unstyled text-muted">
-                        <li><i class="fas fa-phone me-2 text-muted mb-0"></i>1-800-TECH-NOVA</li>
-                        <li><i class="fas fa-envelope me-2 text-muted mb-0"></i>info@technovasolutions.com</li>
-                        <li><i class="fas fa-map-marker-alt me-2 text-muted mb-0"></i>Ciudad de México, México</li>
->>>>>>> rama_maikel
-                    </ul>
-                    
-                    <!-- Newsletter -->
-                    <div class="mt-3">
-                        <h6 class="fw-bold mb-2">Newsletter</h6>
-                        <!-- <form class="d-flex" method="POST" action="{% url 'newsletter:subscribe' %}">
-                            {% csrf_token %}
-                            <input type="email" class="form-control form-control-sm me-2" 
-                                placeholder="Tu email" name="email" required>
-                            <button class="btn btn-primary btn-sm" type="submit">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </form> -->
-                    </div>
+
+                <div class="col-md-4 col-lg-4">
+                    <h6 class="text-uppercase text-muted small mb-2">Suscríbete</h6>
+                    <p class="text-white-50 mb-2">Recibe ofertas exclusivas y novedades — sin spam.</p>
+                    <form class="row g-2 align-items-center" action="#" method="post" onsubmit="event.preventDefault(); showToast('Gracias por suscribirte','success');">
+                        <div class="col-8">
+                            <input type="email" class="form-control form-control-sm" placeholder="tu@correo.com" aria-label="email">
+                        </div>
+                        <div class="col-4 d-grid">
+                            <button class="btn btn-sm btn-primary" type="submit">Suscribirme</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <hr class="my-4">
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="text-white mb-0">
-                        &copy; 2025 TechNova Solutions. Todos los derechos reservados.
-                    </p>
-                </div>
-                <div class="col-md-6 text-end">
-                    <p class="text-white mb-0">
-                        Hecho con <i class="fas fa-heart text-danger"></i> en México
-                    </p>
-                </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
+                <div class="text-muted">&copy; 2026 TechNova Solutions. Todos los derechos reservados.</div>
+                <div class="text-muted small">Hecho con <i class="fas fa-heart text-danger"></i></div>
             </div>
         </div>
+
+        <style>
+            .footer-link { color: rgba(255,255,255,0.9); text-decoration: none; }
+            .footer-link:hover { color: #dbeafe; text-decoration: underline; }
+            .footer-icon { font-size: 0.95rem; display: inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:6px; background: rgba(255,255,255,0.03); }
+            .footer-icon:hover { background: rgba(255,255,255,0.06); }
+            @media (max-width:767px){ .footer-icon{ width:30px;height:30px } .container .row > div { margin-bottom:6px; } }
+        </style>
     </footer>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{% static 'js/notifications.js' %}"></script>
+    <script src="{% static 'js/cart_ajax.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/notifications.css' %}">
     <script>
         AOS.init({
             duration: 800,
             easing: 'ease-in-out',
             once: true
         });
+    </script>
+    <script>
+        (function(){
+            const root = document.documentElement;
+            const btn = document.getElementById('theme-toggle');
+            const stored = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            function applyTheme(t){
+                if(t === 'dark') root.classList.add('theme-dark'); else root.classList.remove('theme-dark');
+            }
+            applyTheme(stored || (prefersDark ? 'dark' : 'light'));
+            if(!btn) return;
+            function updateIcon(){
+                btn.innerHTML = root.classList.contains('theme-dark') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            }
+            btn.addEventListener('click', function(){
+                const isDark = root.classList.toggle('theme-dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                updateIcon();
+            });
+            updateIcon();
+        })();
     </script>
     {% block extra_js %}{% endblock %}
 </body>
