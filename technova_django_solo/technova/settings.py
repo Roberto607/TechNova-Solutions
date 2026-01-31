@@ -218,6 +218,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# URLs de login/redirección para `login_required` y django-allauth
+LOGIN_URL = '/usuarios/login/'
+LOGIN_REDIRECT_URL = '/'
+
 # Configuración de internacionalización
 LANGUAGE_CODE = 'es-mx'
 TIME_ZONE = 'America/Mexico_City'
