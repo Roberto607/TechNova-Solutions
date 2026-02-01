@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: technova-web
+    env: docker
+    plan: free
+    branch: robert
+    dockerfilePath: Dockerfile
+    buildCommand: ""
+    startCommand: gunicorn technova.wsgi:application --bind 0.0.0.0:$PORT --workers 3
+    envVars:
+      - key: SECRET_KEY
+        sync: false
+      - key: DEBUG
+        value: "False"
+      - key: DATABASE_URL
+        sync: false
+      - key: ALLOWED_HOSTS
+        value: "your-subdomain.onrender.com"
+      - key: SITE_URL
+        value: "https://your-subdomain.onrender.com"
+
+# Notes:
+# - Replace `your-subdomain.onrender.com` with the actual Render URL or custom domain.
+# - Set sensitive env vars (SECRET_KEY, DATABASE_URL) in the Render dashboard or via CLI.
+# - If you prefer Render's managed Postgres, add a separate `type: database` entry or create it from the dashboard.
